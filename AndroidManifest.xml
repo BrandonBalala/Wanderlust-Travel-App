@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TipCalculatorActivity"
+            android:label="@string/title_activity_tip_calculator" >
+        </activity>
+        <activity
+            android:name=".UnitConverterActivity"
+            android:label="@string/title_activity_unit_converter" >
+        </activity>
     </application>
 
 </manifest>

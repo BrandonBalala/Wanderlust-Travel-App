@@ -1,26 +1,29 @@
 package com.bob.travelproject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity {
+public class UnitConverterActivity extends Activity {
+	
+	/**
+	 * SPINNER: DISTANCE VOLUME WEIGHT
+	 * 
+	 * TWO TEXT FIELDS EACH TEXT FIELD HAS A DROP DOWN LIST BESIDE IT
+	 * DROP DOWN LIST CONTAINTS UNITS BASED ON CHOSEN CATEGORY IN SPINNER
+	 */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-
-		Intent intent = new Intent(this, TipCalculatorActivity.class);
-		startActivity(intent);
+		setContentView(R.layout.activity_unit_converter);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.unit_converter, menu);
 		return true;
 	}
 
