@@ -20,5 +20,10 @@
     <string name="eachPerson">Each Person:&#160;</string>
     <string name="defaultValue">0.00</string>
     <string name="title_activity_unit_converter">Unit Converter</string>
+    <string name="hint_unit">Enter unit to convert</string>
+    <string name="convert">Convert</string>
+    <string name="swap_desc">Swap button</string>
+    <string name="equals_desc">Equals image</string>
+    <string name="amount_hint">Enter an amount</string>
 
 </resources>

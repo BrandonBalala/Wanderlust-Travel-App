@@ -40,13 +40,17 @@ public class TipCalculatorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tip_calculator);
 
+		//Initialize tip percent to first element in the radio button list
 		tipPercent = TIP10;
+		
+		//Get all the necessary views
 		amountEditText = (EditText) findViewById(R.id.amountEditText);
 		divideEditText = (EditText) findViewById(R.id.divideEditText);
 		tipTotalTextView = (TextView) findViewById(R.id.tipTotalTextView);
 		billTotalTextView = (TextView) findViewById(R.id.billTotalTextView);
 		eachPersonTextView = (TextView) findViewById(R.id.eachPersonTextView);
 		
+		//Restore a previously stored instance state
 		if (savedInstanceState != null){
 			tipTotal = savedInstanceState.getDouble(TIP_TOTAL);
 			billTotal = savedInstanceState.getDouble(BILL_TOTAL);
@@ -142,8 +146,7 @@ public class TipCalculatorActivity extends Activity {
 				divideEditText.setText(Integer.toString(numPeople));
 				eachPersonTextView.setText(df.format(splitAmount));
 			} else {
-				Log.d(TAG, "INVALID BILL AMOUNT");
-				toast.setText(ERR_INVALID_AMOUNT);
+				throw new NumberFormatException();
 			}
 			
 		} catch (NumberFormatException e) {

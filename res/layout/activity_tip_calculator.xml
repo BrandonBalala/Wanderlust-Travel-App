@@ -17,14 +17,14 @@
         <TextView
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:text="@string/amount" />
 
         <EditText
             android:id="@+id/amountEditText"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:hint="@string/hint_amount" />
     </LinearLayout>
 
@@ -36,14 +36,14 @@
         <TextView
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:layout_gravity="center_vertical"
             android:text="@string/tip" />
 
         <RadioGroup
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:orientation="horizontal" >
 
             <RadioButton
@@ -78,14 +78,14 @@
         <TextView
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:text="@string/divide" />
 
         <EditText
             android:id="@+id/divideEditText"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:hint="@string/hint_divide" />
     </LinearLayout>
 
@@ -99,7 +99,7 @@
             android:id="@+id/clearButton"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:text="@string/clear"
             android:onClick="clearFields" />
 
@@ -107,7 +107,7 @@
             android:id="@+id/calculateButton"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="@integer/layout_weight_bigger"
             android:text="@string/calculate"
             android:onClick="calculateTip" />
     </LinearLayout>
@@ -120,17 +120,19 @@
         <TextView
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:gravity="end"
             android:text="@string/tipTotal"
-            android:textAlignment="gravity" />
+            android:textAlignment="gravity"
+            android:textSize="@dimen/textSize" />
 
         <TextView
             android:id="@+id/tipTotalTextView"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/defaultValue" />
+            android:layout_weight="@integer/layout_weight"
+            android:text="@string/defaultValue"
+            android:textSize="@dimen/textSize" />
     </LinearLayout>
 
     <LinearLayout
@@ -141,17 +143,19 @@
         <TextView
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:gravity="end"
             android:text="@string/billTotal"
-            android:textAlignment="gravity" />
+            android:textAlignment="gravity"
+            android:textSize="@dimen/textSize" />
 
         <TextView
             android:id="@+id/billTotalTextView"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/defaultValue" />
+            android:layout_weight="@integer/layout_weight"
+            android:text="@string/defaultValue"
+            android:textSize="@dimen/textSize" />
     </LinearLayout>
 
     <LinearLayout
@@ -162,17 +166,19 @@
         <TextView
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:gravity="end"
             android:text="@string/eachPerson"
-            android:textAlignment="gravity" />
+            android:textAlignment="gravity"
+            android:textSize="@dimen/textSize" />
 
         <TextView
             android:id="@+id/eachPersonTextView"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/defaultValue" />
+            android:layout_weight="@integer/layout_weight"
+            android:text="@string/defaultValue"
+            android:textSize="@dimen/textSize" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,16 +1,102 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bob.travelproject.UnitConverterActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_marginBottom="@dimen/marginBottom"/>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/amountToConvertEditText"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight"
+            android:gravity="center_horizontal"
+            android:hint="@string/amount_hint"
+            android:singleLine="true"
+            android:textSize="@dimen/textSize" />
+
+        <ImageButton
+            android:layout_width="@dimen/imageSize"
+            android:layout_height="@dimen/imageSize"
+            android:background="@null"
+            android:contentDescription="@string/equals_desc"
+            android:scaleType="fitXY"
+            android:src="@drawable/equals" />
+
+        <TextView
+            android:id="@+id/resultConversionTextView"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:textSize="@dimen/textSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/marginBottom" >
+
+        <Spinner
+            android:id="@+id/initialUnitSpinner"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight" />
+
+        <ImageButton
+            android:id="@+id/swapButton"
+            android:layout_width="@dimen/imageSize"
+            android:layout_height="@dimen/imageSize"
+            android:background="@null"
+            android:contentDescription="@string/swap_desc"
+            android:onClick="swapUnits"
+            android:scaleType="fitXY"
+            android:src="@drawable/swap" />
+
+        <Spinner
+            android:id="@+id/conversionUnitSpinner"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/clearButtonConvert"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight"
+            android:onClick="clearFields"
+            android:text="@string/clear" />
+
+        <Button
+            android:id="@+id/convertButton"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight_bigger"
+            android:onClick="convertUnit"
+            android:text="@string/convert" />
+    </LinearLayout>
+
+</LinearLayout>
