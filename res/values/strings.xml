@@ -28,6 +28,10 @@
     <string name="dawson">Dawson</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_current_trip">Manage Trips</string>
-    
+    <string name="err_invalid_amount">Error: Amount is invalid, must be positive number</string>
+    <string name="err_max_split">Error: can split bill with maximum 50 people, defaulted to 1</string>
+    <string name="tip_total">Tip Total</string>
+    <string name="bill_total">Bill Amount</string>
+    <string name="split_amount">Split Amount</string>
 
 </resources>

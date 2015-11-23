@@ -21,11 +21,7 @@ public class TipCalculatorActivity extends Activity {
 	private static final double TIP10 = 0.10;
 	private static final double TIP15 = 0.15;
 	private static final double TIP20 = 0.20;
-	private static final String ERR_INVALID_AMOUNT  = "Error: Bill amount is invalid, must be positive number";
-	private static final String ERR_MAX_SPLIT = "Error: can split bill with maximum 50 people, defaulted to 1";
-	private static final String TIP_TOTAL = "tipTotal";
-	private static final String BILL_TOTAL = "billTotal";
-	private static final String SPLIT_AMOUNT = "splitAmount";
+
 	private double tipPercent;
 	private EditText amountEditText;
 	private EditText divideEditText;
@@ -54,9 +50,9 @@ public class TipCalculatorActivity extends Activity {
 		
 		//Restore a previously stored instance state
 		if (savedInstanceState != null){
-			tipTotal = savedInstanceState.getDouble(TIP_TOTAL);
-			billTotal = savedInstanceState.getDouble(BILL_TOTAL);
-			splitAmount = savedInstanceState.getDouble(SPLIT_AMOUNT);
+			tipTotal = savedInstanceState.getDouble(getResources().getString(R.string.tip_total));
+			billTotal = savedInstanceState.getDouble(getResources().getString(R.string.bill_total));
+			splitAmount = savedInstanceState.getDouble(getResources().getString(R.string.split_amount));
 			
 			tipTotalTextView.setText(df.format(tipTotal));
 			billTotalTextView.setText(df.format(billTotal));
@@ -132,7 +128,7 @@ public class TipCalculatorActivity extends Activity {
 				
 				if(numPeople > 50){
 					numPeople = 1;
-					toast.setText(ERR_MAX_SPLIT);
+					toast.setText(R.string.err_max_split);
 					toast.show();
 				}
 				
@@ -156,7 +152,7 @@ public class TipCalculatorActivity extends Activity {
 			
 		} catch (NumberFormatException e) {
 			Log.d(TAG, "INVALID BILL AMOUNT");
-			toast.setText(ERR_INVALID_AMOUNT);
+			toast.setText(R.string.err_invalid_amount);
 			toast.show();
 		}
 	}
@@ -183,8 +179,8 @@ public class TipCalculatorActivity extends Activity {
     protected void onSaveInstanceState(Bundle savedInstanceState) {
     	super.onSaveInstanceState(savedInstanceState);
 
-    	savedInstanceState.putDouble(TIP_TOTAL, tipTotal);
-    	savedInstanceState.putDouble(BILL_TOTAL, billTotal);
-    	savedInstanceState.putDouble(SPLIT_AMOUNT, splitAmount);
+    	savedInstanceState.putDouble((getResources().getString(R.string.tip_total)), tipTotal);
+    	savedInstanceState.putDouble((getResources().getString(R.string.bill_total)), billTotal);
+    	savedInstanceState.putDouble((getResources().getString(R.string.split_amount)), splitAmount);
     }
 }

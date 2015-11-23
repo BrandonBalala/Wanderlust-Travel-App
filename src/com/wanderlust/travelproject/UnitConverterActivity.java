@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 public class UnitConverterActivity extends Activity {
 	private static final String TAG = "UnitConverterActivity";
-	private static final String ERR_INVALID_AMOUNT = "Error: Amount to convert is invalid, must be positive number";
 
 	// inch <--> cm = 0.3937
 	// cm <--> m = 100
@@ -233,7 +232,7 @@ public class UnitConverterActivity extends Activity {
 
 		} catch (NumberFormatException e) {
 			Log.d(TAG, "INVALID AMOUNT");
-			toast.setText(ERR_INVALID_AMOUNT);
+			toast.setText(R.string.err_invalid_amount);
 			toast.show();
 		}
 	}
