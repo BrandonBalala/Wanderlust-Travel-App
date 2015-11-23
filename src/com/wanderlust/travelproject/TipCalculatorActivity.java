@@ -22,6 +22,7 @@ public class TipCalculatorActivity extends Activity {
 	private static final double TIP15 = 0.15;
 	private static final double TIP20 = 0.20;
 	private static final String ERR_INVALID_AMOUNT  = "Error: Bill amount is invalid, must be positive number";
+	private static final String ERR_MAX_SPLIT = "Error: can split bill with maximum 50 people, defaulted to 1";
 	private static final String TIP_TOTAL = "tipTotal";
 	private static final String BILL_TOTAL = "billTotal";
 	private static final String SPLIT_AMOUNT = "splitAmount";
@@ -127,7 +128,12 @@ public class TipCalculatorActivity extends Activity {
 				//Checks that its a number using regex before parsing into double and check that it is not empty
 				if (divideStr.matches("[0-9]*(\\.[0-9]*)?") && !divideStr.isEmpty()){
 					//Get double equivalent of the number of people to split bill by and round down
-					numPeople = (int) Math.floor(Double.parseDouble(divideStr));
+				}
+				
+				if(numPeople > 50){
+					numPeople = 1;
+					toast.setText(ERR_MAX_SPLIT);
+					toast.show();
 				}
 				
 				//Defaults to 1 person if it was an invalid input
