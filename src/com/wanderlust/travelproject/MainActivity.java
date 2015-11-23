@@ -65,4 +65,11 @@ public class MainActivity extends Activity {
 		startActivity(i);
 
 	}
+	
+	/** Called when the user clicks the Send button */
+	public void launchToday(View view) {
+		Intent i = new Intent(this, TodayFragments.class);
+		startActivity(i);
+
+	}
 }
