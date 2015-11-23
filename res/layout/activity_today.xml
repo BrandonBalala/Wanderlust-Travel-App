@@ -19,7 +19,7 @@
 
         <fragment
             android:id="@+id/list"
-            android:name="com.bob.travelproject.TodayActivity"
+            android:name="com.wanderlust.travelproject.TodayActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

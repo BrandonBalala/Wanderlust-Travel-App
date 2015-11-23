@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
-                android:background="@drawable/today" />
+                android:background="@drawable/today"
+                android:onClick="launchToday" />
         </TableRow>
 
         <TableRow

@@ -70,6 +70,5 @@ public class MainActivity extends Activity {
 	public void launchToday(View view) {
 		Intent i = new Intent(this, TodayFragments.class);
 		startActivity(i);
-
 	}
 }

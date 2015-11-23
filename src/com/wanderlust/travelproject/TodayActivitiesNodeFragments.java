@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class TodayActivitiesNodeFragments extends Activity {
-	private final static String TAG ="FRAG-FIELDNACTIVITY";
+	private final static String TAG = "FRAG-FIELDNACTIVITY";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,13 +25,12 @@ public class TodayActivitiesNodeFragments extends Activity {
 			// During initial setup, plug in the field note fragment.
 			ActivitiesFragments details = new ActivitiesFragments();
 			details.setArguments(getIntent().getExtras());
-
 			FragmentManager fm = getFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
 			ft.add(android.R.id.content, details);
 			ft.commit();
 		}
-	}  // oncreate
+	} // oncreate
 
 	@Override
 	protected void onStart() {
@@ -68,4 +67,4 @@ public class TodayActivitiesNodeFragments extends Activity {
 		super.onRestart();
 		Log.d(TAG, "onRestart()");
 	}
-}  //FieldNoteViewActivity class
+} // FieldNoteViewActivity class
