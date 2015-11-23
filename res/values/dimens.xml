@@ -11,4 +11,12 @@
     <integer name="layout_weight">1</integer>
     <integer name="layout_weight_bigger">2</integer>
 
+    <dimen name="layout_marginBottom">10dp</dimen>
+    <dimen name="layout_marginButton">2dp</dimen>
+    <dimen name="textDes">22sp</dimen>
+    <dimen name="textVal">24sp</dimen>
+
+    <item name="weightOne" format="float" type="dimen">1.0</item>
+    <item name="weightTable" format="float" type="dimen">6.0</item>
+
 </resources>

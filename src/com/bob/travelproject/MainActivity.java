@@ -1,10 +1,12 @@
 package com.bob.travelproject;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -14,9 +16,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		
-		//Intent intent = new Intent(this, TipCalculatorActivity.class);
-		Intent intent = new Intent(this, UnitConverterActivity.class);
-		startActivity(intent);
+//		//Intent intent = new Intent(this, TipCalculatorActivity.class);
+//		Intent intent = new Intent(this, UnitConverterActivity.class);
+//		startActivity(intent);
 		
 	}
 
@@ -37,5 +39,17 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void tipCalculator(View view) {
+
+		Intent i = new Intent(this, TipCalculatorActivity.class);
+		startActivity(i);
+
+	}
+	public void conversion(View view) {
+
+		Intent i = new Intent(this, UnitConverterActivity.class);
+		startActivity(i);
+
 	}
 }
