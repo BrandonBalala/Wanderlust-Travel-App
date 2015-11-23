@@ -1,4 +1,6 @@
-package com.bob.travelproject;
+package com.wanderlust.travelproject;
+
+import com.bob.travelproject.R;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -25,5 +25,9 @@
     <string name="swap_desc">Swap button</string>
     <string name="equals_desc">Equals image</string>
     <string name="amount_hint">Enter an amount</string>
+    <string name="dawson">Dawson</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_current_trip">Manage Trips</string>
+    
 
 </resources>

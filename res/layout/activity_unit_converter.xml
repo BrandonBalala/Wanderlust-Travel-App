@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bob.travelproject.UnitConverterActivity" >
+    tools:context="com.wanderlust.travelproject.UnitConverterActivity" >
 
     <Spinner
         android:id="@+id/categorySpinner"

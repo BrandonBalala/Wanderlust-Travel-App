@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.wanderlust.travelproject.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TipCalculatorActivity"
+            android:name="com.wanderlust.travelproject.TipCalculatorActivity"
             android:label="@string/title_activity_tip_calculator" >
         </activity>
         <activity
-            android:name=".UnitConverterActivity"
+            android:name="com.wanderlust.travelproject.UnitConverterActivity"
             android:label="@string/title_activity_unit_converter" >
         </activity>
     </application>
