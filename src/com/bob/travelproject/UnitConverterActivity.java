@@ -224,9 +224,6 @@ public class UnitConverterActivity extends Activity {
 				// Show results of the conversion
 				amountToConvertEditText.setText(Double.toString(amount));
 				resultConversionTextView.setText(Double.toString(result));
-
-				toast.setText(null);
-
 			} else {
 				// Negative number
 				throw new NumberFormatException();
@@ -235,8 +232,8 @@ public class UnitConverterActivity extends Activity {
 		} catch (NumberFormatException e) {
 			Log.d(TAG, "INVALID AMOUNT");
 			toast.setText(ERR_INVALID_AMOUNT);
+			toast.show();
 		}
-		toast.show();
 	}
 
 	/**

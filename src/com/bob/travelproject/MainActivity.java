@@ -14,12 +14,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		
-//		//Intent intent = new Intent(this, TipCalculatorActivity.class);
-//		Intent intent = new Intent(this, UnitConverterActivity.class);
-//		startActivity(intent);
-		
 	}
 
 	@Override

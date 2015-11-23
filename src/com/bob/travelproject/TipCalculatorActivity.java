@@ -20,7 +20,6 @@ public class TipCalculatorActivity extends Activity {
 	private static final double TIP15 = 0.15;
 	private static final double TIP20 = 0.20;
 	private static final String ERR_INVALID_AMOUNT  = "Error: Bill amount is invalid, must be positive number";
-	private static final String NUM_PEOPLE_DEFAULT  = "Warning: Number of people to split the bill has been defaulted to 1";
 	private static final String TIP_TOTAL = "tipTotal";
 	private static final String BILL_TOTAL = "billTotal";
 	private static final String SPLIT_AMOUNT = "splitAmount";
@@ -106,7 +105,6 @@ public class TipCalculatorActivity extends Activity {
 	public void calculateTip(View view) {
 		cancelToast();
 		toast = Toast.makeText(getApplicationContext(),null, Toast.LENGTH_SHORT);
-		//DecimalFormat df = new DecimalFormat("0.00");
 		
 		try {
 			//Get bill amount and round it to 2 digits after decimal point
@@ -132,7 +130,6 @@ public class TipCalculatorActivity extends Activity {
 				
 				//Defaults to 1 person if it was an invalid input
 				if(numPeople == -1 || numPeople == 0){
-					toast.setText(NUM_PEOPLE_DEFAULT);
 					numPeople = 1;
 				}
 				
@@ -152,8 +149,8 @@ public class TipCalculatorActivity extends Activity {
 		} catch (NumberFormatException e) {
 			Log.d(TAG, "INVALID BILL AMOUNT");
 			toast.setText(ERR_INVALID_AMOUNT);
+			toast.show();
 		}
-		toast.show();
 	}
 
 	public void clearFields(View view) {
