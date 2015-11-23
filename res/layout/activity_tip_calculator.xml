@@ -25,7 +25,8 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
-            android:hint="@string/hint_amount" />
+            android:hint="@string/hint_amount"
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -86,7 +87,8 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
-            android:hint="@string/hint_divide" />
+            android:hint="@string/hint_divide" 
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
     <LinearLayout
