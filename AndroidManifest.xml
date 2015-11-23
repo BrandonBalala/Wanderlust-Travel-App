@@ -30,6 +30,10 @@
             android:name="com.wanderlust.travelproject.UnitConverterActivity"
             android:label="@string/title_activity_unit_converter" >
         </activity>
+        
+                <activity android:name="com.wanderlust.travelproject.TodayFragments" />
+   
+        
     </application>
 
 </manifest>

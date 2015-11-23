@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string-array
+        name="trip_types">
+        <item>Walk</item>
+        <item>Fly</item>
+        <item>Boat</item>
+        <item>Ferry</item>
+        <item>Car</item>
+    </string-array>
     <string-array name="conversion_categories">
         <item>Distance</item>
         <item>Volume</item>
