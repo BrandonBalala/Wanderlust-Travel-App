@@ -33,5 +33,11 @@
     <string name="tip_total">Tip Total</string>
     <string name="bill_total">Bill Amount</string>
     <string name="split_amount">Split Amount</string>
+    <string name="category">category</string>
+    <string name="initial_position">initial_unit</string>
+    <string name="conversion_position">conversion_unit</string>
+    <string name="convert_amount">amount</string>
+    <string name="convert_result">result</string>
+    
 
 </resources>
