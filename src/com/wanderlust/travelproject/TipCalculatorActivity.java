@@ -122,8 +122,9 @@ public class TipCalculatorActivity extends Activity {
 				
 				int numPeople = -1;
 				//Checks that its a number using regex before parsing into double and check that it is not empty
-				if (divideStr.matches("[0-9]*(\\.[0-9]*)?") && !divideStr.isEmpty()){
+				if (!divideStr.isEmpty()){
 					//Get double equivalent of the number of people to split bill by and round down
+					numPeople = Integer.parseInt(divideStr);
 				}
 				
 				if(numPeople > 50){

@@ -29,7 +29,7 @@ public class UnitConverterActivity extends Activity {
 	// l <--> pint = 0.4732
 	// pint <--> gallon = 8
 	private static final double[] VOLUME_CONVERSION = { 1000, 0.4732, 8 };
-	
+
 	// kg <--> lbs = 0.4536
 	private static final double[] WEIGHT_CONVERSION = { 0.4536 };
 	private static final int CATEGORY_DISTANCE = 0;
@@ -57,12 +57,26 @@ public class UnitConverterActivity extends Activity {
 
 		// Initialize the category spinner
 		initializeSpinner(categorySpinner, R.array.conversion_categories);
-		category = CATEGORY_DISTANCE;
-
-		// Initialize both unit spinners
-		initializeSpinner(inititialUnitsSpinner, R.array.distance_units);
-		initializeSpinner(conversionUnitSpinner, R.array.distance_units);
-
+		// Restore a previously stored instance state
+		if (savedInstanceState != null) {
+			category = savedInstanceState.getInt(getResources().getString(R.string.category));
+			categorySpinner.setSelection(category);
+			
+			changeSpinnerUnits();
+			
+			//int initial = savedInstanceState.getInt(getResources().getString(R.string.initial_position));
+			//int convert = savedInstanceState.getInt(getResources().getString(R.string.conversion_position));
+			
+			//inititialUnitsSpinner.setSelection(initial);
+			//conversionUnitSpinner.setSelection(convert);
+			
+			amountToConvertEditText.setText(savedInstanceState.getString(getResources().getString(R.string.convert_amount)));
+			resultConversionTextView.setText(savedInstanceState.getString(getResources().getString(R.string.convert_result)));
+			
+		} else {
+			category = CATEGORY_DISTANCE;
+			changeSpinnerUnits();
+		}
 		// Add on item selected listener
 		categorySpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -245,7 +259,8 @@ public class UnitConverterActivity extends Activity {
 	 * @param start
 	 * @param end
 	 * @param array_conversion
-	 *            represents an array of multipliers/dividers from two adjacent units
+	 *            represents an array of multipliers/dividers from two adjacent
+	 *            units
 	 * @return result
 	 */
 	private double getConversion(boolean isMultiply, double result, int start, int end, double[] array_conversion) {
@@ -289,6 +304,25 @@ public class UnitConverterActivity extends Activity {
 	private void cancelToast() {
 		if (toast != null)
 			toast.cancel();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+
+		savedInstanceState.putInt((getResources().getString(R.string.category)), category);
+		savedInstanceState.putInt((getResources().getString(R.string.initial_position)),
+				inititialUnitsSpinner.getSelectedItemPosition());
+		
+		Log.d(TAG, "saving initial: "+ inititialUnitsSpinner.getSelectedItemPosition());
+		savedInstanceState.putInt((getResources().getString(R.string.conversion_position)),
+				conversionUnitSpinner.getSelectedItemPosition());
+		
+		Log.d(TAG, "saving conversion: "+ conversionUnitSpinner.getSelectedItemPosition());
+		savedInstanceState.putString((getResources().getString(R.string.convert_amount)),
+				amountToConvertEditText.getText().toString());
+		savedInstanceState.putString((getResources().getString(R.string.convert_result)),
+				resultConversionTextView.getText().toString());
 	}
 
 }
