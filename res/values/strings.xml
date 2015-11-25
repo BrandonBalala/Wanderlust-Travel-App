@@ -40,7 +40,19 @@
     <string name="convert_result">result</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="username">Enter your username   </string>
-    <string name="fname"   >Enter your first name </string>
-    <string name="lname"   >Enter yout last name  </string>
-    <string name="enter"   >Enter</string>
+    <string name="fname">Enter your first name </string>
+    <string name="lname">Enter yout last name  </string>
+    <string name="enter">Enter</string>
+
+    <!-- WEATHER STRINGS -->
+
+    <string name="weather_sunny">&#xf00d;</string>
+    <string name="weather_clear_night">&#xf02e;</string>
+    <string name="weather_foggy">&#xf014;</string>
+    <string name="weather_cloudy">&#xf013;</string>
+    <string name="weather_rainy">&#xf019;</string>
+    <string name="weather_snowy">&#xf01b;</string>
+    <string name="weather_thunder">&#xf01e;</string>
+    <string name="weather_drizzle">&#xf01c;</string>
+
 </resources>
