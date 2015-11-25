@@ -57,26 +57,7 @@ public class UnitConverterActivity extends Activity {
 
 		// Initialize the category spinner
 		initializeSpinner(categorySpinner, R.array.conversion_categories);
-		// Restore a previously stored instance state
-		if (savedInstanceState != null) {
-			category = savedInstanceState.getInt(getResources().getString(R.string.category));
-			categorySpinner.setSelection(category);
-			
-			changeSpinnerUnits();
-			
-			//int initial = savedInstanceState.getInt(getResources().getString(R.string.initial_position));
-			//int convert = savedInstanceState.getInt(getResources().getString(R.string.conversion_position));
-			
-			//inititialUnitsSpinner.setSelection(initial);
-			//conversionUnitSpinner.setSelection(convert);
-			
-			amountToConvertEditText.setText(savedInstanceState.getString(getResources().getString(R.string.convert_amount)));
-			resultConversionTextView.setText(savedInstanceState.getString(getResources().getString(R.string.convert_result)));
-			
-		} else {
-			category = CATEGORY_DISTANCE;
-			changeSpinnerUnits();
-		}
+
 		// Add on item selected listener
 		categorySpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -85,7 +66,7 @@ public class UnitConverterActivity extends Activity {
 				Log.d(TAG + " - categorySpinner", " Position: " + position);
 				// Change content of unit spinners
 				category = position;
-				changeSpinnerUnits();
+				changeSpinnerUnits(0, 0);
 			}
 
 			@Override
@@ -96,15 +77,41 @@ public class UnitConverterActivity extends Activity {
 
 		});
 
+		// Restore a previously stored instance state
+		if (savedInstanceState != null) {
+			category = savedInstanceState.getInt(getResources().getString(R.string.category));
+			categorySpinner.setSelection(category);
+
+			int initial = savedInstanceState.getInt(getResources().getString(R.string.initial_position));
+			int convert = savedInstanceState.getInt(getResources().getString(R.string.conversion_position));
+			Log.d(TAG, "initial saved: " + initial);
+			Log.d(TAG, "conversion saved: " + convert);
+
+			changeSpinnerUnits(initial, convert);
+			inititialUnitsSpinner.setSelection(initial);
+			conversionUnitSpinner.setSelection(convert);
+
+			amountToConvertEditText
+					.setText(savedInstanceState.getString(getResources().getString(R.string.convert_amount)));
+			resultConversionTextView
+					.setText(savedInstanceState.getString(getResources().getString(R.string.convert_result)));
+
+		} else {
+			category = CATEGORY_DISTANCE;
+			changeSpinnerUnits(1, 1);
+		}
 	}
 
 	/**
 	 * Change the content of both unit spinners based on what category the user
 	 * has chosen
 	 * 
+	 * @param convert
+	 * @param initial
+	 * 
 	 * @param position
 	 */
-	private void changeSpinnerUnits() {
+	private void changeSpinnerUnits(int initial, int convert) {
 		switch (category) {
 		case CATEGORY_DISTANCE:
 			initializeSpinner(inititialUnitsSpinner, R.array.distance_units);
@@ -120,7 +127,10 @@ public class UnitConverterActivity extends Activity {
 			break;
 		}
 
-		clearFields(null);
+		//Log.d(TAG, "initial: " + initial);
+		//Log.d(TAG, "conversion: " + convert);
+		//inititialUnitsSpinner.setSelection(initial);
+		//conversionUnitSpinner.setSelection(convert);
 	}
 
 	/**
@@ -313,12 +323,12 @@ public class UnitConverterActivity extends Activity {
 		savedInstanceState.putInt((getResources().getString(R.string.category)), category);
 		savedInstanceState.putInt((getResources().getString(R.string.initial_position)),
 				inititialUnitsSpinner.getSelectedItemPosition());
-		
-		Log.d(TAG, "saving initial: "+ inititialUnitsSpinner.getSelectedItemPosition());
+
+		Log.d(TAG, "saving initial: " + inititialUnitsSpinner.getSelectedItemPosition());
 		savedInstanceState.putInt((getResources().getString(R.string.conversion_position)),
 				conversionUnitSpinner.getSelectedItemPosition());
-		
-		Log.d(TAG, "saving conversion: "+ conversionUnitSpinner.getSelectedItemPosition());
+
+		Log.d(TAG, "saving conversion: " + conversionUnitSpinner.getSelectedItemPosition());
 		savedInstanceState.putString((getResources().getString(R.string.convert_amount)),
 				amountToConvertEditText.getText().toString());
 		savedInstanceState.putString((getResources().getString(R.string.convert_result)),
