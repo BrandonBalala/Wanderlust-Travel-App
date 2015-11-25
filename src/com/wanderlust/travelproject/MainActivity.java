@@ -5,11 +5,14 @@ import com.bob.travelproject.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -20,6 +23,25 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 	}
 
+	@Override
+	public void onStart() {	
+		super.onStart();
+		
+		// retrieves the saved informations from the shared preferences
+		SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		String username = (mSharedPreference.getString("username", ""));
+		String fname = (mSharedPreference.getString("firstname", ""));
+		String lname = (mSharedPreference.getString("lastname", ""));
+		
+		if (username.equals("") && fname.equals("") && lname.equals("")) {
+			Intent startUp = new Intent(this, StartUpActivity.class);
+			startActivity(startUp);
+		}
+		
+		TextView tv = (TextView) findViewById(R.id.userFullName);
+		tv.setText("Hello " + fname + " " + lname);	
+	}
+	
 	/**
 	 * 
 	 * This is an options menu. This method pragmatically creates two items and
@@ -77,5 +99,10 @@ public class MainActivity extends Activity {
 	public void launchToday(View view) {
 		Intent i = new Intent(this, TodayFragments.class);
 		startActivity(i);
+	}
+	
+	public void manageTrips(View view){
+		Intent allTrips = new Intent(this, CurrentTripsActivity.class);
+		startActivity(allTrips);
 	}
 }

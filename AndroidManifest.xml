@@ -32,6 +32,16 @@
         </activity>
         <activity android:name="com.wanderlust.travelproject.TodayFragments" />
         <activity android:name="com.wanderlust.travelproject.TodayActivitiesNodeFragments" />
+       
+        <activity
+            android:name="com.wanderlust.travelproject.StartUpActivity"
+            android:label="@string/title_activity_sign_up" >
+        </activity>
+        <activity
+            android:name="com.wanderlust.travelproject.CurrentTripsActivity"
+            android:label="@string/title_activity_current_trips" >
+        </activity>
+        
     </application>
 
 </manifest>

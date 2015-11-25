@@ -16,10 +16,9 @@
             android:layout_weight="@dimen/weightOne" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/userFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello Miss Something"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
 
@@ -36,7 +35,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/current"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -86,7 +85,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/nearme"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
 
             <ImageButton
                 android:id="@+id/imageButton6"
@@ -95,7 +94,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/sun"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
         </TableRow>
 
         <TableRow
@@ -111,7 +110,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/currency"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
 
             <ImageButton
                 android:id="@+id/imageButton8"
@@ -120,7 +119,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/budget"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
         </TableRow>
 
         <TableRow
@@ -136,7 +135,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/customs"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
 
             <ImageButton
                 android:id="@+id/imageButton10"
@@ -145,7 +144,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/pointinterest"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
         </TableRow>
 
         <TableRow
@@ -161,7 +160,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/managetrips"
-                android:onClick="ToBeCreated" />
+                android:onClick="manageTrips" />
 
             <ImageButton
                 android:id="@+id/imageButton12"
@@ -170,7 +169,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/current"
-                android:onClick="ToBeCreated" />
+                android:onClick="toBeCreated" />
             
         </TableRow>
     </TableLayout>

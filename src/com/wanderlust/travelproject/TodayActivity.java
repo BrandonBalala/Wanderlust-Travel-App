@@ -3,10 +3,7 @@ package com.wanderlust.travelproject;
 import com.bob.travelproject.R;
 
 import android.app.Activity;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.util.Log;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -26,7 +23,6 @@ import android.widget.ListView;
 public class TodayActivity extends ListFragment implements FragmentManager.OnBackStackChangedListener {
 
 	private final static String TAG = "TODAY-ACTIVITY";
-	private Cursor cursor;
 	int mCurPosition = -1;
 	boolean mShowTwoFragments;
 

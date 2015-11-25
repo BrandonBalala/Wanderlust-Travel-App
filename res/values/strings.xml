@@ -27,7 +27,7 @@
     <string name="amount_hint">Enter an amount</string>
     <string name="dawson">Dawson</string>
     <string name="title_activity_about">About</string>
-    <string name="title_activity_current_trip">Manage Trips</string>
+    <string name="title_activity_current_trips">Manage Trips</string>
     <string name="err_invalid_amount">Error: Amount is invalid, must be positive number</string>
     <string name="err_max_split">Error: can split bill with maximum 50 people, defaulted to 1</string>
     <string name="tip_total">Tip Total</string>
@@ -38,6 +38,9 @@
     <string name="conversion_position">conversion_unit</string>
     <string name="convert_amount">amount</string>
     <string name="convert_result">result</string>
-    
-
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="username">Enter your username   </string>
+    <string name="fname"   >Enter your first name </string>
+    <string name="lname"   >Enter yout last name  </string>
+    <string name="enter"   >Enter</string>
 </resources>

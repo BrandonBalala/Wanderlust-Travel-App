@@ -19,4 +19,9 @@
     <item name="weightOne" format="float" type="dimen">1.0</item>
     <item name="weightTable" format="float" type="dimen">6.0</item>
 
+   <dimen name="imageView_layout_width">500dp</dimen>
+   <dimen name="imageView_layout_height">300dp</dimen>
+   <dimen name="editext_padding_Bottom">20dp</dimen>
+   <dimen name="editext_margin_Bottom">10dp</dimen>
+   <dimen name="startUpEditText">24sp</dimen>
 </resources>

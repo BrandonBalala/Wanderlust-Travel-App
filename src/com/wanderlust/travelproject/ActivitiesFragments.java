@@ -2,8 +2,6 @@ package com.wanderlust.travelproject;
 
 import com.bob.travelproject.R;
 
-import android.R.color;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,13 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
+@SuppressWarnings("unused")
 public class ActivitiesFragments extends Fragment {
 	private final static String TAG = "ActivitiesFragments";
 	View view_a;
-	private Cursor cursor;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
