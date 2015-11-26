@@ -10,16 +10,17 @@
         android:layout_weight="@dimen/weightTable" >
 
         <TableRow
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="@dimen/weightOne" >
 
-            <TextView
-                android:id="@+id/userFullName"
+            <ImageView
+                android:id="@+id/imageButton13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:src="@drawable/header" />
+          
         </TableRow>
 
         <TableRow
@@ -170,7 +171,21 @@
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/current"
                 android:onClick="toBeCreated" />
-            
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="@dimen/weightOne" >
+
+            <TextView
+                android:id="@+id/userFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="50dp" />
+
         </TableRow>
     </TableLayout>
 
