@@ -30,13 +30,13 @@
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
-                android:id="@+id/imageButton1"
+                android:id="@+id/currentTrip"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/current"
-                android:onClick="toBeCreated" />
+                android:onClick="currentTrip" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -155,7 +155,7 @@
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
-                android:id="@+id/imageButton11"
+                android:id="@+id/manageTrip"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/layout_marginButton"

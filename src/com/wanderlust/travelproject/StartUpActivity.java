@@ -23,7 +23,7 @@ public class StartUpActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-
+        moveTaskToBack(true);
 	}
 	
 	public boolean validateInput() {

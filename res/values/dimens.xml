@@ -23,5 +23,11 @@
    <dimen name="imageView_layout_height">300dp</dimen>
    <dimen name="editext_padding_Bottom">20dp</dimen>
    <dimen name="editext_margin_Bottom">10dp</dimen>
+   
+        <!-- START UP -->
    <dimen name="startUpEditText">24sp</dimen>
+   <dimen name="dividerHeight">10dp</dimen>
+   <dimen name="imageView_trip_layout_width">100dp</dimen>
+   <dimen name="imageView_trip_layout_height">100dp</dimen>
+   
 </resources>

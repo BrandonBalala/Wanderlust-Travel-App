@@ -88,7 +88,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			+ COLUMN_LOCATION_ID + " integer,"
 			+ COLUMN_ACTUAL_ID + " integer," 
 			+ " FOREIGN KEY ("+ COLUMN_LOCATION_ID+") REFERENCES " + TABLE_LOCATIONS + "(" + COLUMN_ID +"),"		
-			+ " FOREIGN KEY ("+ COLUMN_ACTUAL_ID+") REFERENCES " + TABLE_ACTUALEXPENSE + "(" + COLUMN_ID +"));";
+			+ " FOREIGN KEY ("+ COLUMN_ACTUAL_ID+") REFERENCES " + TABLE_TRIPS + "(" + COLUMN_ID +"));";
 
 	// ACTUALEXPENSE table create statement
 	private static final String DATABASE_ACTUALEXPENSE_TABLE = "create table " + TABLE_ACTUALEXPENSE + "(" 
@@ -201,8 +201,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public Cursor getTrip(int trip_id) {
 
-		Cursor c = getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_ID, new String [] {String.valueOf(trip_id)}, null, null, null);
-		return c;
+		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_ID + " = ?", new String [] {String.valueOf(trip_id)}, null, null, null);
 	}
 	
 	/*
@@ -210,8 +209,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public Cursor getAllTrips() {
 
-		Cursor c = getReadableDatabase().query(TABLE_TRIPS, null, null, null, null, null, null);
-		return c;
+		return  getReadableDatabase().query(TABLE_TRIPS, null, null, null, null, null, null);
 	}
 
 	/*
@@ -267,7 +265,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public Cursor getLocations(int location_id) {
 
-		return getReadableDatabase().query(TABLE_LOCATIONS, null, COLUMN_ID, new String [] {String.valueOf(location_id)}, null, null, null);
+		return getReadableDatabase().query(TABLE_LOCATIONS, null, COLUMN_ID + " = ?", new String [] {String.valueOf(location_id)}, null, null, null);
 
 	}
 
@@ -329,12 +327,22 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/*
-	 * getting an itinerary
+	 * getting an itinerary 
 	 */
 	public Cursor getItinerary(int itinerary_id) {
 
 		return getReadableDatabase().query(TABLE_ITINERARY, null,  COLUMN_ID + " = ?",
 				new String[] { String.valueOf(itinerary_id) }, null, null, null);
+
+	}
+	
+	/*
+	 * getting all itineraries of a trip
+	 */
+	public Cursor getTripItineraries(int actual_id) {
+
+		return getReadableDatabase().query(TABLE_ITINERARY, null,  COLUMN_ACTUAL_ID + " = ?",
+				new String[] { String.valueOf(actual_id) }, null, null, null);
 
 	}
 
@@ -395,7 +403,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * getting an actual expense
 	 */
-	public Cursor getAllActualExpense(int actualExpense_id) {
+	public Cursor getActualExpense(int actualExpense_id) {
 
 		return getReadableDatabase().query(TABLE_ACTUALEXPENSE, null, COLUMN_ID + " = ?", new String[] { String.valueOf(actualExpense_id)}, null, null, null);
 
@@ -404,7 +412,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * getting all actual expense
 	 */
-	public Cursor getActualExpense() {
+	public Cursor getAllActualExpense() {
 
 		return getReadableDatabase().query(TABLE_ACTUALEXPENSE, null, null, null, null, null, null);
 

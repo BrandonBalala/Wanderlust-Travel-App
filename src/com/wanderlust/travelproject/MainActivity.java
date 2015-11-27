@@ -101,8 +101,13 @@ public class MainActivity extends Activity {
 		startActivity(i);
 	}
 	
+	public void currentTrip(View view){
+		Intent currentTrips = new Intent(this, CurrentTripActivity.class);
+		startActivity(currentTrips);
+	}
+	
 	public void manageTrips(View view){
-		Intent allTrips = new Intent(this, CurrentTripsActivity.class);
+		Intent allTrips = new Intent(this, TripActivity.class);
 		startActivity(allTrips);
 	}
 }

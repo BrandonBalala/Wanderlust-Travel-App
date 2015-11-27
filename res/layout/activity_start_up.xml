@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#87CEEB"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="com.wanderlust.travelproject.StartUpActivity" >
 
     <ImageView
@@ -14,46 +14,54 @@
         android:layout_height="@dimen/imageView_layout_height"
         android:layout_gravity="center"
         android:src="@drawable/header" />
-    
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical">
-        
-		<EditText
-		   android:id="@+id/username"
-		   android:layout_width="wrap_content"
-		   android:layout_height="wrap_content"
-		   android:textSize="@dimen/textSize"
-		   android:hint="@string/username"
-		   android:paddingBottom="@dimen/editext_padding_Bottom"
-		   android:layout_marginBottom="@dimen/editext_margin_Bottom"/>
-	
-		<EditText
-		   android:id="@+id/fname"
-		   android:layout_width="wrap_content"
-		   android:layout_height="wrap_content"
-		   android:textSize="@dimen/textSize"
-		   android:hint="@string/fname"
-		   android:paddingBottom="@dimen/editext_padding_Bottom"
-		   android:layout_marginBottom="@dimen/editext_margin_Bottom"
-		   />
-		<EditText
-		   android:id="@+id/lname"
-		   android:layout_width="wrap_content"
-		   android:textSize="@dimen/textSize"
-		   android:layout_height="wrap_content"
-		   android:hint="@string/lname"
-		   android:paddingTop="@dimen/editext_padding_Bottom"
-		   android:layout_marginBottom="@dimen/editext_margin_Bottom"/>
-		<Button
-		   android:id="@+id/button1"
-		   android:layout_width="wrap_content"
-		   android:layout_height="wrap_content"
-		   android:text="@string/enter"
-		   android:textSize="@dimen/textSize"
-		   android:layout_gravity="center"
-		   android:onClick="enterBtn"/>
-	</LinearLayout>
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/editext_margin_Bottom"
+            android:hint="@string/username"
+            android:paddingBottom="@dimen/editext_padding_Bottom"
+            android:textColorHint="#FFFFFF"
+            android:textSize="@dimen/textSize" />
+
+        <EditText
+            android:id="@+id/fname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/editext_margin_Bottom"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="@string/fname"
+            android:paddingBottom="@dimen/editext_padding_Bottom"
+            android:textColorHint="#FFFFFF"
+            android:textSize="@dimen/textSize" />
+
+        <EditText
+            android:id="@+id/lname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/editext_margin_Bottom"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="@string/lname"
+            android:paddingTop="@dimen/editext_padding_Bottom"
+            android:textColorHint="#FFFFFF"
+            android:textSize="@dimen/textSize" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="enterBtn"
+            android:text="@string/enter"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/textSize" />
+    </LinearLayout>
+
 </LinearLayout>
