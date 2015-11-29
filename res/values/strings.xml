@@ -28,7 +28,7 @@
     <string name="dawson">Dawson</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_current_trips">Manage Trips</string>
-    <string name="err_invalid_amount">Error: Amount is invalid, must be positive number</string>
+    <string name="err_invalid_amount">Error: Amount is invalid, must be a positive number</string>
     <string name="err_max_split">Error: can split bill with maximum 50 people, defaulted to 1</string>
     <string name="tip_total">Tip Total</string>
     <string name="bill_total">Bill Amount</string>
@@ -38,8 +38,8 @@
     <string name="conversion_position">conversion_unit</string>
     <string name="convert_amount">amount</string>
     <string name="convert_result">result</string>
-    
-        <!-- STARTUP STRINGS -->
+
+    <!-- STARTUP STRINGS -->
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="username">Enter your username   </string>
     <string name="fname">Enter your first name </string>
@@ -59,4 +59,16 @@
     <string name="title_activity_itinerary">Manage Trips</string>
     <string name="title_activity_trip">TripActivity</string>
     <string name="syncBtn">Sync</string>
+
+    <!-- CURRENCY STRINGS -->
+    <string name="title_activity_currency_converter">Currency Converter</string>
+    <string name="initial_currency_hint">Enter amount to convert</string>
+    <string name="initial_amount">initial_amount</string>
+    <string name="result_amount">result_amount</string>
+    <string name="init_position">init_position</string>
+    <string name="result_position">result_position</string>
+    <string name="connection_err_msg">No network connection available</string>
+    <string name="retrieve_err_msg">Unable to retrieve conversion</string>
+    <string name="json_err_msg">Unable to parse conversion</string>
+
 </resources>

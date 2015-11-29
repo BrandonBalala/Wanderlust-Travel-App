@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.wanderlust.travelproject.CurrencyConverterActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/initialAmountEditText"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight"
+            android:gravity="center_horizontal"
+            android:hint="@string/initial_currency_hint"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:textSize="@dimen/textSize" />
+
+        <ImageButton
+            android:layout_width="@dimen/imageSize"
+            android:layout_height="@dimen/imageSize"
+            android:background="@null"
+            android:contentDescription="@string/equals_desc"
+            android:scaleType="fitXY"
+            android:src="@drawable/equals" />
+
+        <TextView
+            android:id="@+id/resultAmountTextView"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:textSize="@dimen/textSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginBottom"
+        android:orientation="horizontal" >
+
+        <Spinner
+            android:id="@+id/initialCurrencySpinner"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight" />
+
+        <ImageButton
+            android:id="@+id/swapButton"
+            android:layout_width="@dimen/imageSize"
+            android:layout_height="@dimen/imageSize"
+            android:background="@null"
+            android:contentDescription="@string/swap_desc"
+            android:onClick="swapCurrency"
+            android:scaleType="fitXY"
+            android:src="@drawable/swap" />
+
+        <Spinner
+            android:id="@+id/resultCurrencySpinner"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/clearButtonCurrencyConvert"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight"
+            android:onClick="clearFields"
+            android:text="@string/clear" />
+
+        <Button
+            android:id="@+id/convertCurrencyButton"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/layout_weight_bigger"
+            android:onClick="convertCurrency"
+            android:text="@string/convert" />
+    </LinearLayout>
+
+</LinearLayout>

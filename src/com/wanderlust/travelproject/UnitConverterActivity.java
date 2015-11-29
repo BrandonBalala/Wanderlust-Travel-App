@@ -192,69 +192,73 @@ public class UnitConverterActivity extends Activity {
 		Log.d(TAG, "Converting");
 		cancelToast();
 		toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
-
-		try {
-			// Get amount to convirt
-			double amount = Double.parseDouble(amountToConvertEditText.getText().toString().trim());
-
+		
+		String amountStr = amountToConvertEditText.getText().toString().trim();
+		double amount = -1;
+		boolean isValid = false;
+		
+		if(!amountStr.isEmpty() && !amountStr.equals(".")){
+			// Get amount to convert
+			amount = Double.parseDouble(amountStr);
+			
 			// Check that amount is a positive number
-			if (amount >= 0) {
-				// Get both initial position and the unit to convert to from
-				// their respective spinners
-				int initialUnitPosition = inititialUnitsSpinner.getSelectedItemPosition();
-				int conversionUnitPosition = conversionUnitSpinner.getSelectedItemPosition();
+			if (amount >= 0)
+				isValid = true;
+		}
+		
+		if(isValid) {
+			// Get both initial position and the unit to convert to from
+			// their respective spinners
+			int initialUnitPosition = inititialUnitsSpinner.getSelectedItemPosition();
+			int conversionUnitPosition = conversionUnitSpinner.getSelectedItemPosition();
 
-				// Initialize necessary variables
-				boolean toCalculate = true;
-				boolean isMultiply = true;
-				int start = -1;
-				int end = -1;
+			// Initialize necessary variables
+			boolean toCalculate = true;
+			boolean isMultiply = true;
+			int start = -1;
+			int end = -1;
 
-				if (initialUnitPosition == conversionUnitPosition) {
-					// Do nothing if both same position
-					toCalculate = false;
-				} // Set whether operation to use will be multiplication or
-					// division, set starting counter and the limit/end
-				else if (initialUnitPosition < conversionUnitPosition) {
-					Log.d(TAG, "divide!");
-					isMultiply = false;
-					start = initialUnitPosition;
-					end = conversionUnitPosition - 1;
-				} else {
-					Log.d(TAG, "multiply!");
-					isMultiply = true;
-					start = conversionUnitPosition;
-					end = initialUnitPosition - 1;
-
-				}
-
-				// Initialize result as the amount to convert
-				double result = amount;
-
-				if (toCalculate) {
-					// Filter down to which category was chosen
-					switch (category) {
-					case CATEGORY_DISTANCE:
-						result = getConversion(isMultiply, result, start, end, DISTANCE_CONVERSION);
-						break;
-					case CATEGORY_VOLUME:
-						result = getConversion(isMultiply, result, start, end, VOLUME_CONVERSION);
-						break;
-					case CATEGORY_WEIGHT:
-						result = getConversion(isMultiply, result, start, end, WEIGHT_CONVERSION);
-						break;
-					}
-				}
-
-				// Show results of the conversion
-				amountToConvertEditText.setText(Double.toString(amount));
-				resultConversionTextView.setText(Double.toString(result));
+			if (initialUnitPosition == conversionUnitPosition) {
+				// Do nothing if both same position
+				toCalculate = false;
+			} // Set whether operation to use will be multiplication or
+				// division, set starting counter and the limit/end
+			else if (initialUnitPosition < conversionUnitPosition) {
+				Log.d(TAG, "divide!");
+				isMultiply = false;
+				start = initialUnitPosition;
+				end = conversionUnitPosition - 1;
 			} else {
-				// Negative number
-				throw new NumberFormatException();
+				Log.d(TAG, "multiply!");
+				isMultiply = true;
+				start = conversionUnitPosition;
+				end = initialUnitPosition - 1;
+
 			}
 
-		} catch (NumberFormatException e) {
+			// Initialize result as the amount to convert
+			double result = amount;
+
+			if (toCalculate) {
+				// Filter down to which category was chosen
+				switch (category) {
+				case CATEGORY_DISTANCE:
+					result = getConversion(isMultiply, result, start, end, DISTANCE_CONVERSION);
+					break;
+				case CATEGORY_VOLUME:
+					result = getConversion(isMultiply, result, start, end, VOLUME_CONVERSION);
+					break;
+				case CATEGORY_WEIGHT:
+					result = getConversion(isMultiply, result, start, end, WEIGHT_CONVERSION);
+					break;
+				}
+			}
+
+			// Show results of the conversion
+			amountToConvertEditText.setText(Double.toString(amount));
+			resultConversionTextView.setText(Double.toString(result));
+
+		} else {
 			Log.d(TAG, "INVALID AMOUNT");
 			toast.setText(R.string.err_invalid_amount);
 			toast.show();

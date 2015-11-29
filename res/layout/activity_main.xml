@@ -111,7 +111,7 @@
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
                 android:background="@drawable/currency"
-                android:onClick="toBeCreated" />
+                android:onClick="launchCurrencyConverter" />
 
             <ImageButton
                 android:id="@+id/imageButton8"

@@ -32,31 +32,31 @@ public class TipCalculatorActivity extends Activity {
 	private double tipTotal;
 	private double billTotal;
 	private double splitAmount;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tip_calculator);
 
-		//Initialize tip percent to first element in the radio button list
+		// Initialize tip percent to first element in the radio button list
 		tipPercent = TIP10;
-		
-		//Get all the necessary views
+
+		// Get all the necessary views
 		amountEditText = (EditText) findViewById(R.id.amountEditText);
 		divideEditText = (EditText) findViewById(R.id.divideEditText);
 		tipTotalTextView = (TextView) findViewById(R.id.tipTotalTextView);
 		billTotalTextView = (TextView) findViewById(R.id.billTotalTextView);
 		eachPersonTextView = (TextView) findViewById(R.id.eachPersonTextView);
-		
-		//Restore a previously stored instance state
-		if (savedInstanceState != null){
+
+		// Restore a previously stored instance state
+		if (savedInstanceState != null) {
 			tipTotal = savedInstanceState.getDouble(getResources().getString(R.string.tip_total));
 			billTotal = savedInstanceState.getDouble(getResources().getString(R.string.bill_total));
 			splitAmount = savedInstanceState.getDouble(getResources().getString(R.string.split_amount));
-			
+
 			tipTotalTextView.setText(df.format(tipTotal));
 			billTotalTextView.setText(df.format(billTotal));
-			eachPersonTextView.setText(df.format(splitAmount));	
+			eachPersonTextView.setText(df.format(splitAmount));
 		}
 	}
 
@@ -105,53 +105,60 @@ public class TipCalculatorActivity extends Activity {
 		cancelToast();
 		toast = Toast.makeText(getApplicationContext(),null, Toast.LENGTH_SHORT);
 		
-		try {
+		String amountStr = amountEditText.getText().toString().trim();
+		double amount = -1;
+		boolean isValid = false;
+		
+		if(!amountStr.isEmpty() && !amountStr.equals(".")){
 			//Get bill amount and round it to 2 digits after decimal point
-			double amount = Math.round(Double.parseDouble(amountEditText.getText().toString().trim()) * 100.0) / 100.0;
+			amount = Math.round(Double.parseDouble(amountStr) * 100.0) / 100.0;
 			
 			//Check that amount is a positive number
-			if (amount >= 0) {
-				//Calculate tip total and round it to 2 digits after decimal point
-				tipTotal = Math.round((amount * tipPercent) * 100.0) / 100.0 ;
-				
-				//Calculate bill total
-				billTotal = amount + tipTotal;
-				
-				//Get the number to split bill by in form of string
-				String divideStr = divideEditText.getText().toString().trim();
-				
-				int numPeople = -1;
-				//Checks that its a number using regex before parsing into double and check that it is not empty
-				if (!divideStr.isEmpty()){
-					//Get double equivalent of the number of people to split bill by and round down
-					numPeople = Integer.parseInt(divideStr);
-				}
-				
-				if(numPeople > 50){
-					numPeople = 1;
-					toast.setText(R.string.err_max_split);
-					toast.show();
-				}
-				
-				//Defaults to 1 person if it was an invalid input
-				if(numPeople == -1 || numPeople == 0){
-					numPeople = 1;
-				}
-				
-				//Calculate bill total for one person and round it to 2 digits after decimal point
-				splitAmount = Math.round((billTotal / numPeople) * 100.0) / 100.0 ;
-				
-				//Display results
-				amountEditText.setText(df.format(amount));
-				tipTotalTextView.setText(df.format(tipTotal));
-				billTotalTextView.setText(df.format(billTotal));
-				divideEditText.setText(Integer.toString(numPeople));
-				eachPersonTextView.setText(df.format(splitAmount));
-			} else {
-				throw new NumberFormatException();
+			if (amount >= 0)
+				isValid = true;
+		
+		}
+		
+		if(isValid) 
+		{	
+			//Calculate tip total and round it to 2 digits after decimal point
+			tipTotal = Math.round((amount * tipPercent) * 100.0) / 100.0 ;
+			
+			//Calculate bill total
+			billTotal = amount + tipTotal;
+			
+			//Get the number to split bill by in form of string
+			String divideStr = divideEditText.getText().toString().trim();
+			int numPeople = -1;
+			
+			//Checks that its a number using regex before parsing into double and check that it is not empty
+			if (!divideStr.isEmpty()){
+				//Get double equivalent of the number of people to split bill by and round down
+				numPeople = Integer.parseInt(divideStr);
 			}
 			
-		} catch (NumberFormatException e) {
+			if(numPeople > 50){
+				numPeople = 1;
+				toast.setText(R.string.err_max_split);
+				toast.show();
+			}
+			
+			//Defaults to 1 person if it was an invalid input
+			if(numPeople == -1 || numPeople == 0){
+				numPeople = 1;
+			}
+			
+			//Calculate bill total for one person and round it to 2 digits after decimal point
+			splitAmount = Math.round((billTotal / numPeople) * 100.0) / 100.0 ;
+			
+			//Display results
+			amountEditText.setText(df.format(amount));
+			tipTotalTextView.setText(df.format(tipTotal));
+			billTotalTextView.setText(df.format(billTotal));
+			divideEditText.setText(Integer.toString(numPeople));
+			eachPersonTextView.setText(df.format(splitAmount));
+			
+		}else {
 			Log.d(TAG, "INVALID BILL AMOUNT");
 			toast.setText(R.string.err_invalid_amount);
 			toast.show();
@@ -166,22 +173,21 @@ public class TipCalculatorActivity extends Activity {
 		billTotalTextView.setText(R.string.defaultValue);
 		eachPersonTextView.setText(R.string.defaultValue);
 	}
-	
+
 	/**
-	 *  Cancel any lingering toasts
+	 * Cancel any lingering toasts
 	 */
-	private void cancelToast()
-	{
-		if(toast != null)
+	private void cancelToast() {
+		if (toast != null)
 			toast.cancel();
 	}
-	
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-    	super.onSaveInstanceState(savedInstanceState);
 
-    	savedInstanceState.putDouble((getResources().getString(R.string.tip_total)), tipTotal);
-    	savedInstanceState.putDouble((getResources().getString(R.string.bill_total)), billTotal);
-    	savedInstanceState.putDouble((getResources().getString(R.string.split_amount)), splitAmount);
-    }
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+
+		savedInstanceState.putDouble((getResources().getString(R.string.tip_total)), tipTotal);
+		savedInstanceState.putDouble((getResources().getString(R.string.bill_total)), billTotal);
+		savedInstanceState.putDouble((getResources().getString(R.string.split_amount)), splitAmount);
+	}
 }

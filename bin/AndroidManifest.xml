@@ -7,6 +7,9 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -51,6 +54,10 @@
         <activity
             android:name="com.wanderlust.travelproject.TripActivity"
             android:label="@string/title_activity_trip" >
+        </activity>
+        <activity
+            android:name="com.wanderlust.travelproject.CurrencyConverterActivity"
+            android:label="@string/title_activity_currency_converter" >
         </activity>
     </application>
 

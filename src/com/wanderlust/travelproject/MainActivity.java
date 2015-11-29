@@ -110,4 +110,9 @@ public class MainActivity extends Activity {
 		Intent allTrips = new Intent(this, TripActivity.class);
 		startActivity(allTrips);
 	}
+	
+	public void launchCurrencyConverter(View view){
+		Intent intent = new Intent(this, CurrencyConverterActivity.class);
+		startActivity(intent);
+	}
 }
