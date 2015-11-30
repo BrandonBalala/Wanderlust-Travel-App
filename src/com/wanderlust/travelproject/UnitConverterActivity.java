@@ -42,6 +42,8 @@ public class UnitConverterActivity extends Activity {
 	private TextView resultConversionTextView;
 	private Toast toast;
 	private int category;
+	private int initialPosition;
+	private int conversionPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,28 @@ public class UnitConverterActivity extends Activity {
 		// Initialize the category spinner
 		initializeSpinner(categorySpinner, R.array.conversion_categories);
 
+		// Restore a previously stored instance state
+		if (savedInstanceState != null) {
+			category = savedInstanceState.getInt(getResources().getString(R.string.category));
+			categorySpinner.setSelection(category);
+
+			initialPosition = savedInstanceState.getInt(getResources().getString(R.string.initial_position));
+			conversionPosition = savedInstanceState.getInt(getResources().getString(R.string.conversion_position));
+			Log.d(TAG, "initial saved: " + initialPosition);
+			Log.d(TAG, "conversion saved: " + conversionPosition);
+
+			changeSpinnerUnits(true);
+
+			amountToConvertEditText
+					.setText(savedInstanceState.getString(getResources().getString(R.string.convert_amount)));
+			resultConversionTextView
+					.setText(savedInstanceState.getString(getResources().getString(R.string.convert_result)));
+
+		} else {
+			category = CATEGORY_DISTANCE;
+			changeSpinnerUnits(false);
+		}
+
 		// Add on item selected listener
 		categorySpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -66,7 +90,8 @@ public class UnitConverterActivity extends Activity {
 				Log.d(TAG + " - categorySpinner", " Position: " + position);
 				// Change content of unit spinners
 				category = position;
-				changeSpinnerUnits(0, 0);
+
+				changeSpinnerUnits(false);
 			}
 
 			@Override
@@ -77,29 +102,37 @@ public class UnitConverterActivity extends Activity {
 
 		});
 
-		// Restore a previously stored instance state
-		if (savedInstanceState != null) {
-			category = savedInstanceState.getInt(getResources().getString(R.string.category));
-			categorySpinner.setSelection(category);
+		inititialUnitsSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			int initial = savedInstanceState.getInt(getResources().getString(R.string.initial_position));
-			int convert = savedInstanceState.getInt(getResources().getString(R.string.conversion_position));
-			Log.d(TAG, "initial saved: " + initial);
-			Log.d(TAG, "conversion saved: " + convert);
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				Log.d(TAG + " - categorySpinner", " Position: " + position);
+				initialPosition = position;
+			}
 
-			changeSpinnerUnits(initial, convert);
-			inititialUnitsSpinner.setSelection(initial);
-			conversionUnitSpinner.setSelection(convert);
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				Log.d(TAG, "Nothing Selected");
+				// Nothing
+			}
 
-			amountToConvertEditText
-					.setText(savedInstanceState.getString(getResources().getString(R.string.convert_amount)));
-			resultConversionTextView
-					.setText(savedInstanceState.getString(getResources().getString(R.string.convert_result)));
+		});
 
-		} else {
-			category = CATEGORY_DISTANCE;
-			changeSpinnerUnits(1, 1);
-		}
+		conversionUnitSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				Log.d(TAG + " - categorySpinner", " Position: " + position);
+				conversionPosition = position;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				Log.d(TAG, "Nothing Selected");
+				// Nothing
+			}
+
+		});
 	}
 
 	/**
@@ -111,7 +144,7 @@ public class UnitConverterActivity extends Activity {
 	 * 
 	 * @param position
 	 */
-	private void changeSpinnerUnits(int initial, int convert) {
+	private void changeSpinnerUnits(boolean changePosition) {
 		switch (category) {
 		case CATEGORY_DISTANCE:
 			initializeSpinner(inititialUnitsSpinner, R.array.distance_units);
@@ -127,10 +160,12 @@ public class UnitConverterActivity extends Activity {
 			break;
 		}
 
-		//Log.d(TAG, "initial: " + initial);
-		//Log.d(TAG, "conversion: " + convert);
-		//inititialUnitsSpinner.setSelection(initial);
-		//conversionUnitSpinner.setSelection(convert);
+		// Log.d(TAG, "initial: " + initial);
+		// Log.d(TAG, "conversion: " + convert);
+		if (changePosition) {
+			inititialUnitsSpinner.setSelection(initialPosition);
+			conversionUnitSpinner.setSelection(conversionPosition);
+		}
 	}
 
 	/**
@@ -192,21 +227,21 @@ public class UnitConverterActivity extends Activity {
 		Log.d(TAG, "Converting");
 		cancelToast();
 		toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
-		
+
 		String amountStr = amountToConvertEditText.getText().toString().trim();
 		double amount = -1;
 		boolean isValid = false;
-		
-		if(!amountStr.isEmpty() && !amountStr.equals(".")){
+
+		if (!amountStr.isEmpty() && !amountStr.equals(".")) {
 			// Get amount to convert
 			amount = Double.parseDouble(amountStr);
-			
+
 			// Check that amount is a positive number
 			if (amount >= 0)
 				isValid = true;
 		}
-		
-		if(isValid) {
+
+		if (isValid) {
 			// Get both initial position and the unit to convert to from
 			// their respective spinners
 			int initialUnitPosition = inititialUnitsSpinner.getSelectedItemPosition();
@@ -325,12 +360,10 @@ public class UnitConverterActivity extends Activity {
 		super.onSaveInstanceState(savedInstanceState);
 
 		savedInstanceState.putInt((getResources().getString(R.string.category)), category);
-		savedInstanceState.putInt((getResources().getString(R.string.initial_position)),
-				inititialUnitsSpinner.getSelectedItemPosition());
+		savedInstanceState.putInt((getResources().getString(R.string.initial_position)), initialPosition);
 
 		Log.d(TAG, "saving initial: " + inititialUnitsSpinner.getSelectedItemPosition());
-		savedInstanceState.putInt((getResources().getString(R.string.conversion_position)),
-				conversionUnitSpinner.getSelectedItemPosition());
+		savedInstanceState.putInt((getResources().getString(R.string.conversion_position)), conversionPosition);
 
 		Log.d(TAG, "saving conversion: " + conversionUnitSpinner.getSelectedItemPosition());
 		savedInstanceState.putString((getResources().getString(R.string.convert_amount)),

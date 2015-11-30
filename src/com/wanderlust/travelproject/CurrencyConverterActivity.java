@@ -107,12 +107,24 @@ public class CurrencyConverterActivity extends Activity {
 		spinner.setAdapter(adapter);
 	}
 
+	/**
+	 * Clears the fields
+	 * 
+	 * @param view
+	 */
 	public void clearFields(View view) {
 		Log.d(TAG, "Clearing");
 		initialAmountEditText.setText("");
 		resultAmountTextView.setText("");
 	}
 
+	/**
+	 * Triggered as the user clicks on the convert button. This method validates
+	 * the edit text, if everything is fine, it tries to get the conversion.
+	 * Otherwise, it displays an error message for user to try again.
+	 * 
+	 * @param view
+	 */
 	public void convertCurrency(View view) {
 		Log.d(TAG, "Converting");
 		cancelToast();
@@ -143,6 +155,11 @@ public class CurrencyConverterActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Method tries to get the conversion. Beforehand, it checks whether user is
+	 * connected to wifi. If the device is connected, it starts an async task
+	 * else it simply displays an error saying that you have to be connected.
+	 */
 	private void getConversion() {
 		cancelToast();
 		toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
@@ -157,7 +174,10 @@ public class CurrencyConverterActivity extends Activity {
 			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 			if (networkInfo != null && networkInfo.isConnected()) {
+				// the url to get the multiplier
 				String url = "http://api.fixer.io/latest?base=" + initialCurrency + "&symbols=" + resultCurrency;
+
+				// invoke the AsyncTask to do the work in the background
 				new RetrieveConversion().execute(url);
 			} else {
 				toast.setText(R.string.connection_err_msg);
@@ -166,6 +186,12 @@ public class CurrencyConverterActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Invoked as user clicks on the swap image button. Swaps position of both
+	 * spinners
+	 * 
+	 * @param view
+	 */
 	public void swapCurrency(View view) {
 		Log.d(TAG, "Swaping");
 
@@ -199,9 +225,12 @@ public class CurrencyConverterActivity extends Activity {
 				resultAmountTextView.getText().toString());
 	}
 
+	/**
+	 * AsyncTask which tries to retrieve the conversion rate from one currency
+	 * to another based on the url that was passed to it
+	 */
 	private class RetrieveConversion extends AsyncTask<String, Void, String> {
-		private Toast toast;
-		
+
 		@Override
 		protected void onPostExecute(String result) {
 			resultAmountTextView.setText(result);
@@ -209,23 +238,22 @@ public class CurrencyConverterActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... params) {
-			//cancelToast();
-			//toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
-
 			try {
 				return downloadUrl(params[0]);
-			} catch (IOException e) {
-				//toast.setText(R.string.retrieve_err_msg);
-				//toast.show();
-				return "1";
-			} catch (JSONException e) {
-				//toast.setText(R.string.json_err_msg);
-				//toast.show();
-				return "2";
+			} catch (Exception e) {
+				return "";
 			}
 		}
 	}
 
+	/**
+	 * Establishes an HTTP connection to the given URL
+	 * 
+	 * @param myurl
+	 * @return
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	public String downloadUrl(String myurl) throws IOException, JSONException {
 		String resultCurrency = currencyArray[resultCurrencySpinner.getSelectedItemPosition()];
 		Double amount = Double.parseDouble(initialAmountEditText.getText().toString());
@@ -283,10 +311,14 @@ public class CurrencyConverterActivity extends Activity {
 
 			// read the stream (max len bytes)
 			String jsonString = callURL(is, MAXBYTES);
-			Double multiplier = getConversionFromJSON(jsonString, resultCurrency);
+
+			// Get the conversion rate
+			Double multiplier = getConversionRateFromJSON(jsonString, resultCurrency);
+
+			// Get the result of the conversion and rounds it to 2 numbers after
+			// decimal point
 			Double result = Math.round((amount * multiplier) * 100.0) / 100.0;
-			
-			
+
 			return String.valueOf(result);
 		} catch (IOException e) {
 			throw e;
@@ -313,25 +345,42 @@ public class CurrencyConverterActivity extends Activity {
 		}
 	}
 
-	private Double getConversionFromJSON(String jsonString, String resultCurrency) throws JSONException {
+	/**
+	 * Get the conversion rate from the JSON object
+	 * 
+	 * @param jsonString
+	 * @param resultCurrency
+	 * @return
+	 * @throws JSONException
+	 */
+	private Double getConversionRateFromJSON(String jsonString, String resultCurrency) throws JSONException {
 		Log.d(TAG, "Currency: " + resultCurrency);
 		Log.d(TAG, "JSON string: " + jsonString.trim());
-		JSONObject json = new JSONObject(jsonString.trim());
-		
-		Log.d(TAG, "Convert: " + json.getJSONObject("rates").getDouble(resultCurrency));
-		Double result = json.getJSONObject("rates").getDouble(resultCurrency);
-		
-		
-		
 
-		return result; // TODO CHANGE THIS
+		// Create new json object out of the given string
+		JSONObject json = new JSONObject(jsonString.trim());
+
+		Log.d(TAG, "Convert: " + json.getJSONObject("rates").getDouble(resultCurrency));
+		// Gets the conversion rate by finding it in JSONObject by the currency
+		// name
+		Double result = json.getJSONObject("rates").getDouble(resultCurrency);
+
+		return result;
 	}
 
+	/**
+	 * Reads the stream from HTTP connection and converts it into a String
+	 * 
+	 * @param stream
+	 * @param length
+	 * @return
+	 * @throws IOException
+	 * @throws UnsupportedEncodingException
+	 */
 	public String callURL(InputStream stream, int length) throws IOException, UnsupportedEncodingException {
 		char[] buffer = new char[length];
 		Reader reader = null;
 		reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"), length);
-		// int count = reader.read(buffer);
 		reader.read(buffer);
 
 		return new String(buffer);
