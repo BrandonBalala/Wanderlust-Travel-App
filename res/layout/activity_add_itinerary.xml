@@ -38,7 +38,7 @@
         android:textSize="@dimen/textSize" />
 
     <EditText
-        android:id="@+id/descriptionEt"
+        android:id="@+id/itinerary_description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
@@ -58,6 +58,8 @@
         android:id="@+id/itinerary_amount"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:digits="0123456789."
+        android:inputType="numberDecimal"
         android:singleLine="true" />
 
     <TextView

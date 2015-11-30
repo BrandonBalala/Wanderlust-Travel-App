@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 public class AddItineraryActivity extends Activity {
 	private Button departurePickDate;
@@ -98,7 +99,24 @@ public class AddItineraryActivity extends Activity {
 		}
 	};
 	public void addItinerary(View view){
+		// verifies if the departure date is not in the past
+		// getting input category
+		EditText descriptionEt = (EditText) findViewById(R.id.itinerary_description);
+		String description = descriptionEt.getText().toString();
+		// getting input amount
+		EditText amountEt = (EditText) findViewById(R.id.itinerary_amount);
+		Double amount = Double.valueOf(amountEt.getText().toString());
+		// getting input category
+		EditText categoryEt = (EditText) findViewById(R.id.itinerary_category);
+		String category = categoryEt.getText().toString();
 		
+		// getting input name of supplier
+		EditText nameOfSupplierEt = (EditText) findViewById(R.id.itinerary_name_of_supplier);
+		String nameOfSupplier = nameOfSupplierEt.getText().toString();
+		
+		// getting input name of supplier
+		EditText addressEt = (EditText) findViewById(R.id.itinerary_address);
+		String address = addressEt.getText().toString();
 	}
 	
 }

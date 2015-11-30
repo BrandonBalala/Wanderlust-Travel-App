@@ -23,6 +23,7 @@ public class StartUpActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		//i'VE TESTED IT WITH FINISH() 
         moveTaskToBack(true);
 	}
 	

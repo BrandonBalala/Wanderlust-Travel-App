@@ -14,7 +14,7 @@ public class JSONWeather {
 
 		// We create out JSONObject from the data
 		JSONObject jObj = new JSONObject(data);
-		
+		// TODO: CATCH THE EXCEPTION
 		// We start extracting the info
 		Location loc = new Location();
 		
