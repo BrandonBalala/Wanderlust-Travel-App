@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Travel App</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Under construction!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_tip_calculator">Tip Calculator</string>
     <string name="amount">Bill Amount: </string>
@@ -71,7 +71,8 @@
     <string name="retrieve_err_msg">Unable to retrieve conversion</string>
     <string name="json_err_msg">Unable to parse conversion</string>
     <string name="title_activity_to_be_created">ToBeCreatedActivity</string>
-
-    
     <string name="to_be_created">Under construction</string>
+    
+    <string name="title_activity_settings_ativity">Settings</string>
+
 </resources>

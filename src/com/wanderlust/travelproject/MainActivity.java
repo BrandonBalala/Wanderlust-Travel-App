@@ -57,13 +57,16 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.shared_menu, menu);
+		return true;
+		/**
 		Intent about = new Intent(this, ToBeCreatedActivity.class);
 		menu.add(R.string.title_activity_about).setIntent(about).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
 
 		Intent dawson = new Intent(Intent.ACTION_VIEW,
 				Uri.parse("http://www.dawsoncollege.qc.ca/computer-science-technology/"));
 		menu.add(R.string.dawson).setIntent(dawson).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
-		return true;
+		return true;*/
 	}
 
 	@Override
@@ -72,7 +75,20 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.settingsMenuItem) {
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		else if(id == R.id.aboutMenuItem) {
+			Intent intent = new Intent(this, ToBeCreatedActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		else if(id == R.id.dawsonMenuItem){
+			Intent intent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://www.dawsoncollege.qc.ca/computer-science-technology/"));
+			startActivity(intent);
 			return true;
 		}
 		
