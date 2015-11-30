@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		// Inflate the menu; this adds items to the action bar if it is present.
-		Intent about = new Intent(this, AboutActivity.class);
+		Intent about = new Intent(this, ToBeCreatedActivity.class);
 		menu.add(R.string.title_activity_about).setIntent(about).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
 
 		Intent dawson = new Intent(Intent.ACTION_VIEW,
@@ -75,6 +75,7 @@ public class MainActivity extends Activity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -94,8 +95,8 @@ public class MainActivity extends Activity {
 
 	public void toBeCreated(View view) {
 
-		Intent i = new Intent(this, UnitConverterActivity.class);
-		startActivity(i);
+		Intent intent = new Intent(this, ToBeCreatedActivity.class);
+		startActivity(intent);
 
 	}
 
