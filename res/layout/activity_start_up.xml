@@ -10,8 +10,8 @@
     tools:context="com.wanderlust.travelproject.StartUpActivity" >
 
     <ImageView
-        android:layout_width="298dp"
-        android:layout_height="178dp"
+        android:layout_width="267dp"
+        android:layout_height="154dp"
         android:layout_gravity="center"
         android:src="@drawable/header" />
 

@@ -112,8 +112,8 @@ public class MainActivity extends Activity {
 	}
 
 	public void weather(View view) {
-		Intent currentTrips = new Intent(this, WeatherActivity.class);
-		startActivity(currentTrips);
+		Intent weather = new Intent(this, WeatherActivity.class);
+		startActivity(weather);
 	}
 
 	public void manageTrips(View view) {
