@@ -40,7 +40,7 @@ public class TripActivity extends Activity {
 
 		ListView lv = (ListView) findViewById(R.id.displayTrips);
 		//test purpose
-		dbh.createNewTrip(0, "Manage tips", "This is a test for manage trips");
+		dbh.createNewTrip(0, "Manage trips", "This is a test for manage trips");
 		
 		
 		cursor = dbh.getAllTrips();

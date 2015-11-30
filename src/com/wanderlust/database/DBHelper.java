@@ -10,7 +10,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.format.DateFormat;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -44,20 +43,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	
 	// Shared column names between ITINERARY table & ACTUALEXPENSE table
-	public static final String COLUMN_LOCATION_ID = "location_id";
 	public static final String COLUMN_ARRIVALDATE = "arrivaldate";
 	public static final String COLUMN_DEPARTUREDATE = "departuredate";
 	public static final String COLUMN_AMOUNT = "amount";
 	public static final String COLUMN_CATEGORY = "category";
-
-	// ACTUALEXPENSE table field names COLUMN names
 	public static final String COLUMN_SUPPLIER_NAME = "supplier_name";
 	public static final String COLUMN_ADDRESS = "address";
 	
+	// ACTUALEXPENSE table field names COLUMN names
+	public static final String COLUMN_BUDGETED_ID = "budgeted_id";
+		
 	// ITINERARY table field names COLUMN names
-	public static final String COLUMN_ACTUAL_ID = "actual_id"; 
+	public static final String COLUMN_LOCATION_ID = "location_id";
 
-
+	
 	// file name
 	private static final String DATABASE_NAME = "travel.db";
 	// database version
@@ -88,16 +87,18 @@ public class DBHelper extends SQLiteOpenHelper {
 			+ COLUMN_AMOUNT + " real, " + COLUMN_DESCRIPTION + " text not null," + COLUMN_CATEGORY + " text not null, "
 			+ COLUMN_SUPPLIER_NAME + " text not null," + COLUMN_ADDRESS + " text not null, "
 			+ COLUMN_LOCATION_ID + " integer,"
-			+ COLUMN_ACTUAL_ID + " integer," 
+			+ COLUMN_TRIP_ID + " integer," 
 			+ " FOREIGN KEY ("+ COLUMN_LOCATION_ID+") REFERENCES " + TABLE_LOCATIONS + "(" + COLUMN_ID +"),"		
-			+ " FOREIGN KEY ("+ COLUMN_ACTUAL_ID+") REFERENCES " + TABLE_TRIPS + "(" + COLUMN_ID +"));";
+			+ " FOREIGN KEY ("+ COLUMN_TRIP_ID+") REFERENCES " + TABLE_TRIPS + "(" + COLUMN_ID +"));";
 
 	// ACTUALEXPENSE table create statement
 	private static final String DATABASE_ACTUALEXPENSE_TABLE = "create table " + TABLE_ACTUALEXPENSE + "(" 
 			+ COLUMN_ID + " integer primary key autoincrement, " +  COLUMN_ARRIVALDATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " 
 			+ COLUMN_DEPARTUREDATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
 			+ COLUMN_AMOUNT + " real, " + COLUMN_DESCRIPTION + " text not null," + COLUMN_CATEGORY + " text not null,"
-			+ COLUMN_SUPPLIER_NAME + " text not null," + COLUMN_ADDRESS + " text not null);";
+			+ COLUMN_SUPPLIER_NAME + " text not null," + COLUMN_ADDRESS + " text not null,"
+			+ COLUMN_BUDGETED_ID + " integer," 
+			+ " FOREIGN KEY ("+ COLUMN_BUDGETED_ID+") REFERENCES " + TABLE_ITINERARY + "(" + COLUMN_ID +"));";
 	/**
 	 * Constructor
 	 * 
@@ -299,14 +300,14 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE Creating an itinerary
 	 */
-	public long createNewItinerary(int location_id, int actual_id, String arrivalDate, String departureDate, double amount,
+	public long createNewItinerary(int location_id, int trip_id, String arrivalDate, String departureDate, double amount,
 			String description, String category, String supplier_name, String address) {
 
 		ContentValues values = new ContentValues();
-		values.put(COLUMN_TRIP_ID, location_id);
-		values.put(COLUMN_ACTUAL_ID, actual_id);
-		values.put(COLUMN_NAME, arrivalDate);
-		values.put(COLUMN_NAME, departureDate);
+		values.put(COLUMN_LOCATION_ID, location_id);
+		values.put(COLUMN_TRIP_ID, trip_id);
+		values.put(COLUMN_ARRIVALDATE, arrivalDate);
+		values.put(COLUMN_DEPARTUREDATE, departureDate);
 		values.put(COLUMN_AMOUNT, amount);
 		values.put(COLUMN_DESCRIPTION, description);
 		values.put(COLUMN_CATEGORY, category);
@@ -341,24 +342,24 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * getting all itineraries of a trip
 	 */
-	public Cursor getTripItineraries(int actual_id) {
+	public Cursor getTripItineraries(int trip_id) {
 
-		return getReadableDatabase().query(TABLE_ITINERARY, null,  COLUMN_ACTUAL_ID + " = ?",
-				new String[] { String.valueOf(actual_id) }, null, null, null);
+		return getReadableDatabase().query(TABLE_ITINERARY, null,  COLUMN_TRIP_ID + " = ?",
+				new String[] { String.valueOf(trip_id) }, null, null, null);
 
 	}
 
 	/*
 	 * UPDATE Updating an itinerary
 	 */
-	public void updateItinerary(int itinerary_id, int location_id, int actual_id, String arrivalDate, String departureDate,
+	public void updateItinerary(int itinerary_id, int location_id, int trip_id, String arrivalDate, String departureDate,
 		 	double amount, String description, String category, String supplier_name, String address) {
 
 		ContentValues values = new ContentValues();
-		values.put(COLUMN_TRIP_ID, location_id);
-		values.put(COLUMN_ACTUAL_ID, actual_id);
-		values.put(COLUMN_NAME, arrivalDate);
-		values.put(COLUMN_NAME, departureDate);
+		values.put(COLUMN_LOCATION_ID, location_id);
+		values.put(COLUMN_TRIP_ID, trip_id);
+		values.put(COLUMN_ARRIVALDATE, arrivalDate);
+		values.put(COLUMN_DEPARTUREDATE, departureDate);
 		values.put(COLUMN_AMOUNT, amount);
 		values.put(COLUMN_DESCRIPTION, description);
 		values.put(COLUMN_CATEGORY, category);
@@ -384,10 +385,11 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE Creating a actual expense
 	 */
-	public long createNewActualExpense(String arrivalDate, String departureDate, double amount,
+	public long createNewActualExpense(int budgeted_id,String arrivalDate, String departureDate, double amount,
 			String description, String category, String supplierName, String address) {
 
 		ContentValues values = new ContentValues();
+		values.put(COLUMN_BUDGETED_ID, budgeted_id);
 		values.put(COLUMN_NAME, arrivalDate);
 		values.put(COLUMN_NAME, departureDate);
 		values.put(COLUMN_AMOUNT, amount);
@@ -423,10 +425,11 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * UPDATE Updating a actual expense
 	 */
-	public void updateActualExpense(int actualExpense_id, String arrivalDate, String departureDate,
+	public void updateActualExpense(int actualExpense_id, int budgeted_id, String arrivalDate, String departureDate,
 			double amount, String description, String category, String supplierName, String address) {
 
 		ContentValues values = new ContentValues();
+		values.put(COLUMN_BUDGETED_ID, budgeted_id);
 		values.put(COLUMN_NAME, arrivalDate);
 		values.put(COLUMN_NAME, departureDate);
 		values.put(COLUMN_AMOUNT, amount);
@@ -464,5 +467,15 @@ public class DBHelper extends SQLiteOpenHelper {
 				null, null, null);
 
 	}
+	
+	/********************************************************************
+	 *							JOIN TABLE
+	 ********************************************************************/
+	
+	
+	
+	
+	
+	
 	
 }

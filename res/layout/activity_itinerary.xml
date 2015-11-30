@@ -9,9 +9,19 @@
     tools:context="com.wanderlust.travelproject.ItineraryActivity" >
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/depaturedate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
-
+    
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+    <TextView
+        android:id="@+id/arivaldate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
 </RelativeLayout>

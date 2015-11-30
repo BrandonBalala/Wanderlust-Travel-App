@@ -68,6 +68,10 @@
             android:name="com.wanderlust.travelproject.SettingsActivity"
             android:label="@string/title_activity_settings_ativity" >
         </activity>
+        <activity
+            android:name="com.wanderlust.travelproject.AddItineraryActivity"
+            android:label="@string/title_activity_add_itinerary" >
+        </activity>
     </application>
 
 </manifest>
