@@ -265,31 +265,13 @@ public class CurrencyConverterActivity extends Activity {
 			// create and open the connection
 			conn = (HttpURLConnection) url.openConnection();
 
-			/*
-			 * set maximum time to wait for stream read read fails with
-			 * SocketTimeoutException if elapses before connection established
-			 * 
-			 * in milliseconds
-			 * 
-			 * default: 0 - timeout disabled
-			 */
+			//set maximum time to wait for stream read read fails
 			conn.setReadTimeout(10000);
-			/*
-			 * set maximum time to wait while connecting connect fails with
-			 * SocketTimeoutException if elapses before connection established
-			 * 
-			 * in milliseconds
-			 * 
-			 * default: 0 - forces blocking connect timeout still occurs but
-			 * VERY LONG wait ~several minutes
-			 */
-			conn.setConnectTimeout(15000 /* milliseconds */);
-			/*
-			 * HTTP Request method defined by protocol
-			 * GET/POST/HEAD/POST/PUT/DELETE/TRACE/CONNECT
-			 * 
-			 * default: GET
-			 */
+			
+			//set maximum time to wait while connecting connect fails
+			conn.setConnectTimeout(15000);
+			
+			//Set HTTP Request method 
 			conn.setRequestMethod("GET");
 			// specifies whether this connection allows receiving data
 			conn.setDoInput(true);
@@ -326,11 +308,9 @@ public class CurrencyConverterActivity extends Activity {
 			throw e;
 		} finally {
 			/*
-			 * Make sure that the InputStream is closed after the app is
-			 * finished using it. Make sure the connection is closed after the
-			 * app is finished using it.
+			 * Close InputStream after app finished using it.
+			 * Make sure connection is closed after done with it too..
 			 */
-
 			if (is != null) {
 				try {
 					is.close();
