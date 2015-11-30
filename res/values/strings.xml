@@ -38,6 +38,7 @@
     <string name="conversion_position">conversion_unit</string>
     <string name="convert_amount">amount</string>
     <string name="convert_result">result</string>
+    <string name="selectdate">Select Date</string>
 
     <!-- STARTUP STRINGS -->
     <string name="title_activity_sign_up">SignUpActivity</string>
@@ -72,7 +73,6 @@
     <string name="json_err_msg">Unable to parse conversion</string>
     <string name="title_activity_to_be_created">ToBeCreatedActivity</string>
     <string name="to_be_created">Under construction</string>
-    
     <string name="title_activity_settings_ativity">Settings</string>
 
 </resources>

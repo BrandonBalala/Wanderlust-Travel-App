@@ -1,7 +1,13 @@
 package com.wanderlust.travelproject;
 
-import com.bob.travelproject.R;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
+import com.bob.travelproject.R;
+import com.wanderlust.database.DBHelper;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +15,12 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 /**
  * This is a class that handles the activities / trips that are supposed to be
@@ -25,42 +34,82 @@ public class TodayActivity extends ListFragment implements FragmentManager.OnBac
 	private final static String TAG = "TODAY-ACTIVITY";
 	int mCurPosition = -1;
 	boolean mShowTwoFragments;
+	private DBHelper dbh;
+	private Cursor cursor;
+	private SimpleCursorAdapter sca;
+	boolean returnHit = false;
 
+	@SuppressLint("SimpleDateFormat")
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
 		// Line that will instantiate the database query of activities today.
-		// DBHelper dbh = DBHelper.getDBHelper(this);
-		// checks if table is not empty for activities that are queried in the
-		// DBHelper class
-		// if (dbh.getActivitiesToday() != 0) {
+		dbh = DBHelper.getDBHelper(getActivity());
 
-		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		Timestamp ts;
+		Intent intent = getActivity().getIntent();
+		int year = intent.getIntExtra("year", 2015);
+		int month = intent.getIntExtra("month", 11);
+		int day = intent.getIntExtra("day", 29);
+		Log.v(TAG, "Intent year" + year);
+		Log.v(TAG, "Intent month" + month);
+		Log.v(TAG, "Intent day" + day);
 
-		// todayTrips will be pulled out from the local database using SQLite
-		// String[] todayTrips =
-		// getResources().getStringArray(R.array.fieldnotes_array);
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH, day);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		Date searchDate = cal.getTime();
+		ts = new Timestamp(searchDate.getTime());
 
-		// for debug purposes, mock data are created in the array xml
-		String[] todayTrips = getResources().getStringArray(R.array.trip_types);
+		Log.v(TAG, "String of the timestamp" + ts);
 
-		setListAdapter(
-				new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, todayTrips));
+		// checks if table is not empty for activities that are queried in
+		// the
+		// // DBHelper class
+		if (dbh.getActivitiesToday(ts).getCount() < 1) {
+			Log.v(TAG, "the database is empty with this date" + ts);
+			Toast.makeText(getActivity().getApplicationContext(), "There are no trips for" + ts.toString(),
+					Toast.LENGTH_LONG).show();
+			getActivity().setResult(0);
+			getActivity().finish();
 
-		// Check which state we're in
-		View detailsFrame = getActivity().findViewById(R.id.fieldentry);
+		} else {
+			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-		mShowTwoFragments = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
-		if (savedInstanceState != null) {
-			mCurPosition = savedInstanceState.getInt("curChoice", 0);
+			// todayTrips will be pulled out from the local database using
+			// SQLite
+			String[] todayTrips = new String[dbh.getActivitiesToday(ts).getCount()];
+			cursor = dbh.getActivitiesToday(ts);
+
+			cursor.moveToFirst();
+			int i = 0;
+			while (!cursor.isAfterLast()) {
+				todayTrips[i] = cursor.getString(4);
+				i++;
+				cursor.moveToNext();
+			}
+			setListAdapter(
+					new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, todayTrips));
+
+			// Check which state we're in
+			View detailsFrame = getActivity().findViewById(R.id.fieldentry);
+
+			mShowTwoFragments = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+			if (savedInstanceState != null) {
+				mCurPosition = savedInstanceState.getInt("curChoice", 0);
+			}
+			if (mShowTwoFragments == true || mCurPosition != -1) {
+				viewActivityInfo(mCurPosition);
+			}
+			getFragmentManager().addOnBackStackChangedListener(this);
 		}
-		if (mShowTwoFragments == true || mCurPosition != -1) {
-			viewActivityInfo(mCurPosition);
-		}
-		getFragmentManager().addOnBackStackChangedListener(this);
 
-		// }
 	}
 
 	@Override
@@ -88,7 +137,9 @@ public class TodayActivity extends ListFragment implements FragmentManager.OnBac
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		viewActivityInfo(position);
+		Cursor cursortemp = (Cursor) this.getListView().getItemAtPosition(position);
+		int idDB = cursortemp.getInt(0);
+		viewActivityInfo(idDB);
 	}
 
 	void viewActivityInfo(int index) {
@@ -178,6 +229,10 @@ public class TodayActivity extends ListFragment implements FragmentManager.OnBac
 		super.onStop();
 	}
 
+	public void logIt(String msg) {
+		final String TAG = "DBCURSOR";
+		Log.d(TAG, msg);
+	}
 }
 
 /**

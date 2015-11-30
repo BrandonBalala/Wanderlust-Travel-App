@@ -1,5 +1,6 @@
 package com.wanderlust.database;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -445,4 +447,22 @@ public class DBHelper extends SQLiteOpenHelper {
 		getWritableDatabase().delete(TABLE_ACTUALEXPENSE, COLUMN_ID + " = ?",
 				new String[] { String.valueOf(actualExpense_id) });
 	}
+	
+	/*
+	 * getting all the activities that are scheduled today.
+	 */
+	public Cursor getActivitiesToday(Timestamp selectedDate) {
+		// Create an instance of SimpleDateFormat used for formatting
+		// the string representation of date (month/day/year)
+		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		Log.v("Activities", selectedDate + " date");
+		// Using DateFormat format method we can create a string
+		// representation of a date with the defined format.
+		String date = df.format(selectedDate);
+
+		return getReadableDatabase().query(TABLE_ITINERARY, null, COLUMN_DEPARTUREDATE + " = ?", new String[] { date },
+				null, null, null);
+
+	}
+	
 }
