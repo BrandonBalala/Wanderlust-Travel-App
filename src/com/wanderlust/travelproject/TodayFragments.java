@@ -1,6 +1,7 @@
 package com.wanderlust.travelproject;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import com.bob.travelproject.R;
 
@@ -43,6 +44,7 @@ public class TodayFragments extends Activity implements OnClickListener {
 		// set date picker for current date
 		// add pickerListener listner to date picker
 		DatePickerDialog dpd = new DatePickerDialog(this, pickerListener, year, month, day);
+		Date newDate = new Date();	
 		dpd.setButton(DatePickerDialog.BUTTON_NEGATIVE, "", this);
 		dpd.setOnKeyListener(new Dialog.OnKeyListener() {
 			@Override
@@ -58,6 +60,7 @@ public class TodayFragments extends Activity implements OnClickListener {
 				return true;
 			}
 		});
+		dpd.getDatePicker().setMinDate(newDate.getTime());
 		return dpd;
 
 	}

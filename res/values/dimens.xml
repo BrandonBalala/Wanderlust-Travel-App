@@ -30,4 +30,12 @@
    <dimen name="imageView_trip_layout_width">100dp</dimen>
    <dimen name="imageView_trip_layout_height">100dp</dimen>
    
+           <!-- ITINERARY -->
+  <dimen name="textView_itinerary_padding">150dp</dimen>
+  <dimen name="textView_itinerary_error_paddingLeft">105dp</dimen>
+  <dimen name="textView_itinerary_error_paddingRight">50dp</dimen>
+  <dimen name="button_itinerary_margin">115dp</dimen>
+  <dimen name="button_itinerary_marginRight">80dp</dimen>
+  <dimen name="linerlayout_itinerary_padding">20dp</dimen>
+  
 </resources>

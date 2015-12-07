@@ -48,7 +48,7 @@ public class CurrentTripActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {		
 			Intent intent = new Intent(context, ItineraryActivity.class);
-			intent.putExtra("actual_id", lastTripViewedId);
+			intent.putExtra("trip_id", lastTripViewedId);
 			startActivity(intent);
 		}
 	};

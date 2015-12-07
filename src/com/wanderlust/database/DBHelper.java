@@ -13,10 +13,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
-	
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-	public static Date date = new Date();	
-	
+
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
+	public static Date date = new Date();
+
 	// TAG for logcat debugging
 	public static final String TAG = "DBInfo";
 	// table names
@@ -30,7 +30,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_DESCRIPTION = "description";
 
-	
 	// Trips table field names COLUMN names
 	public static final String COLUMN_TRIP_ID = "trip_id";
 	public static final String COLUMN_CREATION = "createdate";
@@ -41,7 +40,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_CITY = "city";
 	public static final String COLUMN_COUNTRYCODE = "countrycode";
 
-	
 	// Shared column names between ITINERARY table & ACTUALEXPENSE table
 	public static final String COLUMN_ARRIVALDATE = "arrivaldate";
 	public static final String COLUMN_DEPARTUREDATE = "departuredate";
@@ -49,14 +47,13 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_CATEGORY = "category";
 	public static final String COLUMN_SUPPLIER_NAME = "supplier_name";
 	public static final String COLUMN_ADDRESS = "address";
-	
+
 	// ACTUALEXPENSE table field names COLUMN names
 	public static final String COLUMN_BUDGETED_ID = "budgeted_id";
-		
+
 	// ITINERARY table field names COLUMN names
 	public static final String COLUMN_LOCATION_ID = "location_id";
 
-	
 	// file name
 	private static final String DATABASE_NAME = "travel.db";
 	// database version
@@ -69,36 +66,31 @@ public class DBHelper extends SQLiteOpenHelper {
 	// TRIPS table create statement
 	private static final String DATABASE_TRIPS_TABLE = "create table " + TABLE_TRIPS + "(" + COLUMN_ID
 			+ " integer primary key autoincrement, " + COLUMN_TRIP_ID + " integer, " + COLUMN_CREATION
-			+ " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " + COLUMN_UPDATE + " timestamp , "
-			+ COLUMN_CLOSE + " timestamp, " + COLUMN_NAME + " text not null, "
-			+ COLUMN_DESCRIPTION + " text not null);";
+			+ " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " + COLUMN_UPDATE + " timestamp , " + COLUMN_CLOSE + " timestamp, "
+			+ COLUMN_NAME + " text not null, " + COLUMN_DESCRIPTION + " text not null);";
 
 	// LOCATION table create statement
 	private static final String DATABASE_LOCATIONS_TABLE = "create table " + TABLE_LOCATIONS + "(" + COLUMN_ID
-			+ " integer primary key autoincrement, "  + COLUMN_NAME + " text not null, "
-			+ COLUMN_DESCRIPTION + " text not null," + COLUMN_CITY + " text not null, " + COLUMN_COUNTRYCODE
-			+ " text not null);";
+			+ " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_DESCRIPTION
+			+ " text not null," + COLUMN_CITY + " text not null, " + COLUMN_COUNTRYCODE + " text not null);";
 
-	
 	// ITINERARY table create statement
-	private static final String DATABASE_ITINERARY_TABLE = "create table " + TABLE_ITINERARY + "("
-			+ COLUMN_ID + " integer primary key autoincrement, " + COLUMN_ARRIVALDATE
-			+ " TIMESTAMP, " + COLUMN_DEPARTUREDATE + " TIMESTAMP, "
-			+ COLUMN_AMOUNT + " real, " + COLUMN_DESCRIPTION + " text not null," + COLUMN_CATEGORY + " text not null, "
-			+ COLUMN_SUPPLIER_NAME + " text not null," + COLUMN_ADDRESS + " text not null, "
-			+ COLUMN_LOCATION_ID + " integer,"
-			+ COLUMN_TRIP_ID + " integer," 
-			+ " FOREIGN KEY ("+ COLUMN_LOCATION_ID+") REFERENCES " + TABLE_LOCATIONS + "(" + COLUMN_ID +"),"		
-			+ " FOREIGN KEY ("+ COLUMN_TRIP_ID+") REFERENCES " + TABLE_TRIPS + "(" + COLUMN_ID +"));";
+	private static final String DATABASE_ITINERARY_TABLE = "create table " + TABLE_ITINERARY + "(" + COLUMN_ID
+			+ " integer primary key autoincrement, " + COLUMN_ARRIVALDATE + " TIMESTAMP, " + COLUMN_DEPARTUREDATE
+			+ " TIMESTAMP, " + COLUMN_AMOUNT + " real, " + COLUMN_DESCRIPTION + " text not null," + COLUMN_CATEGORY
+			+ " text not null, " + COLUMN_SUPPLIER_NAME + " text not null," + COLUMN_ADDRESS + " text not null, "
+			+ COLUMN_LOCATION_ID + " integer," + COLUMN_TRIP_ID + " integer," + " FOREIGN KEY (" + COLUMN_LOCATION_ID
+			+ ") REFERENCES " + TABLE_LOCATIONS + "(" + COLUMN_ID + ")," + " FOREIGN KEY (" + COLUMN_TRIP_ID
+			+ ") REFERENCES " + TABLE_TRIPS + "(" + COLUMN_ID + "));";
 
 	// ACTUALEXPENSE table create statement
-	private static final String DATABASE_ACTUALEXPENSE_TABLE = "create table " + TABLE_ACTUALEXPENSE + "(" 
-			+ COLUMN_ID + " integer primary key autoincrement, " +  COLUMN_ARRIVALDATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " 
-			+ COLUMN_DEPARTUREDATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
-			+ COLUMN_AMOUNT + " real, " + COLUMN_DESCRIPTION + " text not null," + COLUMN_CATEGORY + " text not null,"
-			+ COLUMN_SUPPLIER_NAME + " text not null," + COLUMN_ADDRESS + " text not null,"
-			+ COLUMN_BUDGETED_ID + " integer," 
-			+ " FOREIGN KEY ("+ COLUMN_BUDGETED_ID+") REFERENCES " + TABLE_ITINERARY + "(" + COLUMN_ID +"));";
+	private static final String DATABASE_ACTUALEXPENSE_TABLE = "create table " + TABLE_ACTUALEXPENSE + "(" + COLUMN_ID
+			+ " integer primary key autoincrement, " + COLUMN_ARRIVALDATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
+			+ COLUMN_DEPARTUREDATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " + COLUMN_AMOUNT + " real, "
+			+ COLUMN_DESCRIPTION + " text not null," + COLUMN_CATEGORY + " text not null," + COLUMN_SUPPLIER_NAME
+			+ " text not null," + COLUMN_ADDRESS + " text not null," + COLUMN_BUDGETED_ID + " integer,"
+			+ " FOREIGN KEY (" + COLUMN_BUDGETED_ID + ") REFERENCES " + TABLE_ITINERARY + "(" + COLUMN_ID + "));";
+
 	/**
 	 * Constructor
 	 * 
@@ -151,6 +143,20 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(DATABASE_ITINERARY_TABLE);
 
 		Log.i(TAG, "onCreate()");
+
+		ContentValues trip = new ContentValues();
+		trip.put(COLUMN_CREATION, dateFormat.format(date));
+		trip.put(COLUMN_TRIP_ID, 0);
+		trip.put(COLUMN_NAME, "Test 1");
+		trip.put(COLUMN_DESCRIPTION, "This is a test on the data");
+		db.insert(TABLE_TRIPS, null, trip);
+
+		ContentValues trip2 = new ContentValues();
+		trip2.put(COLUMN_CREATION, dateFormat.format(date));
+		trip2.put(COLUMN_TRIP_ID, 0);
+		trip2.put(COLUMN_NAME, "Test 2 ");
+		trip2.put(COLUMN_DESCRIPTION, "This is a second test on the data");
+		db.insert(TABLE_TRIPS, null, trip2);
 	}
 
 	/**
@@ -182,8 +188,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE Creating a trips
 	 */
-	public long createNewTrip(int trip_id, String name,String description) {
-				
+	public void createNewTrip(int trip_id, String name, String description) {
+
 		ContentValues values = new ContentValues();
 
 		values.put(COLUMN_TRIP_ID, trip_id);
@@ -193,10 +199,8 @@ public class DBHelper extends SQLiteOpenHelper {
 		values.put(COLUMN_NAME, name);
 		values.put(COLUMN_DESCRIPTION, description);
 
-		// insert row
-		long code = getWritableDatabase().insert(TABLE_TRIPS, null, values);
+		getWritableDatabase().insert(TABLE_TRIPS, null, values);
 
-		return code;
 	}
 
 	/*
@@ -204,15 +208,16 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public Cursor getTrip(int trip_id) {
 
-		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_ID + " = ?", new String [] {String.valueOf(trip_id)}, null, null, null);
+		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_ID + " = ?",
+				new String[] { String.valueOf(trip_id) }, null, null, null);
 	}
-	
+
 	/*
 	 * getting all trips
 	 */
 	public Cursor getAllTrips() {
 
-		return  getReadableDatabase().query(TABLE_TRIPS, null, null, null, null, null, null);
+		return getReadableDatabase().query(TABLE_TRIPS, null, null, null, null, null, null);
 	}
 
 	/*
@@ -223,7 +228,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_NAME, name);
 		values.put(COLUMN_DESCRIPTION, description);
-		values.put(COLUMN_UPDATE,dateFormat.format(date));
+		values.put(COLUMN_UPDATE, dateFormat.format(date));
 
 		// updating row
 		getWritableDatabase().update(TABLE_TRIPS, values, COLUMN_ID + " = ?", new String[] { String.valueOf(id) });
@@ -241,7 +246,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE Creating a location
 	 */
-	public long createNewLocation(String name, String description, String city, String countryCode) {
+	public void createNewLocation(String name, String description, String city, String countryCode) {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_NAME, name);
@@ -249,9 +254,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		values.put(COLUMN_CITY, city);
 		values.put(COLUMN_COUNTRYCODE, countryCode);
 		// insert row
-		long code = getWritableDatabase().insert(TABLE_LOCATIONS, null, values);
-
-		return code;
+		getWritableDatabase().insert(TABLE_LOCATIONS, null, values);
 	}
 
 	/*
@@ -262,13 +265,14 @@ public class DBHelper extends SQLiteOpenHelper {
 		return getReadableDatabase().query(TABLE_LOCATIONS, null, null, null, null, null, null);
 
 	}
-	
+
 	/*
 	 * getting a location
 	 */
 	public Cursor getLocations(int location_id) {
 
-		return getReadableDatabase().query(TABLE_LOCATIONS, null, COLUMN_ID + " = ?", new String [] {String.valueOf(location_id)}, null, null, null);
+		return getReadableDatabase().query(TABLE_LOCATIONS, null, COLUMN_ID + " = ?",
+				new String[] { String.valueOf(location_id) }, null, null, null);
 
 	}
 
@@ -300,19 +304,19 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE Creating an itinerary
 	 */
-	public long createNewItinerary(int location_id, int trip_id, String arrivalDate, String departureDate, double amount,
-			String description, String category, String supplier_name, String address) {
+	public long createNewItinerary(int location_id, int trip_id, Timestamp arrivalDate, Timestamp departureDate,
+			double amount, String description, String category, String supplier_name, String address) {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_LOCATION_ID, location_id);
 		values.put(COLUMN_TRIP_ID, trip_id);
-		values.put(COLUMN_ARRIVALDATE, arrivalDate);
-		values.put(COLUMN_DEPARTUREDATE, departureDate);
+		values.put(COLUMN_ARRIVALDATE, dateFormat.format(arrivalDate));
+		values.put(COLUMN_DEPARTUREDATE, dateFormat.format(departureDate));
 		values.put(COLUMN_AMOUNT, amount);
 		values.put(COLUMN_DESCRIPTION, description);
 		values.put(COLUMN_CATEGORY, category);
 		values.put(COLUMN_SUPPLIER_NAME, supplier_name);
-	    values.put(COLUMN_ADDRESS, address);
+		values.put(COLUMN_ADDRESS, address);
 
 		// insert row
 		long code = getWritableDatabase().insert(TABLE_ITINERARY, null, values);
@@ -321,51 +325,41 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	/*
-	 * getting all itineraries
-	 */
-	public Cursor getAllItinerary() {
-
-		return getReadableDatabase().query(TABLE_ITINERARY, null, null, null, null, null, null);
-
-	}
-	
-	/*
-	 * getting an itinerary 
+	 * getting an itinerary
 	 */
 	public Cursor getItinerary(int itinerary_id) {
 
-		return getReadableDatabase().query(TABLE_ITINERARY, null,  COLUMN_ID + " = ?",
+		return getReadableDatabase().query(TABLE_ITINERARY, null, COLUMN_ID + " = ?",
 				new String[] { String.valueOf(itinerary_id) }, null, null, null);
 
 	}
-	
+
 	/*
 	 * getting all itineraries of a trip
 	 */
 	public Cursor getTripItineraries(int trip_id) {
 
-		return getReadableDatabase().query(TABLE_ITINERARY, null,  COLUMN_TRIP_ID + " = ?",
-				new String[] { String.valueOf(trip_id) }, null, null, null);
+		return getReadableDatabase().query(TABLE_ITINERARY, null, COLUMN_TRIP_ID + " = ?",
+				new String[] { String.valueOf(trip_id) }, null, null, COLUMN_ARRIVALDATE);
 
 	}
 
 	/*
 	 * UPDATE Updating an itinerary
 	 */
-	public void updateItinerary(int itinerary_id, int location_id, int trip_id, String arrivalDate, String departureDate,
-		 	double amount, String description, String category, String supplier_name, String address) {
+	public void updateItinerary(int itinerary_id, Timestamp arrivalDate,
+			Timestamp departureDate, double amount, String description, String category, String supplier_name,
+			String address) {
 
 		ContentValues values = new ContentValues();
-		values.put(COLUMN_LOCATION_ID, location_id);
-		values.put(COLUMN_TRIP_ID, trip_id);
-		values.put(COLUMN_ARRIVALDATE, arrivalDate);
-		values.put(COLUMN_DEPARTUREDATE, departureDate);
+		values.put(COLUMN_ARRIVALDATE, dateFormat.format(arrivalDate));
+		values.put(COLUMN_DEPARTUREDATE, dateFormat.format(departureDate));
 		values.put(COLUMN_AMOUNT, amount);
 		values.put(COLUMN_DESCRIPTION, description);
 		values.put(COLUMN_CATEGORY, category);
 		values.put(COLUMN_SUPPLIER_NAME, supplier_name);
-	    values.put(COLUMN_ADDRESS, address);
-	    
+		values.put(COLUMN_ADDRESS, address);
+
 		// updating row
 		getWritableDatabase().update(TABLE_ITINERARY, values, COLUMN_ID + " = ?",
 				new String[] { String.valueOf(itinerary_id) });
@@ -375,8 +369,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * DELETE Deleting an itinerary
 	 */
 	public void deleteItinerary(int itinerary) {
-		getWritableDatabase().delete(TABLE_ITINERARY, COLUMN_ID + " = ?",
-				new String[] { String.valueOf(itinerary) });
+		getWritableDatabase().delete(TABLE_ITINERARY, COLUMN_ID + " = ?", new String[] { String.valueOf(itinerary) });
 	}
 
 	// ------------------------ "Itinerary" table methods
@@ -385,7 +378,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE Creating a actual expense
 	 */
-	public long createNewActualExpense(int budgeted_id,String arrivalDate, String departureDate, double amount,
+	public long createNewActualExpense(int budgeted_id, String arrivalDate, String departureDate, double amount,
 			String description, String category, String supplierName, String address) {
 
 		ContentValues values = new ContentValues();
@@ -409,10 +402,11 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public Cursor getActualExpense(int actualExpense_id) {
 
-		return getReadableDatabase().query(TABLE_ACTUALEXPENSE, null, COLUMN_ID + " = ?", new String[] { String.valueOf(actualExpense_id)}, null, null, null);
+		return getReadableDatabase().query(TABLE_ACTUALEXPENSE, null, COLUMN_ID + " = ?",
+				new String[] { String.valueOf(actualExpense_id) }, null, null, null);
 
 	}
-	
+
 	/*
 	 * getting all actual expense
 	 */
@@ -450,7 +444,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		getWritableDatabase().delete(TABLE_ACTUALEXPENSE, COLUMN_ID + " = ?",
 				new String[] { String.valueOf(actualExpense_id) });
 	}
-	
+
 	/*
 	 * getting all the activities that are scheduled today.
 	 */
@@ -467,15 +461,9 @@ public class DBHelper extends SQLiteOpenHelper {
 				null, null, null);
 
 	}
-	
+
 	/********************************************************************
-	 *							JOIN TABLE
+	 * JOIN TABLE
 	 ********************************************************************/
-	
-	
-	
-	
-	
-	
-	
+
 }

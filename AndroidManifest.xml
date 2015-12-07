@@ -72,6 +72,14 @@
             android:name="com.wanderlust.travelproject.AddItineraryActivity"
             android:label="@string/title_activity_add_itinerary" >
         </activity>
+        <activity
+            android:name="com.wanderlust.travelproject.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name="com.wanderlust.travelproject.EditActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
     </application>
 
 </manifest>

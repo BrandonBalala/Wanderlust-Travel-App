@@ -57,7 +57,7 @@
     <string name="weather_snowy">&#xf01b;</string>
     <string name="weather_thunder">&#xf01e;</string>
     <string name="weather_drizzle">&#xf01c;</string>
-    <string name="title_activity_itinerary">Manage Trips</string>
+    <string name="title_activity_itinerary">Itineraries</string>
     <string name="title_activity_trip">Trip</string>
     <string name="syncBtn">Sync</string>
 
@@ -74,7 +74,7 @@
     <string name="title_activity_to_be_created">ToBeCreatedActivity</string>
     <string name="to_be_created">Under construction</string>
     <string name="title_activity_settings_ativity">Settings</string>
-    
+
     <!-- Itinerary STRINGS -->
     <string name="title_activity_add_itinerary">Add Itinerary</string>
     <string name="addBtn">ADD</string>
@@ -86,4 +86,10 @@
     <string name="name_of_supplier">Name of Supplier</string>
     <string name="address">Address</string>
     <string name="addItinerary">Add itinerary</string>
+    <string name="editItinerary">Save Edit</string>
+    <string name="dateFormat">mm/dd/yyyy</string>
+    <string name="departureError">Please enter the departure date</string>
+    <string name="arrivalError">Please enter the arrival date</string>
+    <string name="title_activity_edit">EditActivity</string>
+
 </resources>

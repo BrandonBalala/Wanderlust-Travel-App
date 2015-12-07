@@ -1,108 +1,193 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wanderlust.travelproject.AddItineraryActivity" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFA500"
+    android:orientation="vertical" >
 
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/departureDate"
-        android:textSize="@dimen/textSize" />
+        android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/addDepartureDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <LinearLayout android:orientation="horizontal" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/arrivalDate"
-        android:textSize="@dimen/textSize" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/textView_itinerary_padding"
+                android:paddingRight="@dimen/textView_itinerary_padding"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/arrivalDate"
+                android:textColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/addArrivalDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/departureDate"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:textSize="@dimen/textSize" />
+        <LinearLayout android:orientation="horizontal" >
 
-    <EditText
-        android:id="@+id/itinerary_description"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:lines="20"
-        android:minLines="5"
-        android:scrollHorizontally="false"
-        android:scrollbars="vertical"
-        android:singleLine="false" />
+            <Button
+                android:id="@+id/addArrivalDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/button_itinerary_margin"
+                android:layout_marginRight="@dimen/button_itinerary_marginRight"
+                android:text="@string/dateFormat"
+                android:textColor="#FFFFFF" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/itinerary_amount"
-        android:textSize="@dimen/textSize" />
+            <Button
+                android:id="@+id/addDepartureDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dateFormat"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/itinerary_amount"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:digits="0123456789."
-        android:inputType="numberDecimal"
-        android:singleLine="true" />
+        <LinearLayout android:orientation="horizontal" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/category"
-        android:textSize="@dimen/textSize" />
+            <TextView
+                android:id="@+id/arrivalErrorTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/textView_itinerary_error_paddingLeft"
+                android:paddingRight="@dimen/textView_itinerary_error_paddingRight"
+                android:text="@string/arrivalError"
+                android:textColor="#FF0000"
+                android:visibility="invisible" />
 
-    <EditText
-        android:id="@+id/itinerary_category"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+            <TextView
+                android:id="@+id/departureErrorTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/departureError"
+                android:textColor="#FF0000"
+                android:visibility="invisible" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/name_of_supplier"
-        android:textSize="@dimen/textSize" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <EditText
-        android:id="@+id/itinerary_name_of_supplier"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/address"
-        android:textSize="@dimen/textSize" />
+            <EditText
+                android:id="@+id/itinerary_description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/itinerary_address"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <Button
-        android:id="@+id/additinerary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/addItinerary" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/itinerary_amount"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/itinerary_amount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/itinerary_category"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/itinerary_category"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name_of_supplier"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/itinerary_name_of_supplier"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/address"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/itinerary_address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/additinerary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addItinerary"
+            android:text="@string/addItinerary"
+            android:textColor="#FFFFFF" />
+    </TableLayout>
+
+</ScrollView>

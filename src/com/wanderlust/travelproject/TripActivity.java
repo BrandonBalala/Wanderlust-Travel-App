@@ -39,10 +39,7 @@ public class TripActivity extends Activity {
 		dbh = DBHelper.getDBHelper(this);
 
 		ListView lv = (ListView) findViewById(R.id.displayTrips);
-		
-		//test purpose
-		dbh.createNewTrip(0, "Manage trips", "This is a test for manage trips");
-		
+				
 		
 		cursor = dbh.getAllTrips();
 		if (cursor.getCount() != 0) {
@@ -57,15 +54,15 @@ public class TripActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// TODO Auto-generated method stub
-			int actual_id = (int) id;
+			int trip__id = (int) id;
 			// save the clicked trip id into the SharedPreferences
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			SharedPreferences.Editor editor = prefs.edit();
-			editor.putInt("lastTripViewedId", actual_id);
+			editor.putInt("lastTripViewedId", trip__id);
 			editor.commit();
 			
 			Intent intent = new Intent(context, ItineraryActivity.class);
-			intent.putExtra("actual_id", id);
+			intent.putExtra("trip_id", trip__id);
 			startActivity(intent);
 		}
 	};
