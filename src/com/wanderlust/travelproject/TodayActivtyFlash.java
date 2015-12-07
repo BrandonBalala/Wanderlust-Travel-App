@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.DatePicker;
 
-public class TodayFragments extends Activity implements OnClickListener {
+public class TodayActivtyFlash extends Activity implements OnClickListener {
 
 	private final static String TAG = "TODAY-ACTIVITY";
 	int mCurPosition = -1;
@@ -78,7 +78,7 @@ public class TodayFragments extends Activity implements OnClickListener {
 			Log.v(TAG, "Month" + month);
 			Log.v(TAG, "Day" + day);
 			Intent intent = new Intent();
-			intent.setClass(getApplication(), TodayActivityFragments.class);
+			intent.setClass(getApplication(), TodayActivityList.class);
 			intent.putExtra("year", year);
 			intent.putExtra("month", month);
 			intent.putExtra("day", day);
@@ -89,7 +89,7 @@ public class TodayFragments extends Activity implements OnClickListener {
 	};
 
 	/**
-	 * Lifecycle method called when an activity you launched exits
+	 * Lifecycle method called when an activity you launched exits 
 	 *
 	 * @param request
 	 *            int originally supplied to startActivityForResult()

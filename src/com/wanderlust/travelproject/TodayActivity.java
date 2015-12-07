@@ -72,43 +72,43 @@ public class TodayActivity extends ListFragment implements FragmentManager.OnBac
 		// checks if table is not empty for activities that are queried in
 		// the
 		// // DBHelper class
-		if (dbh.getActivitiesToday(ts).getCount() < 1) {
-			Log.v(TAG, "the database is empty with this date" + ts);
-			Toast.makeText(getActivity().getApplicationContext(), "There are no trips for" + ts.toString(),
-					Toast.LENGTH_LONG).show();
-			getActivity().setResult(0);
-			getActivity().finish();
-
-		} else {
-			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-			// todayTrips will be pulled out from the local database using
-			// SQLite
-			String[] todayTrips = new String[dbh.getActivitiesToday(ts).getCount()];
-			cursor = dbh.getActivitiesToday(ts);
-
-			cursor.moveToFirst();
-			int i = 0;
-			while (!cursor.isAfterLast()) {
-				todayTrips[i] = cursor.getString(4);
-				i++;
-				cursor.moveToNext();
-			}
-			setListAdapter(
-					new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, todayTrips));
-
-			// Check which state we're in
-			View detailsFrame = getActivity().findViewById(R.id.fieldentry);
-
-			mShowTwoFragments = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
-			if (savedInstanceState != null) {
-				mCurPosition = savedInstanceState.getInt("curChoice", 0);
-			}
-			if (mShowTwoFragments == true || mCurPosition != -1) {
-				viewActivityInfo(mCurPosition);
-			}
-			getFragmentManager().addOnBackStackChangedListener(this);
-		}
+//		if (dbh.getActivitiesToday(ts).getCount() < 1) {
+//			Log.v(TAG, "the database is empty with this date" + ts);
+//			Toast.makeText(getActivity().getApplicationContext(), "There are no trips for" + ts.toString(),
+//					Toast.LENGTH_LONG).show();
+//			getActivity().setResult(0);
+//			getActivity().finish();
+//
+//		} else {
+//			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//
+//			// todayTrips will be pulled out from the local database using
+//			// SQLite
+//			String[] todayTrips = new String[dbh.getActivitiesToday(ts).getCount()];
+//			cursor = dbh.getActivitiesToday(ts);
+//
+//			cursor.moveToFirst();
+//			int i = 0;
+//			while (!cursor.isAfterLast()) {
+//				todayTrips[i] = cursor.getString(4);
+//				i++;
+//				cursor.moveToNext();
+//			}
+//			setListAdapter(
+//					new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, todayTrips));
+//
+//			// Check which state we're in
+//			View detailsFrame = getActivity().findViewById(R.id.fieldentry);
+//
+//			mShowTwoFragments = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+//			if (savedInstanceState != null) {
+//				mCurPosition = savedInstanceState.getInt("curChoice", 0);
+//			}
+//			if (mShowTwoFragments == true || mCurPosition != -1) {
+//				viewActivityInfo(mCurPosition);
+//			}
+//			getFragmentManager().addOnBackStackChangedListener(this);
+//		}
 
 	}
 

@@ -91,5 +91,6 @@
     <string name="departureError">Please enter the departure date</string>
     <string name="arrivalError">Please enter the arrival date</string>
     <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_today_activity_list">TodayActivityList</string>
 
 </resources>

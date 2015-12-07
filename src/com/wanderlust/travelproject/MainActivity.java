@@ -118,7 +118,7 @@ public class MainActivity extends Activity {
 
 	/** Called when the user clicks the Send button */
 	public void launchToday(View view) {
-		Intent i = new Intent(this, TodayFragments.class);
+		Intent i = new Intent(this, TodayActivtyFlash.class);
 		startActivity(i);
 	}
 
