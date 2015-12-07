@@ -34,6 +34,12 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// initialize the calendar date picker.
+		Calendar cal = Calendar.getInstance();
+		year = cal.get(Calendar.YEAR);
+		month = cal.get(Calendar.MONTH);
+		day = cal.get(Calendar.DATE);
+
 		dialog = onCreateDialog();
 		dialog.setTitle(R.string.selectdate);
 		dialog.show();
@@ -44,7 +50,6 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 		// set date picker for current date
 		// add pickerListener listner to date picker
 		DatePickerDialog dpd = new DatePickerDialog(this, pickerListener, year, month, day);
-		Date newDate = new Date();	
 		dpd.setButton(DatePickerDialog.BUTTON_NEGATIVE, "", this);
 		dpd.setOnKeyListener(new Dialog.OnKeyListener() {
 			@Override
@@ -52,15 +57,12 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
 					Intent i = new Intent();
-					
-					
 					i.setClass(getApplication(), MainActivity.class);
 					startActivity(i);
 				}
 				return true;
 			}
 		});
-		dpd.getDatePicker().setMinDate(newDate.getTime());
 		return dpd;
 
 	}
@@ -82,14 +84,13 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 			intent.putExtra("year", year);
 			intent.putExtra("month", month);
 			intent.putExtra("day", day);
-			// startActivity(intent);
 			// request code = 0, only one activity used
 			startActivityForResult(intent, 0);
 		}
 	};
 
 	/**
-	 * Lifecycle method called when an activity you launched exits 
+	 * Lifecycle method called when an activity you launched exits
 	 *
 	 * @param request
 	 *            int originally supplied to startActivityForResult()
@@ -99,12 +100,12 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 	 *            Intent can be used to return (extras) result data to caller
 	 */
 	protected void onActivityResult(int request, int result, Intent i) {
+
 		switch (result) {
 		case 0:
 			dialog = onCreateDialog();
 			dialog.show();
 			break;
-
 		}
 	} // onActivityResult()
 

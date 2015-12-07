@@ -32,10 +32,6 @@ public class TodayActivityList extends Activity {
 	private final static String TAG = "TODAY-ACTIVITY-LIST";
 	private static DBHelper dbh;
 	private Cursor cursor;
-	private int year;
-	private int day;
-	private int month;
-	private int location_id = 0;
 	private Timestamp ts;
 	private Timestamp endTs;
 	private SimpleCursorAdapter sca;
@@ -69,16 +65,8 @@ public class TodayActivityList extends Activity {
 		Date searchDate = cal.getTime();
 		ts = new Timestamp(searchDate.getTime());
 
-		Calendar endCal = Calendar.getInstance();
-		endCal.set(Calendar.YEAR, year);
-		endCal.set(Calendar.MONTH, month);
-		endCal.set(Calendar.DAY_OF_MONTH, day);
-		endCal.set(Calendar.HOUR_OF_DAY, 23);
-		endCal.set(Calendar.MINUTE, 59);
-		endCal.set(Calendar.SECOND, 59);
-		endCal.set(Calendar.MILLISECOND, 0);
-		endCal.add(Calendar.DATE, 1);
-		Date endSearchDate = endCal.getTime();
+		cal.add(Calendar.DATE, 1);
+		Date endSearchDate = cal.getTime();
 		endTs = new Timestamp(endSearchDate.getTime());
 
 		Log.v(TAG, "String of the timestamp " + ts);
@@ -100,6 +88,8 @@ public class TodayActivityList extends Activity {
 		// // DBHelper class
 
 		Log.v(TAG, "Is this true: " + (dbh.getActivitiesToday(ts, endTs).getCount() < 1));
+		// Log.v(TAG, "columns " + (dbh.getActivitiesToday(ts,
+		// endTs).getColumnNames()));
 
 		if (dbh.getActivitiesToday(ts, endTs).getCount() < 1) {
 			Toast.makeText(getApplicationContext(), "There are no trips for" + ts.toString(), Toast.LENGTH_LONG).show();
@@ -115,7 +105,8 @@ public class TodayActivityList extends Activity {
 			cursor = dbh.getActivitiesToday(ts, endTs);
 			sca = new SimpleCursorAdapter(this, R.layout.list_itinaries, cursor, from, to, 0);
 			lv.setAdapter(sca);
-
+			lv.setOnItemClickListener(editItem);
+			lv.setOnItemLongClickListener(deleteItem);
 		}
 	}
 

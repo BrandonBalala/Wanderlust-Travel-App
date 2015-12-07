@@ -34,7 +34,6 @@
             android:label="@string/title_activity_unit_converter" >
         </activity>
         <activity android:name="com.wanderlust.travelproject.TodayActivtyFlash" />
-        <activity android:name="com.wanderlust.travelproject.TodayActivitiesNodeFragments" />
         <activity
             android:name="com.wanderlust.travelproject.TodayActivityList"
             android:label="@string/title_activity_today_activity_list" >
