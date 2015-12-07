@@ -88,8 +88,6 @@ public class TodayActivityList extends Activity {
 		// // DBHelper class
 
 		Log.v(TAG, "Is this true: " + (dbh.getActivitiesToday(ts, endTs).getCount() < 1));
-		// Log.v(TAG, "columns " + (dbh.getActivitiesToday(ts,
-		// endTs).getColumnNames()));
 
 		if (dbh.getActivitiesToday(ts, endTs).getCount() < 1) {
 			Toast.makeText(getApplicationContext(), "There are no trips for" + ts.toString(), Toast.LENGTH_LONG).show();

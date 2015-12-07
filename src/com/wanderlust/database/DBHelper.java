@@ -451,27 +451,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		// Create an instance of SimpleDateFormat used for formatting
 		// the string representation of date (month/day/year)
-		Log.v("Activities", selectedDate + " entered date");
-		Log.v("Activities", endSearchDate + " end date");
+		Log.v(TAG, selectedDate + " entered date");
+		Log.v(TAG, endSearchDate + " end date");
 
 		// Using DateFormat format method we can create a string
 		// representation of a date with the defined format.
 		String date = dateFormat.format(selectedDate);
 		String endDate = dateFormat.format(endSearchDate);
 
-		Log.v("Activities 1", date + " entered date");
-		Log.v("Activities 1", endDate + " end date");
+		Log.v(TAG, date + " entered date");
+		Log.v(TAG, endDate + " end date");
 
-		return getReadableDatabase().query(TABLE_ITINERARY, null, COLUMN_DEPARTUREDATE + " > ? ", new String[] { date },
-				null, null, null);
+		// return getReadableDatabase().query(TABLE_ITINERARY, null,
+		// COLUMN_DEPARTUREDATE + " > ? ", new String[] { date },
+		// null, null, null);
 
-		// String searchSelect = "SELECT * FROM " + TABLE_ITINERARY + " INNER
-		// JOIN " + TABLE_ACTUALEXPENSE
-		// + " ON itinerary._id=actualexpense.budgeted_id "
-		// + " WHERE itinerary.departuredate > ? AND itinerary.departuredate <
-		// ?";
-		// return getReadableDatabase().rawQuery(searchSelect, new String[] {
-		// date, endDate });
+		String searchSelect = "SELECT * FROM " + TABLE_ITINERARY + " LEFT OUTER JOIN " + TABLE_ACTUALEXPENSE
+				+ " ON itinerary._id=actualexpense.budgeted_id "
+				+ " WHERE itinerary.departuredate > ? AND itinerary.departuredate < ?";
+		Log.v(TAG, "Query statement:  " + searchSelect);
+		return getReadableDatabase().rawQuery(searchSelect, new String[] { date, endDate });
 
 	}
 
