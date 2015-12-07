@@ -347,9 +347,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * UPDATE Updating an itinerary
 	 */
-	public void updateItinerary(int itinerary_id, Timestamp arrivalDate,
-			Timestamp departureDate, double amount, String description, String category, String supplier_name,
-			String address) {
+	public void updateItinerary(int itinerary_id, Timestamp arrivalDate, Timestamp departureDate, double amount,
+			String description, String category, String supplier_name, String address) {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_ARRIVALDATE, dateFormat.format(arrivalDate));
@@ -449,18 +448,23 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * getting all the activities that are scheduled today.
 	 */
 	public Cursor getActivitiesToday(Timestamp selectedDate, Timestamp endSearchDate) {
-		
+
 		// Create an instance of SimpleDateFormat used for formatting
 		// the string representation of date (month/day/year)
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Log.v("Activities", selectedDate + " entered date");
+		Log.v("Activities", endSearchDate + " end date");
+
 		// Using DateFormat format method we can create a string
 		// representation of a date with the defined format.
 		String date = df.format(selectedDate);
-
 		String endDate = df.format(endSearchDate);
-		Log.v("Activities", endSearchDate + " end date");
-		return getReadableDatabase().query(TABLE_ITINERARY, null, COLUMN_DEPARTUREDATE + " > ?" + " AND " +COLUMN_DEPARTUREDATE + " < ?" , new String[] { date,endDate },
+
+		Log.v("Activities 1", date + " entered date");
+		Log.v("Activities 1", endDate + " end date");
+		
+		return getReadableDatabase().query(TABLE_ITINERARY, null,
+				COLUMN_DEPARTUREDATE + " > ? AND " + COLUMN_DEPARTUREDATE + " < ?", new String[] { date, endDate },
 				null, null, null);
 
 	}

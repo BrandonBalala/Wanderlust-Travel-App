@@ -77,13 +77,10 @@ public class TodayActivityList extends Activity {
 		endCal.set(Calendar.MINUTE, 59);
 		endCal.set(Calendar.SECOND, 59);
 		endCal.set(Calendar.MILLISECOND, 0);
-		
-		endCal.add(Calendar.DAY_OF_MONTH, 1);
-		
-		Date endSearchDate = cal.getTime();
+		endCal.add(Calendar.DATE, 1);
+		Date endSearchDate = endCal.getTime();
 		endTs = new Timestamp(endSearchDate.getTime());
 
-				
 		Log.v(TAG, "String of the timestamp " + ts);
 
 		///////
@@ -101,19 +98,23 @@ public class TodayActivityList extends Activity {
 		// checks if table is not empty for activities that are queried in
 		// the
 		// // DBHelper class
+
+		Log.v(TAG, "Is this true: " + (dbh.getActivitiesToday(ts, endTs).getCount() < 1));
+
 		if (dbh.getActivitiesToday(ts, endTs).getCount() < 1) {
 			Toast.makeText(getApplicationContext(), "There are no trips for" + ts.toString(), Toast.LENGTH_LONG).show();
 			setResult(0);
 			finish();
-		} else {
+		}
+
+		else {
 			Toast.makeText(getApplicationContext(), "There are trips" + ts.toString(), Toast.LENGTH_LONG).show();
-			// ListView lv = (ListView) findViewById(R.id.displayItinaries);
-			// dbh = DBHelper.getDBHelper(this);
-			//
-			// cursor = dbh.getActivitiesToday(ts);
-			// sca = new SimpleCursorAdapter(this, R.layout.list_itinaries,
-			// cursor, from, to, 0);
-			// lv.setAdapter(sca);
+			ListView lv = (ListView) findViewById(R.id.displayItinaries);
+			dbh = DBHelper.getDBHelper(this);
+
+			cursor = dbh.getActivitiesToday(ts, endTs);
+			sca = new SimpleCursorAdapter(this, R.layout.list_itinaries, cursor, from, to, 0);
+			lv.setAdapter(sca);
 
 		}
 	}
@@ -171,7 +172,9 @@ public class TodayActivityList extends Activity {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
 			// Creates/Displays an alert dialog
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-			alertDialog.setTitle("Delete Item "); // Setting Dialog Title
+			alertDialog.setTitle("Delete Item "); // Setting
+													// Dialog
+													// Title
 			alertDialog.setMessage("Are you sure you want to delete this?"); // Setting
 																				// Dialog
 																				// Message
@@ -209,7 +212,12 @@ public class TodayActivityList extends Activity {
 		public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
 			Intent editIntent = new Intent(context, EditActivity.class);
 			int intId = (int) id;
-			editIntent.putExtra("itinerary_id", intId); // id of the item to be
+			editIntent.putExtra("itinerary_id", intId); // id
+														// of
+														// the
+														// item
+														// to
+														// be
 														// edit
 			startActivity(editIntent);
 		}
