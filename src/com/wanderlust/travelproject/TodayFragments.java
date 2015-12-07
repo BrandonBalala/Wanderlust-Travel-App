@@ -50,6 +50,8 @@ public class TodayFragments extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
 					Intent i = new Intent();
+					
+					
 					i.setClass(getApplication(), MainActivity.class);
 					startActivity(i);
 				}

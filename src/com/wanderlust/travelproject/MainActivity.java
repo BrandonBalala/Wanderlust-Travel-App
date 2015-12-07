@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		else if(id == R.id.aboutMenuItem) {
-			Intent intent = new Intent(this, ToBeCreatedActivity.class);
+			Intent intent = new Intent(this, AboutActivity.class);
 			startActivity(intent);
 			return true;
 		}
@@ -137,6 +137,10 @@ public class MainActivity extends Activity {
 		startActivity(allTrips);
 	}
 
+	public void about(View view) {
+		Intent about = new Intent(this, AboutActivity.class);
+		startActivity(about);
+	}
 	public void launchCurrencyConverter(View view) {
 		Intent intent = new Intent(this, CurrencyConverterActivity.class);
 		startActivity(intent);
