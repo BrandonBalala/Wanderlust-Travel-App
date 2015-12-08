@@ -39,7 +39,6 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 		year = cal.get(Calendar.YEAR);
 		month = cal.get(Calendar.MONTH);
 		day = cal.get(Calendar.DATE);
-
 		dialog = onCreateDialog();
 		dialog.setTitle(R.string.selectdate);
 		dialog.show();

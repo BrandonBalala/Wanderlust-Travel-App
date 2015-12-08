@@ -33,7 +33,6 @@ public class TodayActivityList extends Activity {
 	private static DBHelper dbh;
 	private Cursor cursor;
 	private Timestamp ts;
-	private Timestamp endTs;
 	private SimpleCursorAdapter sca;
 	private Context context;
 
@@ -65,13 +64,7 @@ public class TodayActivityList extends Activity {
 		Date searchDate = cal.getTime();
 		ts = new Timestamp(searchDate.getTime());
 
-		cal.add(Calendar.DATE, 1);
-		Date endSearchDate = cal.getTime();
-		endTs = new Timestamp(endSearchDate.getTime());
-
 		Log.v(TAG, "String of the timestamp " + ts);
-
-		///////
 
 		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
 				DBHelper.COLUMN_DESCRIPTION }; // THE DESIRED COLUMNS TO BE
@@ -87,9 +80,9 @@ public class TodayActivityList extends Activity {
 		// the
 		// // DBHelper class
 
-		Log.v(TAG, "Is this true: " + (dbh.getActivitiesToday(ts, endTs).getCount() < 1));
+		Log.v(TAG, "Is this true: " + (dbh.getActivitiesToday(ts).getCount() < 1));
 
-		if (dbh.getActivitiesToday(ts, endTs).getCount() < 1) {
+		if (dbh.getActivitiesToday(ts).getCount() < 1) {
 			Toast.makeText(getApplicationContext(), "There are no trips for" + ts.toString(), Toast.LENGTH_LONG).show();
 			setResult(0);
 			finish();
@@ -100,7 +93,7 @@ public class TodayActivityList extends Activity {
 			ListView lv = (ListView) findViewById(R.id.displayItinaries);
 			dbh = DBHelper.getDBHelper(this);
 
-			cursor = dbh.getActivitiesToday(ts, endTs);
+			cursor = dbh.getActivitiesToday(ts);
 			sca = new SimpleCursorAdapter(this, R.layout.list_itinaries, cursor, from, to, 0);
 			lv.setAdapter(sca);
 			lv.setOnItemClickListener(editItem);
@@ -108,24 +101,7 @@ public class TodayActivityList extends Activity {
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.today_activity_list, menu);
-		return true;
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
 	/**
 	 * This method is executed when the activity(ItineraryActivity) restart. It
@@ -143,7 +119,7 @@ public class TodayActivityList extends Activity {
 	 * 
 	 */
 	public void refreshView() {
-		cursor = dbh.getActivitiesToday(ts, endTs); // renew the cursor
+		cursor = dbh.getActivitiesToday(ts); // renew the cursor
 		sca.changeCursor(cursor); // have the adapter use the new cursor,
 									// changeCursor closes old cursor too
 		sca.notifyDataSetChanged(); // have the adapter tell the observers

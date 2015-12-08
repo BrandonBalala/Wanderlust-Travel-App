@@ -1,5 +1,8 @@
 package com.wanderlust.travelproject;
 
+import java.util.Currency;
+import java.util.Locale;
+
 import com.bob.travelproject.R;
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -20,13 +23,12 @@ public class StartUpActivity extends Activity {
 		setContentView(R.layout.activity_start_up);
 	}
 
-	
 	@Override
 	public void onBackPressed() {
-		//i'VE TESTED IT WITH FINISH() 
-        moveTaskToBack(true);
+		// i'VE TESTED IT WITH FINISH()
+		moveTaskToBack(true);
 	}
-	
+
 	public boolean validateInput() {
 		boolean inputNotEmpty = true;
 
@@ -53,17 +55,24 @@ public class StartUpActivity extends Activity {
 	}
 
 	public void enterBtn(View view) {
-		if (validateInput()){
+		if (validateInput()) {
+
+			String cc = Locale.getDefault().getCountry(); // country code
+			String currency = Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode(); // currency
+
 			/*
 			 * These lines of code opens the preference Editor, adds three
-			 * String-type preferences called username, firstname and lastName, and
-			 * saves the change.
+			 * String-type preferences called username, firstname and lastName,
+			 * and saves the change.
 			 */
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putString("username", username);
 			editor.putString("firstname", fname);
 			editor.putString("lastname", lname);
+			editor.putString("cc", cc);
+			editor.putString("currency", currency);
+
 			editor.commit();
 			finish();
 		}

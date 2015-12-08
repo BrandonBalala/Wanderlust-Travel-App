@@ -60,13 +60,15 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.shared_menu, menu);
 		return true;
 		/**
-		Intent about = new Intent(this, ToBeCreatedActivity.class);
-		menu.add(R.string.title_activity_about).setIntent(about).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
-
-		Intent dawson = new Intent(Intent.ACTION_VIEW,
-				Uri.parse("http://www.dawsoncollege.qc.ca/computer-science-technology/"));
-		menu.add(R.string.dawson).setIntent(dawson).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
-		return true;*/
+		 * Intent about = new Intent(this, ToBeCreatedActivity.class);
+		 * menu.add(R.string.title_activity_about).setIntent(about).
+		 * setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
+		 * 
+		 * Intent dawson = new Intent(Intent.ACTION_VIEW, Uri.parse(
+		 * "http://www.dawsoncollege.qc.ca/computer-science-technology/"));
+		 * menu.add(R.string.dawson).setIntent(dawson).setShowAsAction(
+		 * SHOW_AS_ACTION_IF_ROOM); return true;
+		 */
 	}
 
 	@Override
@@ -79,19 +81,17 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			return true;
-		}
-		else if(id == R.id.aboutMenuItem) {
+		} else if (id == R.id.aboutMenuItem) {
 			Intent intent = new Intent(this, AboutActivity.class);
 			startActivity(intent);
 			return true;
-		}
-		else if(id == R.id.dawsonMenuItem){
+		} else if (id == R.id.dawsonMenuItem) {
 			Intent intent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://www.dawsoncollege.qc.ca/computer-science-technology/"));
 			startActivity(intent);
 			return true;
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -141,6 +141,7 @@ public class MainActivity extends Activity {
 		Intent about = new Intent(this, AboutActivity.class);
 		startActivity(about);
 	}
+
 	public void launchCurrencyConverter(View view) {
 		Intent intent = new Intent(this, CurrencyConverterActivity.class);
 		startActivity(intent);

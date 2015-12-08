@@ -447,30 +447,26 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * getting all the activities that are scheduled today.
 	 */
-	public Cursor getActivitiesToday(Timestamp selectedDate, Timestamp endSearchDate) {
+	public Cursor getActivitiesToday(Timestamp selectedDate) {
 
 		// Create an instance of SimpleDateFormat used for formatting
 		// the string representation of date (month/day/year)
 		Log.v(TAG, selectedDate + " entered date");
-		Log.v(TAG, endSearchDate + " end date");
 
 		// Using DateFormat format method we can create a string
 		// representation of a date with the defined format.
 		String date = dateFormat.format(selectedDate);
-		String endDate = dateFormat.format(endSearchDate);
 
 		Log.v(TAG, date + " entered date");
-		Log.v(TAG, endDate + " end date");
 
 		// return getReadableDatabase().query(TABLE_ITINERARY, null,
-		// COLUMN_DEPARTUREDATE + " > ? ", new String[] { date },
+		// COLUMN_DEPARTUREDATE + " = ? ", new String[] { date },
 		// null, null, null);
 
-		String searchSelect = "SELECT * FROM " + TABLE_ITINERARY + " LEFT OUTER JOIN " + TABLE_ACTUALEXPENSE
-				+ " ON itinerary._id=actualexpense.budgeted_id "
-				+ " WHERE itinerary.departuredate > ? AND itinerary.departuredate < ?";
-		Log.v(TAG, "Query statement:  " + searchSelect);
-		return getReadableDatabase().rawQuery(searchSelect, new String[] { date, endDate });
+		String searchSelect = "SELECT * FROM " + TABLE_ITINERARY 
+				+ " WHERE itinerary.arrivaldate =  ? ";
+		Log.v(TAG, "Query statement: " + searchSelect);
+		return getReadableDatabase().rawQuery(searchSelect, new String[] { date });
 
 	}
 
