@@ -1,5 +1,11 @@
 package com.wanderlust.travelproject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.bob.travelproject.R;
 import com.wanderlust.database.DBHelper;
 
@@ -13,6 +19,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +32,7 @@ public class TripActivity extends Activity {
 
 	public static final int SHOW_AS_ACTION_IF_ROOM = 1;
 	private static DBHelper dbh;
-
+	private final String TAG = "TRIP-ACTIVITY";
 	private Cursor cursor;
 	private SimpleCursorAdapter sca;
 	Context context;
@@ -88,36 +95,71 @@ public class TripActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		InputStream is = null;
+		String myurl = "www.facebook.com";
+		int response, len = 500;
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.sync) {
 
-			// see network1-checkifnetworkavailable.java
-			NetworkInfo netInfo;
+			/*
+			 * Always check if the network is connected before sending data.
+			 */
 			ConnectivityManager connMgr;
-
-			// get an instance of ConnectivityManager class
+			NetworkInfo netInfo;
 			connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			HttpURLConnection conn = null;
+			// here we don’t care if it is WiFi or Mobile
+			// we just want to use the active network
 
-			// use ConnectivityManager to get an instance of NetworkInfo for
-			// wifi.
-			netInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+			netInfo = connMgr.getActiveNetworkInfo();
 
-			// `check if wifi is available
-			boolean isWifiConn = netInfo.isAvailable();
+			if (netInfo != null && netInfo.isConnected()) {
 
-			// use ConnectivityManager to get an instance of NetworkInfo for
-			// mobile
-			netInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+				try {
+					URL url = new URL(myurl);
+					conn = (HttpURLConnection) url.openConnection();
+					conn.setDoInput(true);
+					conn.setRequestMethod("GET");
+					conn.setReadTimeout(10000);
+					conn.setConnectTimeout(15000 /* milliseconds */);
+					conn.connect();
+					response = conn.getResponseCode();
+					if (response != HttpURLConnection.HTTP_OK) {
+						Log.d(TAG, "Server returned: " + response + " aborting read.");
+						Toast.makeText(context, "the response: " + response, Toast.LENGTH_SHORT).show();
+					}
+					is = conn.getInputStream();
+					Log.d(TAG, "Server returned: " + is.toString() + " aborting read.");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (is != null) {
+						try {
+							is.close();
+						} catch (IOException ignore) {
+							/* ignore */ }
+						if (conn != null)
+							try {
+								conn.disconnect();
+							} catch (IllegalStateException ignore) {
+								/* ignore */ }
+					}
+				}
 
-			// Check if mobile is available
-			boolean isMobileConn = netInfo.isAvailable();
+				Toast.makeText(context, "Download something", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(context, "No download possible", Toast.LENGTH_SHORT).show();
+			}
 
-			Toast.makeText(context, "a button to sync/download new trips from the website:", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(context, "a button to sync/download new trips from
+			// the website:", Toast.LENGTH_SHORT).show();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }

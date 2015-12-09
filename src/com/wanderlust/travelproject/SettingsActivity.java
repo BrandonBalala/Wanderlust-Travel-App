@@ -9,6 +9,8 @@ import com.bob.travelproject.R.layout;
 import com.bob.travelproject.R.menu;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -118,6 +120,30 @@ public class SettingsActivity extends Activity {
 		}
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
+	}
+
+	@Override
+	public void onBackPressed() {
+		// Creates/Displays an alert dialog
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+		alertDialog.setTitle("Delete Item "); // Setting Dialog Title
+		alertDialog.setMessage("Are you sure you want to discard the changes?");
+
+		// if the yes button is clicked, close the EditActivity
+		alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				finish();
+			}
+		});
+
+		// if the No button is clicked, close the alert dialog.
+		alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+
+		alertDialog.show(); // Showing Alert Message
 	}
 
 }
