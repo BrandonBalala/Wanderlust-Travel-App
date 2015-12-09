@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFA500"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -21,7 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_username" />
+            android:text="@string/settings_username"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/settings_username_text"
@@ -29,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="text" >
+            android:inputType="text"
+            android:maxLength="50" >
 
             <requestFocus />
         </EditText>
@@ -47,7 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_password" />
+            android:maxLength="50"
+            android:text="@string/settings_password"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/settings_password_text"
@@ -72,7 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_firstname" />
+            android:maxLength="50"
+            android:text="@string/settings_firstname"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/settings_firstname_text"
@@ -98,7 +105,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_lastname" />
+            android:text="@string/settings_lastname"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/settings_lastname_text"
@@ -124,7 +132,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_countrycode" />
+            android:text="@string/settings_countrycode"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/settings_countrycode_text"
@@ -149,7 +158,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/settings_currency" />
+            android:text="@string/settings_currency"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/settings_currency_text"
@@ -166,14 +176,9 @@
         android:id="@+id/settings_save"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#000000"
         android:onClick="saveSettings"
-        android:text="@string/settings_save" />
-
-    <TextView
-        android:id="@+id/show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/username" />
+        android:text="@string/settings_save"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

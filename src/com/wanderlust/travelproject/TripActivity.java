@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -34,13 +36,23 @@ public class TripActivity extends Activity {
 		setContentView(R.layout.activity_trip);
 		context = this;
 
-		String[] from = new String[] { DBHelper.COLUMN_NAME, DBHelper.COLUMN_DESCRIPTION, }; 	// THE DESIRED COLUMNS TO BE BOUND
-		int[] to = new int[] { R.id.nameTv, R.id.descriptionTv }; 	// THE XML DEFINED VIEWS WHICH THEDATA WILL BE BOUND TO
+		String[] from = new String[] { DBHelper.COLUMN_NAME, DBHelper.COLUMN_DESCRIPTION, }; // THE
+																								// DESIRED
+																								// COLUMNS
+																								// TO
+																								// BE
+																								// BOUND
+		int[] to = new int[] { R.id.nameTv, R.id.descriptionTv }; // THE XML
+																	// DEFINED
+																	// VIEWS
+																	// WHICH
+																	// THEDATA
+																	// WILL BE
+																	// BOUND TO
 		dbh = DBHelper.getDBHelper(this);
 
 		ListView lv = (ListView) findViewById(R.id.displayTrips);
-				
-		
+
 		cursor = dbh.getAllTrips();
 		if (cursor.getCount() != 0) {
 			sca = new SimpleCursorAdapter(this, R.layout.list_trips, cursor, from, to, 0);
@@ -50,7 +62,7 @@ public class TripActivity extends Activity {
 			Toast.makeText(this, "You have no saved trips", Toast.LENGTH_SHORT).show();
 	}
 
-	public OnItemClickListener showItinerary = new OnItemClickListener(){
+	public OnItemClickListener showItinerary = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// TODO Auto-generated method stub
@@ -60,14 +72,13 @@ public class TripActivity extends Activity {
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putInt("lastTripViewedId", trip__id);
 			editor.commit();
-			
+
 			Intent intent = new Intent(context, ItineraryActivity.class);
 			intent.putExtra("trip_id", trip__id);
 			startActivity(intent);
 		}
 	};
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -82,7 +93,28 @@ public class TripActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.sync) {
-			//TODO 
+
+			// see network1-checkifnetworkavailable.java
+			NetworkInfo netInfo;
+			ConnectivityManager connMgr;
+
+			// get an instance of ConnectivityManager class
+			connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+			// use ConnectivityManager to get an instance of NetworkInfo for
+			// wifi.
+			netInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+			// `check if wifi is available
+			boolean isWifiConn = netInfo.isAvailable();
+
+			// use ConnectivityManager to get an instance of NetworkInfo for
+			// mobile
+			netInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+			// Check if mobile is available
+			boolean isMobileConn = netInfo.isAvailable();
+
 			Toast.makeText(context, "a button to sync/download new trips from the website:", Toast.LENGTH_SHORT).show();
 			return true;
 		}
