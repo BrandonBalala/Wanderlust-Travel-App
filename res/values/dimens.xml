@@ -24,13 +24,17 @@
    <dimen name="editext_padding_Bottom">20dp</dimen>
    <dimen name="editext_margin_Bottom">10dp</dimen>
    
-        <!-- START UP -->
+   <!-- START UP -->
    <dimen name="startUpEditText">24sp</dimen>
    <dimen name="dividerHeight">10dp</dimen>
    <dimen name="imageView_trip_layout_width">100dp</dimen>
    <dimen name="imageView_trip_layout_height">100dp</dimen>
+   <dimen name="image_width">270dp</dimen>
+   <dimen name="image_height">155dp</dimen>
    
-           <!-- ITINERARY -->
+  <!-- ITINERARY -->
+  <integer name="max_length">30</integer>
+  <dimen name="button_time_width">150dp</dimen>
   <dimen name="textView_itinerary_padding">150dp</dimen>
   <dimen name="textView_itinerary_error_paddingLeft">105dp</dimen>
   <dimen name="textView_itinerary_error_paddingRight">50dp</dimen>
@@ -38,4 +42,27 @@
   <dimen name="button_itinerary_marginRight">80dp</dimen>
   <dimen name="linerlayout_itinerary_padding">20dp</dimen>
   
+  <!-- ABOUT -->
+  <dimen name="titleTextSize">50sp</dimen>
+   <dimen name="contentTextSize">50sp</dimen>
+   
+   <!-- SETTINGS -->
+   <dimen name="spacing">5dp</dimen>
+   <integer name="max_length_edit_text">50</integer>
+   <integer name="settings_ems">10</integer>
+   <integer name="max_length_cc">3</integer>
+   
+   <!-- LIST Trips -->
+   <dimen name="list_spacing">20dp</dimen>
+   
+    <!-- LIST Itineraries -->
+   <dimen name="list_text_size">25sp</dimen>
+   <dimen name="description_text_size">15sp</dimen>
+   
+   <!-- WEATHER -->
+   <dimen name="city_text_size">80dp</dimen>
+   <dimen name="desc_text_size">40dp</dimen>
+   <dimen name="temp_text_size">120dp</dimen>
+   <dimen name="margin_top">15dp</dimen>
+    <dimen name="weather_text_size">35sp</dimen>
 </resources>

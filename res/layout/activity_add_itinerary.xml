@@ -31,7 +31,7 @@
 
             <Button
                 android:id="@+id/addArrivalDate"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/button_time_width"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/button_itinerary_margin"
                 android:layout_marginRight="@dimen/button_itinerary_marginRight"
@@ -40,7 +40,7 @@
 
             <Button
                 android:id="@+id/addDepartureDate"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/button_time_width"
                 android:layout_height="wrap_content"
                 android:text="@string/dateFormat"
                 android:textColor="#FFFFFF" />
@@ -132,7 +132,7 @@
                 android:id="@+id/itinerary_category"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
+                android:maxLength="@integer/max_length"
                 android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </LinearLayout>

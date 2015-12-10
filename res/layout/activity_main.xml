@@ -6,13 +6,13 @@
     <TableLayout
         android:id="@+id/wrapper"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/zero"
         android:layout_weight="@dimen/weightTable" >
 
         <TableRow
             android:id="@+id/logo"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <ImageView
@@ -27,12 +27,12 @@
         <TableRow
             android:id="@+id/LinearLayout01"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
                 android:id="@+id/currentTrip"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -41,7 +41,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -52,12 +52,12 @@
         <TableRow
             android:id="@+id/LinearLayout02"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
                 android:id="@+id/imageButton3"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -66,7 +66,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton4"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -77,12 +77,12 @@
         <TableRow
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
                 android:id="@+id/imageButton5"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -91,7 +91,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton6"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -102,12 +102,12 @@
         <TableRow
             android:id="@+id/LinearLayout4"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
                 android:id="@+id/imageButton7"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -116,7 +116,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton8"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -127,12 +127,12 @@
         <TableRow
             android:id="@+id/LinearLayout5"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
                 android:id="@+id/imageButton9"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -141,7 +141,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton10"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -152,12 +152,12 @@
         <TableRow
             android:id="@+id/LinearLayout6"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <ImageButton
                 android:id="@+id/manageTrip"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -166,7 +166,7 @@
 
             <ImageButton
                 android:id="@+id/imageButton12"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/layout_marginButton"
                 android:layout_weight="@dimen/weightOne"
@@ -177,7 +177,7 @@
         <TableRow
             android:id="@+id/bottom"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero"
             android:layout_weight="@dimen/weightOne" >
 
             <TextView

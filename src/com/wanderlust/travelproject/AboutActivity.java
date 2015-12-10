@@ -61,7 +61,13 @@ public class AboutActivity extends Activity {
 					Uri.parse("http://www.dawsoncollege.qc.ca/"));
 			startActivity(intent);
 			return true;
+		}else if (id == R.id.webMenuItem) {
+			Intent intent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://wanderlust-marjoriemorales.rhcloud.com/"));
+			startActivity(intent);
+			return true;
 		}
+		
 
 		return super.onOptionsItemSelected(item);
 	}

@@ -13,15 +13,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/spacing"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="@dimen/spacing" >
 
         <TextView
             android:id="@+id/settings_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:text="@string/settings_username"
             android:textColor="#FFFFFF" />
 
@@ -29,10 +29,10 @@
             android:id="@+id/settings_username_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_weight="@integer/layout_weight"
+            android:ems="@integer/settings_ems"
             android:inputType="text"
-            android:maxLength="50" >
+            android:maxLength="@integer/max_length_edit_text" >
 
             <requestFocus />
         </EditText>
@@ -41,16 +41,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/spacing"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="@dimen/spacing" >
 
         <TextView
             android:id="@+id/settings_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLength="50"
+            android:layout_weight="@integer/layout_weight"
+            android:maxLength="@integer/max_length_edit_text"
             android:text="@string/settings_password"
             android:textColor="#FFFFFF" />
 
@@ -58,8 +58,8 @@
             android:id="@+id/settings_password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_weight="@integer/layout_weight"
+            android:ems="@integer/settings_ems"
             android:inputType="textPassword" />
 
         <requestFocus />
@@ -68,16 +68,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/spacing"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="@dimen/spacing" >
 
         <TextView
             android:id="@+id/settings_firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLength="50"
+            android:layout_weight="@integer/layout_weight"
+            android:maxLength="@integer/max_length_edit_text"
             android:text="@string/settings_firstname"
             android:textColor="#FFFFFF" />
 
@@ -85,8 +85,8 @@
             android:id="@+id/settings_firstname_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_weight="@integer/layout_weight"
+            android:ems="@integer/settings_ems"
             android:inputType="text" >
 
             <requestFocus />
@@ -96,15 +96,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/spacing"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="@dimen/spacing" >
 
         <TextView
             android:id="@+id/settings_lastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:text="@string/settings_lastname"
             android:textColor="#FFFFFF" />
 
@@ -112,8 +112,8 @@
             android:id="@+id/settings_lastname_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_weight="@integer/layout_weight"
+            android:ems="@integer/settings_ems"
             android:inputType="text" >
 
             <requestFocus />
@@ -123,15 +123,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/spacing"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="@dimen/spacing" >
 
         <TextView
             android:id="@+id/settings_countrycode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:text="@string/settings_countrycode"
             android:textColor="#FFFFFF" />
 
@@ -139,25 +139,25 @@
             android:id="@+id/settings_countrycode_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_weight="@integer/layout_weight"
+            android:ems="@integer/settings_ems"
             android:inputType="text"
-            android:maxLength="3" >
+            android:maxLength="@integer/max_length_cc" >
         </EditText>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/spacing"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="@dimen/spacing" >
 
         <TextView
             android:id="@+id/settings_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="@integer/layout_weight"
             android:text="@string/settings_currency"
             android:textColor="#FFFFFF" />
 
@@ -166,7 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
-            android:ems="10" />
+            android:ems="@integer/settings_ems" />
     </LinearLayout>
 
     <Button
