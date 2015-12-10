@@ -102,10 +102,11 @@ public class SettingsActivity extends Activity {
 			 * String-type preferences called username, firstname and lastName,
 			 * and saves the change.
 			 */
-			if (cc.equals(null) || cc.length() == 0)
-				cc = Locale.getDefault().getCountry(); // country code
-			if (currency.equals(null) || currency.length() == 0)
-				currency = Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode(); // currency
+
+			// tvCc = (EditText) findViewById(R.id.settings_countrycode_text);
+			// tvCurrency = (EditText)
+			// findViewById(R.id.settings_currency_text);
+
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			SharedPreferences.Editor editor = prefs.edit();
 
@@ -113,8 +114,18 @@ public class SettingsActivity extends Activity {
 			editor.putString("firstname", tvFirstname.getText().toString().trim());
 			editor.putString("lastname", tvLastname.getText().toString().trim());
 			editor.putString("password", tvPassword.getText().toString().trim());
-			editor.putString("cc", cc);
-			editor.putString("currency", currency);
+
+			if (tvCc.getText().equals("") || tvCc.getText().equals(null)) {
+				cc = Locale.getDefault().getCountry(); // country code
+				editor.putString("cc", cc);
+			} else
+				editor.putString("cc", tvCc.getText().toString().trim().toUpperCase());
+			if (tvCurrency.getText().equals("") || tvCurrency.getText().equals(null)) {
+				currency = Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode(); // currency
+				editor.putString("currency", currency);
+			} else
+				editor.putString("currency", tvCurrency.getText().toString().trim().toUpperCase());
+
 			editor.commit();
 			finish();
 		}
