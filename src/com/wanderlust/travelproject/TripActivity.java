@@ -41,7 +41,7 @@ public class TripActivity extends Activity {
 	public static final int SHOW_AS_ACTION_IF_ROOM = 1;
 	private static DBHelper dbh;
 	private final String TAG = "TRIP-ACTIVITY";
-	static String myurl = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=";
+	static String myurl = "http://wanderlust-marjoriemorales.rhcloud.com/alltrips";
 	private Cursor cursor;
 	private SimpleCursorAdapter sca;
 	Context context;
@@ -125,67 +125,8 @@ public class TripActivity extends Activity {
 			} else
 				Toast.makeText(context, "Check your network connection", Toast.LENGTH_SHORT).show();
 
-			//
-			// /*
-			// * Always check if the network is connected before sending data.
-			// */
-			// ConnectivityManager connMgr;
-			// NetworkInfo netInfo;
-			// connMgr = (ConnectivityManager)
-			// getSystemService(Context.CONNECTIVITY_SERVICE);
-			// HttpURLConnection conn = null;
-			// // here we don’t care if it is WiFi or Mobile
-			// // we just want to use the active network
-			//
-			// netInfo = connMgr.getActiveNetworkInfo();
-			//
-			// if (netInfo != null && netInfo.isConnected()) {
-			//
-			// try {
-			// URL url = new URL(myurl);
-			// conn = (HttpURLConnection) url.openConnection();
-			// conn.setDoInput(true);
-			// conn.setRequestMethod("GET");
-			// conn.setReadTimeout(10000);
-			// conn.setConnectTimeout(15000 /* milliseconds */);
-			// conn.connect();
-			// response = conn.getResponseCode();
-			// if (response != HttpURLConnection.HTTP_OK) {
-			// Log.d(TAG, "Server returned: " + response + " aborting read.");
-			// Toast.makeText(context, "the response: " + response,
-			// Toast.LENGTH_SHORT).show();
-			// }
-			// is = conn.getInputStream();
-			// Log.d(TAG, "Server returned: " + is.toString() + " aborting
-			// read.");
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// } finally {
-			// if (is != null) {
-			// try {
-			// is.close();
-			// } catch (IOException ignore) {
-			// /* ignore */ }
-			// if (conn != null)
-			// try {
-			// conn.disconnect();
-			// } catch (IllegalStateException ignore) {
-			// /* ignore */ }
-			// }
-			// }
-			//
-			// Toast.makeText(context, "Download something",
-			// Toast.LENGTH_SHORT).show();
-			// } else {
-			// Toast.makeText(context, "No download possible",
-			// Toast.LENGTH_SHORT).show();
-			// }
-			//
-			// // Toast.makeText(context, "a button to sync/download new trips
-			// from
-			// // the website:", Toast.LENGTH_SHORT).show();
-			// return true;
+			Toast.makeText(context, "a button to sync/download new trips from the website:", Toast.LENGTH_SHORT).show();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 
@@ -236,7 +177,8 @@ public class TripActivity extends Activity {
 		// { "responseData": { "cursor": { "resultCount"
 		JSONObject cursor = responseObject.getJSONObject("cursor");
 		String respcount = cursor.getString("resultCount");
-//		counttv.setText("Count of Google results: " + respcount + " (the api returns 4)");
+		// counttv.setText("Count of Google results: " + respcount + " (the api
+		// returns 4)");
 		Log.v(TAG, "real number of results:" + respcount);
 
 		// walk through the array
@@ -253,7 +195,7 @@ public class TripActivity extends Activity {
 			sb.append(urllink);
 			sb.append("<br><br> ");
 		}
-//		displaytv.setText(Html.fromHtml(sb.toString()));
+		// displaytv.setText(Html.fromHtml(sb.toString()));
 	}
 
 	private class SyncInfo extends AsyncTask<String, Integer, String> {
