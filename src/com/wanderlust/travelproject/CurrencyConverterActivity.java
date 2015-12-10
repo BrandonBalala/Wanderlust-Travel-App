@@ -16,10 +16,12 @@ import com.bob.travelproject.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,59 +36,41 @@ public class CurrencyConverterActivity extends Activity {
 	private static final String TAG = "CurrencyConverterActivity";
 	private static final int MAXBYTES = 60;
 	private EditText initialAmountEditText;
-	private TextView resultAmountTextView;
-	private Spinner initialCurrencySpinner;
+	private TextView resultAmountTextView, initialCurrencyTextView;
 	private Spinner resultCurrencySpinner;
 	private String[] currencyArray;
 	private Toast toast;
+	private int theCurrencyPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_currency_converter);
 
+		SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		theCurrencyPosition = (mSharedPreference.getInt("theCurrency", 0));
+		
 		initialAmountEditText = (EditText) findViewById(R.id.initialAmountEditText);
 		resultAmountTextView = (TextView) findViewById(R.id.resultAmountTextView);
-		initialCurrencySpinner = (Spinner) findViewById(R.id.initialCurrencySpinner);
 		resultCurrencySpinner = (Spinner) findViewById(R.id.resultCurrencySpinner);
+		initialCurrencyTextView = (TextView) findViewById(R.id.initialCurrencyTextView);
 
-		initializeSpinner(initialCurrencySpinner, R.array.currencies);
 		initializeSpinner(resultCurrencySpinner, R.array.currencies);
 
 		currencyArray = getResources().getStringArray(R.array.currencies);
+		initialCurrencyTextView.setText(currencyArray[theCurrencyPosition]);
 
 		// Restore a previously stored instance state
 		if (savedInstanceState != null) {
-			int initial_position = savedInstanceState.getInt(getResources().getString(R.string.init_position));
 			int result_position = savedInstanceState.getInt(getResources().getString(R.string.result_position));
 			String initial_amount = savedInstanceState.getString(getResources().getString(R.string.initial_amount));
 			String result_amount = savedInstanceState.getString(getResources().getString(R.string.result_amount));
 
-			initialCurrencySpinner.setSelection(initial_position);
 			resultCurrencySpinner.setSelection(result_position);
 			initialAmountEditText.setText(initial_amount);
 			resultAmountTextView.setText(result_amount);
 
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.currency_converter, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -164,7 +148,7 @@ public class CurrencyConverterActivity extends Activity {
 		cancelToast();
 		toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
 
-		String initialCurrency = currencyArray[initialCurrencySpinner.getSelectedItemPosition()];
+		String initialCurrency = initialCurrencyTextView.getText().toString().trim();
 		String resultCurrency = currencyArray[resultCurrencySpinner.getSelectedItemPosition()];
 
 		if (initialCurrency == resultCurrency) {
@@ -187,23 +171,6 @@ public class CurrencyConverterActivity extends Activity {
 	}
 
 	/**
-	 * Invoked as user clicks on the swap image button. Swaps position of both
-	 * spinners
-	 * 
-	 * @param view
-	 */
-	public void swapCurrency(View view) {
-		Log.d(TAG, "Swaping");
-
-		int initialCurrencyPosition = initialCurrencySpinner.getSelectedItemPosition();
-		int resultCurrencyPosition = resultCurrencySpinner.getSelectedItemPosition();
-
-		initialCurrencySpinner.setSelection(resultCurrencyPosition);
-		resultCurrencySpinner.setSelection(initialCurrencyPosition);
-		resultAmountTextView.setText("");
-	}
-
-	/**
 	 * Cancel any lingering toasts
 	 */
 	private void cancelToast() {
@@ -215,8 +182,6 @@ public class CurrencyConverterActivity extends Activity {
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 
-		savedInstanceState.putInt((getResources().getString(R.string.init_position)),
-				initialCurrencySpinner.getSelectedItemPosition());
 		savedInstanceState.putInt((getResources().getString(R.string.result_position)),
 				resultCurrencySpinner.getSelectedItemPosition());
 		savedInstanceState.putString((getResources().getString(R.string.initial_amount)),

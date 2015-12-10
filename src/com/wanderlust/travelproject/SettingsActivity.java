@@ -1,12 +1,8 @@
 package com.wanderlust.travelproject;
 
-import java.util.Currency;
 import java.util.Locale;
 
 import com.bob.travelproject.R;
-import com.bob.travelproject.R.id;
-import com.bob.travelproject.R.layout;
-import com.bob.travelproject.R.menu;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,14 +12,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
 	private String username;
@@ -31,9 +24,10 @@ public class SettingsActivity extends Activity {
 	private String fname;
 	private String lname;
 	private String cc;
-	private String currency;
-	private TextView tvUsername, tvFirstname, tvLastname, tvPassword, tvCc, tvCurrency;
-
+	private int theCurrency;
+	private TextView tvUsername, tvFirstname, tvLastname, tvPassword, tvCc;
+	private Spinner myCurrencySpinner;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,22 +39,42 @@ public class SettingsActivity extends Activity {
 		tvLastname = (EditText) findViewById(R.id.settings_lastname_text);
 		tvPassword = (EditText) findViewById(R.id.settings_password_text);
 		tvCc = (EditText) findViewById(R.id.settings_countrycode_text);
-		tvCurrency = (EditText) findViewById(R.id.settings_currency_text);
+		myCurrencySpinner = (Spinner) findViewById(R.id.myCurrencySpinner);
 
 		username = (mSharedPreference.getString("username", ""));
 		password = (mSharedPreference.getString("password", ""));
 		fname = (mSharedPreference.getString("firstname", ""));
 		lname = (mSharedPreference.getString("lastname", ""));
 		cc = (mSharedPreference.getString("cc", ""));
-		currency = (mSharedPreference.getString("currency", ""));
+		theCurrency = (mSharedPreference.getInt("theCurrency", 0));
 
 		tvUsername.setText(username);
 		tvPassword.setText(password);
 		tvFirstname.setText(fname);
 		tvLastname.setText(lname);
 		tvCc.setText(cc);
-		tvCurrency.setText(currency);
-
+	
+		
+		initializeSpinner(myCurrencySpinner, R.array.currencies);
+		myCurrencySpinner.setSelection(theCurrency);
+	}
+	
+	/**
+	 * Change content of the given spinner with the array that has the specified
+	 * resource id
+	 * 
+	 * @param spinner
+	 * @param textArrayResId
+	 */
+	private void initializeSpinner(Spinner spinner, int textArrayResId) {
+		// Create an ArrayAdapter using the string array and a default spinner
+		// layout
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, textArrayResId,
+				android.R.layout.simple_spinner_item);
+		// Specify the layout to use when the list of choices appears
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Apply the adapter to the spinner
+		spinner.setAdapter(adapter);
 	}
 
 	public boolean validateInput() {
@@ -103,10 +117,6 @@ public class SettingsActivity extends Activity {
 			 * and saves the change.
 			 */
 
-			// tvCc = (EditText) findViewById(R.id.settings_countrycode_text);
-			// tvCurrency = (EditText)
-			// findViewById(R.id.settings_currency_text);
-
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			SharedPreferences.Editor editor = prefs.edit();
 
@@ -120,12 +130,16 @@ public class SettingsActivity extends Activity {
 				editor.putString("cc", cc);
 			} else
 				editor.putString("cc", tvCc.getText().toString().trim().toUpperCase());
+			/*
 			if (tvCurrency.getText().equals("") || tvCurrency.getText().equals(null)) {
 				currency = Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode(); // currency
+				
 				editor.putString("currency", currency);
 			} else
 				editor.putString("currency", tvCurrency.getText().toString().trim().toUpperCase());
-
+			 */
+			editor.putInt("theCurrency", myCurrencySpinner.getSelectedItemPosition());
+			
 			editor.commit();
 			finish();
 		}

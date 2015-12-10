@@ -75,11 +75,6 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, AboutActivity.class);
 			startActivity(intent);
 			return true;
-		} else if (id == R.id.dawsonMenuItem) {
-			Intent intent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://www.dawsoncollege.qc.ca/computer-science-technology/"));
-			startActivity(intent);
-			return true;
 		}
 
 		return super.onOptionsItemSelected(item);

@@ -49,11 +49,14 @@
         android:layout_marginBottom="@dimen/marginBottom"
         android:orientation="horizontal" >
 
-        <Spinner
-            android:id="@+id/initialCurrencySpinner"
+        <TextView
+            android:id="@+id/initialCurrencyTextView"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="@integer/layout_weight" />
+            android:layout_weight="@integer/layout_weight"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:textSize="@dimen/textSize" />
 
         <ImageButton
             android:id="@+id/swapButton"
@@ -61,7 +64,6 @@
             android:layout_height="@dimen/imageSize"
             android:background="@null"
             android:contentDescription="@string/swap_desc"
-            android:onClick="swapCurrency"
             android:scaleType="fitXY"
             android:src="@drawable/swap" />
 

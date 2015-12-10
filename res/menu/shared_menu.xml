@@ -7,12 +7,6 @@
         android:showAsAction="ifRoom"
         android:title="@string/title_activity_about"/>
     <item
-        android:id="@+id/dawsonMenuItem"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/dawson"/>
-    
-    <item
         android:id="@+id/settingsMenuItem"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
