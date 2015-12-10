@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/teamMenuItem"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/team"/>
+    <item
+        android:id="@+id/compsciPageMenuItem"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/course"/>
+    <item
+        android:id="@+id/dawsonMenuItem"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/dawson"/>
+    <item
+        android:id="@+id/settingsMenuItem"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_settings"/>
+
+</menu>

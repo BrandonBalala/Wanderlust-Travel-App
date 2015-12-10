@@ -59,16 +59,6 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.shared_menu, menu);
 		return true;
-		/**
-		 * Intent about = new Intent(this, ToBeCreatedActivity.class);
-		 * menu.add(R.string.title_activity_about).setIntent(about).
-		 * setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
-		 * 
-		 * Intent dawson = new Intent(Intent.ACTION_VIEW, Uri.parse(
-		 * "http://www.dawsoncollege.qc.ca/computer-science-technology/"));
-		 * menu.add(R.string.dawson).setIntent(dawson).setShowAsAction(
-		 * SHOW_AS_ACTION_IF_ROOM); return true;
-		 */
 	}
 
 	@Override

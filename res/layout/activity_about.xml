@@ -9,7 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="About"
+            android:text="@string/title_activity_about"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:textColorLink="@color/white"
@@ -25,11 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="This application allows you to plan travels"
+            android:text="@string/about_text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:textColorLink="@color/white"
-            android:textSize="40sp" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 
