@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lime"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -12,8 +13,8 @@
     <Spinner
         android:id="@+id/categorySpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginBottom="@dimen/marginBottom"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginBottom" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,9 +28,10 @@
             android:layout_weight="@integer/layout_weight"
             android:gravity="center_horizontal"
             android:hint="@string/amount_hint"
+            android:inputType="numberDecimal"
             android:singleLine="true"
-            android:textSize="@dimen/textSize"
-            android:inputType="numberDecimal" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSize" />
 
         <ImageButton
             android:layout_width="@dimen/imageSize"
@@ -46,14 +48,15 @@
             android:layout_weight="@integer/layout_weight"
             android:gravity="center_horizontal"
             android:singleLine="true"
+            android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/marginBottom" >
+        android:layout_marginBottom="@dimen/marginBottom"
+        android:orientation="horizontal" >
 
         <Spinner
             android:id="@+id/initialUnitSpinner"
@@ -89,7 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
             android:onClick="clearFields"
-            android:text="@string/clear" />
+            android:text="@string/clear"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/convertButton"
@@ -97,7 +101,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight_bigger"
             android:onClick="convertUnit"
-            android:text="@string/convert" />
+            android:text="@string/convert"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

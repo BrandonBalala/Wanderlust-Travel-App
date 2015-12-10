@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightblue"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -18,7 +19,9 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
-            android:text="@string/amount" />
+            android:text="@string/amount"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
         <EditText
             android:id="@+id/amountEditText"
@@ -26,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
             android:hint="@string/hint_amount"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -37,9 +41,11 @@
         <TextView
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_weight="@integer/layout_weight"
             android:layout_gravity="center_vertical"
-            android:text="@string/tip" />
+            android:layout_weight="@integer/layout_weight"
+            android:text="@string/tip"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
         <RadioGroup
             android:layout_width="@dimen/zero"
@@ -51,23 +57,26 @@
                 android:id="@+id/tip10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:checked="true"
-                android:text="@string/tip10" />
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/tip10"
+                android:textColor="@color/white" />
 
             <RadioButton
                 android:id="@+id/tip15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="@string/tip15" />
+                android:text="@string/tip15"
+                android:textColor="@color/white" />
 
             <RadioButton
                 android:id="@+id/tip20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="@string/tip20" />
+                android:text="@string/tip20"
+                android:textColor="@color/white" />
         </RadioGroup>
     </LinearLayout>
 
@@ -80,38 +89,42 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
-            android:text="@string/divide" />
+            android:text="@string/divide"
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/divideEditText"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
-            android:hint="@string/hint_divide" 
-            android:inputType="numberDecimal"/>
+            android:hint="@string/hint_divide"
+            android:inputType="numberDecimal"
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/marginBottom" >
+        android:layout_marginBottom="@dimen/marginBottom"
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/clearButton"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
+            android:onClick="clearFields"
             android:text="@string/clear"
-            android:onClick="clearFields" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/calculateButton"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight_bigger"
+            android:onClick="calculateTip"
             android:text="@string/calculate"
-            android:onClick="calculateTip" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -126,7 +139,8 @@
             android:gravity="end"
             android:text="@string/tipTotal"
             android:textAlignment="gravity"
-            android:textSize="@dimen/textSize" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/converter" />
 
         <TextView
             android:id="@+id/tipTotalTextView"
@@ -134,7 +148,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
             android:text="@string/defaultValue"
-            android:textSize="@dimen/textSize" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/converter" />
     </LinearLayout>
 
     <LinearLayout
@@ -149,7 +164,8 @@
             android:gravity="end"
             android:text="@string/billTotal"
             android:textAlignment="gravity"
-            android:textSize="@dimen/textSize" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/converter" />
 
         <TextView
             android:id="@+id/billTotalTextView"
@@ -157,7 +173,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
             android:text="@string/defaultValue"
-            android:textSize="@dimen/textSize" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/converter" />
     </LinearLayout>
 
     <LinearLayout
@@ -172,7 +189,8 @@
             android:gravity="end"
             android:text="@string/eachPerson"
             android:textAlignment="gravity"
-            android:textSize="@dimen/textSize" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/converter" />
 
         <TextView
             android:id="@+id/eachPersonTextView"
@@ -180,7 +198,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/layout_weight"
             android:text="@string/defaultValue"
-            android:textSize="@dimen/textSize" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/converter" />
     </LinearLayout>
 
 </LinearLayout>
