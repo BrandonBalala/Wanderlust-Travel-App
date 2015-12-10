@@ -27,12 +27,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -41,7 +43,7 @@ public class TripActivity extends Activity {
 	public static final int SHOW_AS_ACTION_IF_ROOM = 1;
 	private static DBHelper dbh;
 	private final String TAG = "TRIP-ACTIVITY";
-	static String myurl = "http://wanderlust-marjoriemorales.rhcloud.com/alltrips";
+	static String myurl = "http://wanderlust-marjoriemorales.rhcloud.com/alltrips/";
 	private Cursor cursor;
 	private SimpleCursorAdapter sca;
 	Context context;
@@ -104,6 +106,10 @@ public class TripActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+		String email = (mSharedPreference.getString("username", ""));
+		String password = (mSharedPreference.getString("password", ""));
 		InputStream is = null;
 		int response, len = 500;
 		// Handle action bar item clicks here. The action bar will
@@ -115,10 +121,12 @@ public class TripActivity extends Activity {
 			Boolean netup = netIsUp();
 			if (netup) {
 				try {
-					new SyncInfo().execute(myurl); // add the necessary
-													// information here, modify
-													// the url
-					// processResponse(searchRequest(ed1.getText().toString()));
+					// send the username in the new SyncInfo class to download
+					// appropriate trips for that user.
+
+					// marvs298@yahoo.com&password=testing
+					new SyncInfo().execute(email, password);
+
 				} catch (Exception e) {
 					Log.v(TAG, "Exception:" + e.getMessage());
 				}
@@ -132,14 +140,17 @@ public class TripActivity extends Activity {
 
 	}
 
-	public String SearchRequest(String searchString) throws MalformedURLException, IOException {
-		String newFeed = myurl + "\"" + searchString + "\"";
+	public String SearchRequest(String email, String password) throws MalformedURLException, IOException {
+		String newFeed = myurl + "?email=" + email + "&password=" + password;
+		Log.v(TAG, "Email: " + email);
+		Log.v(TAG, "Password: " + password);
+		// "/?email=marvs298@yahoo.com&password=testing";
 		StringBuilder response = new StringBuilder();
 		Log.v(TAG, "url:" + newFeed);
 		URL url = new URL(newFeed);
 
 		HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
-
+		Log.v(TAG, "code: " + httpconn.getResponseCode());
 		if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()), 8192);
 			String strLine = null;
@@ -162,50 +173,35 @@ public class TripActivity extends Activity {
 	public void ProcessResponse(String resp)
 			throws IllegalStateException, IOException, JSONException, NoSuchAlgorithmException {
 		StringBuilder sb = new StringBuilder();
-		Log.v(TAG, " result:" + resp);
-
+		Log.v(TAG, " json:" + resp);
+		int pos = resp.lastIndexOf("]");
+		Log.v("Size", "pos " + pos);
+		String responseText = resp.substring(1, pos);
+		Log.v(TAG, " json:" + responseText);
+		JSONArray array = new JSONArray(responseText);
 		// {} wrapped in object
-		JSONObject mResponseObject = new JSONObject(resp);
+		JSONObject mResponseObject = new JSONObject(responseText);
+//		JSONArray array = mResponseObject.getJSONArray("trip");
 
-		// { "responseData": { -> object
-		JSONObject responseObject = mResponseObject.getJSONObject("responseData");
+		Log.v(TAG, ""+array.length());
+//		Log.v(TAG, "size"+ array.length());
 
-		// { "responseData": { "results": [ -> array
-		JSONArray array = responseObject.getJSONArray("results");
-		Log.v(TAG, "number of results returned:" + array.length());
-
-		// { "responseData": { "cursor": { "resultCount"
-		JSONObject cursor = responseObject.getJSONObject("cursor");
-		String respcount = cursor.getString("resultCount");
-		// counttv.setText("Count of Google results: " + respcount + " (the api
-		// returns 4)");
-		Log.v(TAG, "real number of results:" + respcount);
-
-		// walk through the array
-		for (int i = 0; i < array.length(); i++) {
-			Log.v(TAG, "result [" + i + "] " + array.get(i).toString());
-
-			// "results" s an array of objects:
-			// { "responseData": { "results": [ {} , {}, ...
-			String title = array.getJSONObject(i).getString("title");
-			String urllink = array.getJSONObject(i).getString("visibleUrl");
-			// add the data we need to the StringBuilder with html tags
-			sb.append(title);
-			sb.append("<br>");
-			sb.append(urllink);
-			sb.append("<br><br> ");
-		}
-		// displaytv.setText(Html.fromHtml(sb.toString()));
+		 int trip_id = mResponseObject.optInt("id");
+		 String name = mResponseObject.opt("name").toString();
+		// String description = mResponseObject.get("description").toString();
+		// dbh.createNewTrip(trip_id, name, description);
+//		 Log.v(TAG, "id: " + trip_id);
+//		 Log.v(TAG, "name: " + name);
 	}
 
 	private class SyncInfo extends AsyncTask<String, Integer, String> {
 
 		protected String doInBackground(String... searchKey) {
 
-			String key = searchKey[0];
-
+			String email = searchKey[0];
+			String password = searchKey[1];
 			try {
-				return SearchRequest(key);
+				return SearchRequest(email, password);
 			} catch (Exception e) {
 				Log.v(TAG, "Exception:" + e.getMessage());
 				return "";
@@ -214,6 +210,7 @@ public class TripActivity extends Activity {
 
 		protected void onPostExecute(String result) {
 			try {
+				// Log.v(TAG, "the result: " + result);
 				ProcessResponse(result);
 			} catch (Exception e) {
 				Log.v(TAG, "Exception:" + e.getMessage());
