@@ -153,10 +153,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		ContentValues trip2 = new ContentValues();
 		trip2.put(COLUMN_CREATION, dateFormat.format(date));
-		trip2.put(COLUMN_TRIP_ID, 1);
+		trip2.put(COLUMN_TRIP_ID, 0);
 		trip2.put(COLUMN_NAME, "Test 2 ");
 		trip2.put(COLUMN_DESCRIPTION, "This is a second test on the data");
 		db.insert(TABLE_TRIPS, null, trip2);
+
+		ContentValues location1 = new ContentValues();
+		location1.put(COLUMN_NAME, "Rita's Restaurant");
+		location1.put(COLUMN_DESCRIPTION, "Eating at Rita's Restaurant");
+		location1.put(COLUMN_CITY, "MONTREAL");
+		location1.put(COLUMN_COUNTRYCODE, "CAN");
+		db.insert(TABLE_LOCATIONS, null, location1);
+
+		ContentValues location2 = new ContentValues();
+		location2.put(COLUMN_NAME, "Marvin's Restaurant");
+		location2.put(COLUMN_DESCRIPTION, "Eating lunch at Marvin's Restaurant");
+		location2.put(COLUMN_CITY, "MONTREAL");
+		location2.put(COLUMN_COUNTRYCODE, "CAN");
+		db.insert(TABLE_LOCATIONS, null, location2);
+		
 	}
 
 	/**
@@ -277,6 +292,16 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	/*
+	 * getting a location
+	 */
+	public Cursor getLocation(String name) {
+
+		return getReadableDatabase().query(TABLE_LOCATIONS, null, COLUMN_NAME + " = ?",
+				new String[] { name }, null, null, null);
+
+	}
+	
+	/*
 	 * UPDATE Updating a location
 	 */
 	public void updateLocation(int id, String name, String description, String city, String countryCode) {
@@ -377,13 +402,13 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE Creating a actual expense
 	 */
-	public long createNewActualExpense(int budgeted_id, String arrivalDate, String departureDate, double amount,
+	public long createNewActualExpense(int budgeted_id, Timestamp arrivalDate, Timestamp departureDate, double amount,
 			String description, String category, String supplierName, String address) {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_BUDGETED_ID, budgeted_id);
-		values.put(COLUMN_ARRIVALDATE, arrivalDate);
-		values.put(COLUMN_DEPARTUREDATE, departureDate);
+		values.put(COLUMN_ARRIVALDATE, dateFormat.format(arrivalDate));
+		values.put(COLUMN_DEPARTUREDATE, dateFormat.format(departureDate));
 		values.put(COLUMN_AMOUNT, amount);
 		values.put(COLUMN_DESCRIPTION, description);
 		values.put(COLUMN_CATEGORY, category);
@@ -473,5 +498,9 @@ public class DBHelper extends SQLiteOpenHelper {
 	/********************************************************************
 	 * JOIN TABLE
 	 ********************************************************************/
-
+	public Cursor getItineraryLocation(int trip_id){
+		
+		String selectQuery = "SELECT * FROM locations INNER JOIN itinerary ON locations._id=itinerary.location_id WHERE trip_id=?";
+		return getReadableDatabase().rawQuery(selectQuery, new String[] {String.valueOf(trip_id)});
+	}
 }
