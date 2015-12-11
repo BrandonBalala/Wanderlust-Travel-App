@@ -24,8 +24,9 @@ public class SettingsActivity extends Activity {
 	private String fname;
 	private String lname;
 	private String cc;
+	private String city;
 	private int theCurrency;
-	private TextView tvUsername, tvFirstname, tvLastname, tvPassword, tvCc;
+	private TextView tvUsername, tvFirstname, tvLastname, tvPassword, tvCc, tvCity;
 	private Spinner myCurrencySpinner;
 	
 	@Override
@@ -40,19 +41,22 @@ public class SettingsActivity extends Activity {
 		tvPassword = (EditText) findViewById(R.id.settings_password_text);
 		tvCc = (EditText) findViewById(R.id.settings_countrycode_text);
 		myCurrencySpinner = (Spinner) findViewById(R.id.myCurrencySpinner);
-
+		tvCity = (EditText) findViewById(R.id.settings_city_text);
+		
 		username = (mSharedPreference.getString("username", ""));
 		password = (mSharedPreference.getString("password", ""));
 		fname = (mSharedPreference.getString("firstname", ""));
 		lname = (mSharedPreference.getString("lastname", ""));
 		cc = (mSharedPreference.getString("cc", ""));
 		theCurrency = (mSharedPreference.getInt("theCurrency", 0));
+		city=(mSharedPreference.getString("city", ""));
 
 		tvUsername.setText(username);
 		tvPassword.setText(password);
 		tvFirstname.setText(fname);
 		tvLastname.setText(lname);
 		tvCc.setText(cc);
+		tvCity.setText(city);
 	
 		
 		initializeSpinner(myCurrencySpinner, R.array.currencies);
@@ -84,12 +88,14 @@ public class SettingsActivity extends Activity {
 		EditText tvFirstname = (EditText) findViewById(R.id.settings_firstname_text);
 		EditText tvLastname = (EditText) findViewById(R.id.settings_lastname_text);
 		EditText tvPassword = (EditText) findViewById(R.id.settings_password_text);
+		EditText tvCity = (EditText) findViewById(R.id.settings_city_text);
 
 		String username = tvUsername.getText().toString();
 		String password = tvPassword.getText().toString();
 		String fname = tvFirstname.getText().toString();
 		String lname = tvLastname.getText().toString();
-
+		String city = tvCity.getText().toString();
+		
 		if (TextUtils.isEmpty(username)) {
 			tvUsername.setError("You must enter your username");
 			inputNotEmpty = false;
@@ -104,6 +110,10 @@ public class SettingsActivity extends Activity {
 		}
 		if (TextUtils.isEmpty(lname)) {
 			tvLastname.setError("You must enter your last name");
+			inputNotEmpty = false;
+		}
+		if (TextUtils.isEmpty(city)) {
+			tvLastname.setError("You must enter your a city name");
 			inputNotEmpty = false;
 		}
 		return inputNotEmpty;
@@ -123,6 +133,7 @@ public class SettingsActivity extends Activity {
 			editor.putString("username", tvUsername.getText().toString().trim());
 			editor.putString("firstname", tvFirstname.getText().toString().trim());
 			editor.putString("lastname", tvLastname.getText().toString().trim());
+			editor.putString("city", tvCity.getText().toString().trim());
 			editor.putString("password", tvPassword.getText().toString().trim());
 
 			if (tvCc.getText().equals("") || tvCc.getText().equals(null)) {

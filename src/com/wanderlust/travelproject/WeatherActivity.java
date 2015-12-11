@@ -6,10 +6,12 @@ import com.bob.travelproject.R;
 import com.bob.travelproject.R.layout;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ public class WeatherActivity extends Activity {
 	private TextView windSpeed;
 	private TextView windDeg;
 	private TextView hum;
+	private String city;
 
 	/**
 	 * This is being executed when the activity is created. It sets all the
@@ -42,8 +45,11 @@ public class WeatherActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weather);
+
+		SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		city = (mSharedPreference.getString("city", "Montreal"));
 		
-		String city = "Montreal,CA";
+		//String city = "Montreal,CA";
 
 		cityText = (TextView) findViewById(R.id.cityText);
 		condDescr = (TextView) findViewById(R.id.condDescr);

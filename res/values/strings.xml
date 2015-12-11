@@ -8,7 +8,7 @@
     <string name="course">Course</string>
     <string name="team">Team</string>
     <string name="web">Web Ver.</string>
-    
+
     <!-- Tip STRINGS -->
     <string name="title_activity_tip_calculator">Tip Calculator</string>
     <string name="amount">Bill Amount: </string>
@@ -30,7 +30,7 @@
     <string name="tip_total">Tip Total</string>
     <string name="bill_total">Bill Amount</string>
     <string name="split_amount">Split Amount</string>
-    
+
     <!-- Unit converter STRINGS -->
     <string name="title_activity_unit_converter">Unit Converter</string>
     <string name="hint_unit">Enter unit to convert</string>
@@ -38,11 +38,11 @@
     <string name="swap_desc">Swap button</string>
     <string name="equals_desc">Equals image</string>
     <string name="amount_hint">Enter an amount</string>
-    
+
     <!-- Miscellaneous STRINGS -->
     <string name="title_activity_about">About</string>
     <string name="title_activity_current_trips">Current Trip</string>
-	<string name="category">category</string>
+    <string name="category">category</string>
     <string name="initial_position">initial_unit</string>
     <string name="conversion_position">conversion_unit</string>
     <string name="convert_amount">amount</string>
@@ -69,7 +69,7 @@
     <string name="pressure">Pressure</string>
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>
-    
+
     <!-- TRIPS & ITINERARIES STRINGS -->
     <string name="title_activity_itinerary">Itineraries</string>
     <string name="title_activity_trip">Trip</string>
@@ -114,9 +114,10 @@
     <string name="settings_lastname">Last name:</string>
     <string name="settings_countrycode">Country code:</string>
     <string name="settings_currency">Currency:</string>
+    <string name="settings_city">City:</string>
     <string name="settings_save">SAVE</string>
 
-    <!-- About Strings-->
+    <!-- About Strings -->
     <string name="about_text">As part of our Mobile Software Development course at Dawson College, the Wanderlust Team was asked to create an
         application which allows the user to plan out his whole trip. It allows you to plan the locations you will be visiting.  It also permits you 
         to add budgeted expenses to keep track of what you plan on buying and also add the actual expenses you make on your trips.  This app offers a

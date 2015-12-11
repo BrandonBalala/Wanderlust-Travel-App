@@ -16,7 +16,7 @@ public class Weather {
 	public Snow snow = new Snow();
 	public Clouds clouds = new Clouds();
 
-	public byte[] iconData;
+	
 
 	public class CurrentCondition {
 		private int weatherId;
