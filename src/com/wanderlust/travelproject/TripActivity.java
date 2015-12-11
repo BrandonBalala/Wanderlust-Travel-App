@@ -262,8 +262,12 @@ public class TripActivity extends Activity {
 					JSONObject jsonElementActual = actualArray.getJSONObject(x);
 					Log.v(TAG, "jsonElementActual " + jsonElementActual.toString());
 					int actual_id = jsonElementActual.getInt("id");
-					String arrivalDate = jsonElementActual.getString("actual_arrival_date");
-					String departureDate = jsonElementActual.getString("actual_departure_date");
+					Date parsedArrivalDate = dateFormat.parse(jsonElement.getJSONObject("location").getJSONObject("actualexpenses")
+							.getString("actual_arrival_date"));
+					Timestamp arrivalDate = new java.sql.Timestamp(parsedArrivalDate.getTime());					
+					Date parsedDepartureDate = dateFormat.parse(jsonElement.getJSONObject("location").getJSONObject("actualexpenses")
+							.getString("actual_departure_date"));
+					Timestamp departureDate = new java.sql.Timestamp(parsedDepartureDate.getTime());					
 					int amount = jsonElementActual.getInt("amount");
 					String category = String.valueOf(jsonElementActual.getInt("category_id"));
 					String supplierName = jsonElementActual.getString("name_of_supplier");

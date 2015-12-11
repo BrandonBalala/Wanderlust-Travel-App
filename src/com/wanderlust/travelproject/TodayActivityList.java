@@ -69,7 +69,7 @@ public class TodayActivityList extends Activity {
 		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
 				DBHelper.COLUMN_DESCRIPTION }; // THE DESIRED COLUMNS TO BE
 												// BOUND
-		int[] to = new int[] { R.id.display_itinerary_date, R.id.display_itinerary_category,
+		int[] to = new int[] { R.id.display_itinerary_arrival, R.id.display_itinerary_category,
 				R.id.display_itinerary_description }; // THE XML DEFINED
 														// VIEWS
 														// WHICH THEDATA

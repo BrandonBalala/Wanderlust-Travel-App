@@ -23,7 +23,6 @@ public class ItineraryActivity extends Activity {
 	private static DBHelper dbh;
 	private Cursor cursor;
 	private int trip_id;
-	private int location_id = 0;
 
 	private SimpleCursorAdapter sca;
 	private Context context;
@@ -37,22 +36,20 @@ public class ItineraryActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			trip_id = (Integer) bundle.getInt("trip_id");
-			// location_id = (Integer) bundle.getInt("location_id");
 		}
-		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
-				DBHelper.COLUMN_DESCRIPTION }; // THE DESIRED COLUMNS TO BE
+		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE,DBHelper.COLUMN_DEPARTUREDATE, DBHelper.COLUMN_CATEGORY,
+				DBHelper.COLUMN_DESCRIPTION, DBHelper.COLUMN_AMOUNT, DBHelper.COLUMN_SUPPLIER_NAME, DBHelper.COLUMN_ADDRESS}; // THE DESIRED COLUMNS TO BE
 												// BOUND
-		int[] to = new int[] { R.id.display_itinerary_date, R.id.display_itinerary_category,
-				R.id.display_itinerary_description }; // THE XML DEFINED VIEWS
+		int[] to = new int[] { R.id.display_itinerary_arrival,R.id.display_itinerary_departure, R.id.display_itinerary_category,
+				R.id.display_itinerary_description, R.id.display_itinerary_amount,R.id.display_itinerary_name_of_supplier, R.id.display_itinerary_address}; // THE XML DEFINED VIEWS
 														// WHICH THEDATA WILL BE
 														// BOUND TO
 		ListView lv = (ListView) findViewById(R.id.displayItinaries);
 		dbh = DBHelper.getDBHelper(this);
 
-		cursor = dbh.getTripItineraries(trip_id);
+		cursor = dbh.getItineraryLocation(trip_id);
 		sca = new SimpleCursorAdapter(this, R.layout.list_itinaries, cursor, from, to, 0);
 		lv.setAdapter(sca);
-
 		lv.setOnItemClickListener(editItem);
 		lv.setOnItemLongClickListener(deleteItem);
 	}
@@ -63,6 +60,8 @@ public class ItineraryActivity extends Activity {
 		getMenuInflater().inflate(R.menu.add_itinerary, menu);
 		return true;
 	}
+	
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -73,8 +72,6 @@ public class ItineraryActivity extends Activity {
 		if (id == R.id.addItineraryBtn) {
 			Intent add = new Intent(this, AddItineraryActivity.class);
 			add.putExtra("trip_id", trip_id);
-			add.putExtra("location_id", location_id);
-
 			startActivity(add);
 			return true;
 		}

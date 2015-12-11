@@ -89,22 +89,30 @@
     <string name="to_be_created">Under construction</string>
     <string name="title_activity_settings_ativity">Settings</string>
 
-    <!-- Itinerary STRINGS -->
+		<!-- Itinerary STRINGS -->
+    <string name="itinerary_title">Budgeted Expenses</string>
+    <string name="actual_expense_title">Actual Expenses</string>
     <string name="title_activity_add_itinerary">Add Itinerary</string>
     <string name="addBtn">ADD</string>
+    <string name="location">Location</string>
+    <string name="location_name">Name:</string>
+    <string name="location_description">Description:</string>
+    <string name="location_city">City:</string>
+    <string name="location_code">Country Code:</string>
     <string name="departureDate">Departure Date</string>
     <string name="arrivalDate">Arrival Date</string>
-    <string name="description">Short Description</string>
-    <string name="itinerary_amount">Amount</string>
-    <string name="itinerary_category">Category</string>
-    <string name="name_of_supplier">Name of Supplier</string>
-    <string name="address">Address</string>
+    <string name="description">Short Description:</string>
+    <string name="itinerary_amount">Amount:</string>
+    <string name="itinerary_category">Category:</string>
+    <string name="name_of_supplier">Name of Supplier:</string>
+    <string name="address">Address:</string>
     <string name="addItinerary">Add itinerary</string>
     <string name="editItinerary">Save Edit</string>
     <string name="dateFormat">mm/dd/yyyy</string>
     <string name="departureError">Please enter the departure date</string>
     <string name="arrivalError">Please enter the arrival date</string>
     <string name="title_activity_edit">Edit Activity</string>
+    <string name="separator"> - </string>
     <string name="title_activity_today_activity_list">Today Activity List</string>
 
     <!-- Settings String -->
