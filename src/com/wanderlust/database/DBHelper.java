@@ -153,7 +153,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		ContentValues trip2 = new ContentValues();
 		trip2.put(COLUMN_CREATION, dateFormat.format(date));
-		trip2.put(COLUMN_TRIP_ID, 0);
+		trip2.put(COLUMN_TRIP_ID, 1);
 		trip2.put(COLUMN_NAME, "Test 2 ");
 		trip2.put(COLUMN_DESCRIPTION, "This is a second test on the data");
 		db.insert(TABLE_TRIPS, null, trip2);
@@ -208,7 +208,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public Cursor getTrip(int trip_id) {
 
-		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_ID + " = ?",
+		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_TRIP_ID + " = ?",
 				new String[] { String.valueOf(trip_id) }, null, null, null);
 	}
 
@@ -382,13 +382,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_BUDGETED_ID, budgeted_id);
-		values.put(COLUMN_NAME, arrivalDate);
-		values.put(COLUMN_NAME, departureDate);
+		values.put(COLUMN_ARRIVALDATE, arrivalDate);
+		values.put(COLUMN_DEPARTUREDATE, departureDate);
 		values.put(COLUMN_AMOUNT, amount);
 		values.put(COLUMN_DESCRIPTION, description);
 		values.put(COLUMN_CATEGORY, category);
-		values.put(COLUMN_CATEGORY, supplierName);
-		values.put(COLUMN_CATEGORY, address);
+		values.put(COLUMN_SUPPLIER_NAME, supplierName);
+		values.put(COLUMN_ADDRESS, address);
 
 		// insert row
 		long code = getWritableDatabase().insert(TABLE_ACTUALEXPENSE, null, values);
