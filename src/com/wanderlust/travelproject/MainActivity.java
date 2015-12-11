@@ -5,7 +5,6 @@ import com.bob.travelproject.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -13,9 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * This class fires all the intents necessary when clicking on the main menu. It
+ * will also prompt a register activity, so the user can sign in to the
+ * application if he did not already. If he already is signed in, it displays a
+ * Welcome message and allows him to use the application.
+ * 
+ * @author Rita Lazaar, Brandon Balala, Marjorie Morales, Marvin Francisco
+ *
+ */
 public class MainActivity extends Activity {
-
-	private static final int SHOW_AS_ACTION_IF_ROOM = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,7 @@ public class MainActivity extends Activity {
 	 * 
 	 * @param menu
 	 *            - Menu object
-	 * @return boolean true
+	 * @return booleanE true
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,6 +67,12 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * 
+	 * It will the set the menu items - one settings : which will fire an intent
+	 * for the settings activity and the about one, which will fire the About
+	 * activity.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -80,6 +92,11 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * This will fire the intent for the TipCalculator activity
+	 * 
+	 * @param view
+	 */
 	public void tipCalculator(View view) {
 
 		Intent i = new Intent(this, TipCalculatorActivity.class);
@@ -87,13 +104,23 @@ public class MainActivity extends Activity {
 
 	}
 
+	/**
+	 * This will fire the intent for the UnitConverterActivity activity
+	 * 
+	 * @param view
+	 */
 	public void conversion(View view) {
 
 		Intent i = new Intent(this, UnitConverterActivity.class);
 		startActivity(i);
 
 	}
-
+	
+	/**
+	 * This will fire the intent for the ToBeCreatedActivity activity
+	 * 
+	 * @param view
+	 */
 	public void toBeCreated(View view) {
 
 		Intent intent = new Intent(this, ToBeCreatedActivity.class);
@@ -101,32 +128,61 @@ public class MainActivity extends Activity {
 
 	}
 
-	/** Called when the user clicks the Send button */
+	/**
+	 * This will fire the intent for the TodayActivityFlash activity
+	 * 
+	 * @param view
+	 */
 	public void launchToday(View view) {
 		Intent i = new Intent(this, TodayActivtyFlash.class);
 		startActivity(i);
 	}
 
+	/**
+	 * This will fire the intent for the CurrentTripActivity activity
+	 * 
+	 * @param view
+	 */
 	public void currentTrip(View view) {
 		Intent currentTrips = new Intent(this, CurrentTripActivity.class);
 		startActivity(currentTrips);
 	}
 
+	/**
+	 * This will fire the intent for the WeatherActivity activity
+	 * 
+	 * @param view
+	 */
 	public void weather(View view) {
 		Intent weather = new Intent(this, WeatherActivity.class);
 		startActivity(weather);
 	}
 
+	/**
+	 * This will fire the intent for the TripActivity activity
+	 * 
+	 * @param view
+	 */
 	public void manageTrips(View view) {
 		Intent allTrips = new Intent(this, TripActivity.class);
 		startActivity(allTrips);
 	}
 
+	/**
+	 * This will fire the intent for the AboutActivity activity
+	 * 
+	 * @param view
+	 */
 	public void about(View view) {
 		Intent about = new Intent(this, AboutActivity.class);
 		startActivity(about);
 	}
 
+	/**
+	 * This will fire the intent for the CurrencyConverterActivity activity
+	 * 
+	 * @param view
+	 */
 	public void launchCurrencyConverter(View view) {
 		Intent intent = new Intent(this, CurrencyConverterActivity.class);
 		startActivity(intent);

@@ -190,7 +190,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		Log.i(TAG, "onUpgrade()");
 	}
 
-	/***
+	/**
 	 * This method opens the database
 	 */
 	@Override
@@ -200,7 +200,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	// ------------------------ "trips" table methods ----------------//
 
-	/*
+	/**
 	 * CREATE Creating a trips
 	 */
 	public void createNewTrip(int trip_id, String name, String description) {
@@ -218,7 +218,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	/*
+	/**
 	 * getting a trip
 	 */
 	public Cursor getTrip(int trip_id) {
@@ -227,7 +227,7 @@ public class DBHelper extends SQLiteOpenHelper {
 				new String[] { String.valueOf(trip_id) }, null, null, null);
 	}
 
-	/*
+	/**
 	 * getting all trips
 	 */
 	public Cursor getAllTrips() {
@@ -235,7 +235,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		return getReadableDatabase().query(TABLE_TRIPS, null, null, null, null, null, null);
 	}
 
-	/*
+	/**
 	 * UPDATE Updating a trip TODO
 	 */
 	public void updateTrip(int id, String name, String description) {
@@ -248,17 +248,11 @@ public class DBHelper extends SQLiteOpenHelper {
 		// updating row
 		getWritableDatabase().update(TABLE_TRIPS, values, COLUMN_ID + " = ?", new String[] { String.valueOf(id) });
 	}
-
-	/*
-	 * Deleting a trip
-	 */
-	public void deleteTrip(int trip_id) {
-		getWritableDatabase().delete(TABLE_TRIPS, COLUMN_ID + " = ?", new String[] { String.valueOf(trip_id) });
-	}
+	
 
 	// ------------------------ "location" table methods ----------------//
 
-	/*
+	/**
 	 * CREATE Creating a location
 	 */
 	public void createNewLocation(String name, String description, String city, String countryCode) {
@@ -272,7 +266,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		getWritableDatabase().insert(TABLE_LOCATIONS, null, values);
 	}
 
-	/*
+	/**
 	 * getting all locations
 	 */
 	public Cursor getAllLocations() {
@@ -281,7 +275,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	/*
+	/**
 	 * getting a location
 	 */
 	public Cursor getLocations(int location_id) {
@@ -291,7 +285,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	/*
+	/**
 	 * getting a location
 	 */
 	public Cursor getLocation(String name) {
@@ -300,33 +294,10 @@ public class DBHelper extends SQLiteOpenHelper {
 				new String[] { name }, null, null, null);
 
 	}
+
 	
-	/*
-	 * UPDATE Updating a location
-	 */
-	public void updateLocation(int id, String name, String description, String city, String countryCode) {
 
-		ContentValues values = new ContentValues();
-		values.put(COLUMN_NAME, name);
-		values.put(COLUMN_DESCRIPTION, description);
-		values.put(COLUMN_CITY, city);
-		values.put(COLUMN_COUNTRYCODE, countryCode);
-
-		// updating row
-		getWritableDatabase().update(TABLE_LOCATIONS, values, COLUMN_ID + " = ?", new String[] { String.valueOf(id) });
-	}
-
-	/*
-	 * DELETE Deleting a location
-	 */
-	public void deleteLocation(int trip_id) {
-		getWritableDatabase().delete(TABLE_LOCATIONS, COLUMN_ID + " = ?", new String[] { String.valueOf(trip_id) });
-	}
-
-	// ------------------------ "BUDGETEDEXPENSE" table methods
-	// ----------------//
-
-	/*
+	/**
 	 * CREATE Creating an itinerary
 	 */
 	public long createNewItinerary(int location_id, int trip_id, Timestamp arrivalDate, Timestamp departureDate,
@@ -349,7 +320,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		return code;
 	}
 
-	/*
+	/**
 	 * getting an itinerary
 	 */
 	public Cursor getItinerary(int itinerary_id) {
@@ -359,7 +330,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	/*
+	/**
 	 * getting all itineraries of a trip
 	 */
 	public Cursor getTripItineraries(int trip_id) {
@@ -369,7 +340,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	/*
+	/**
 	 * UPDATE Updating an itinerary
 	 */
 	public void updateItinerary(int itinerary_id, Timestamp arrivalDate, Timestamp departureDate, double amount,
@@ -389,7 +360,7 @@ public class DBHelper extends SQLiteOpenHelper {
 				new String[] { String.valueOf(itinerary_id) });
 	}
 
-	/*
+	/**
 	 * DELETE Deleting an itinerary
 	 */
 	public void deleteItinerary(int itinerary) {
@@ -399,7 +370,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	// ------------------------ "Itinerary" table methods
 	// ----------------//
 
-	/*
+	/**
 	 * CREATE Creating a actual expense
 	 */
 	public long createNewActualExpense(int budgeted_id, Timestamp arrivalDate, Timestamp departureDate, double amount,
@@ -421,7 +392,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		return code;
 	}
 
-	/*
+	/**
 	 * getting an actual expense
 	 */
 	public Cursor getActualExpense(int actualExpense_id) {
@@ -431,7 +402,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	/*
+	/**
+	 * 
 	 * getting all actual expense
 	 */
 	public Cursor getAllActualExpense() {
@@ -440,7 +412,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	/*
+	/**
 	 * UPDATE Updating a actual expense
 	 */
 	public void updateActualExpense(int actualExpense_id, int budgeted_id, String arrivalDate, String departureDate,
@@ -469,7 +441,8 @@ public class DBHelper extends SQLiteOpenHelper {
 				new String[] { String.valueOf(actualExpense_id) });
 	}
 
-	/*
+	/**
+	 * 
 	 * getting all the activities that are scheduled today.
 	 */
 	public Cursor getActivitiesToday(Timestamp selectedDate) {
