@@ -1,5 +1,12 @@
 package com.wanderlust.travelproject;
 
+/**
+ * Simple Weather class containing setters and getters from different inners
+ * classes related to a weather condition.
+ * 
+ * @author Rita Lazaar, Brandon Balala, Marjorie Morales, Marvin Francisco
+ *
+ */
 public class Weather {
 	public Location location = new Location();
 	public CurrentCondition currentCondition = new CurrentCondition();

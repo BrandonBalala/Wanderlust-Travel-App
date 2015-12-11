@@ -15,6 +15,13 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * This is the weather activity. It displays all weather data related to a
+ * specific city retrieved from the database.
+ * 
+ * @author Rita Lazaar, Brandon Balala, Marjorie Morales, Marvin Francisco
+ *
+ */
 public class WeatherActivity extends Activity {
 
 	private TextView cityText;
@@ -23,14 +30,19 @@ public class WeatherActivity extends Activity {
 	private TextView press;
 	private TextView windSpeed;
 	private TextView windDeg;
-
 	private TextView hum;
-	private ImageView imgView;
 
+	/**
+	 * This is being executed when the activity is created. It sets all the
+	 * TextViews and calls the inner class which runs an Async Task to retrieve
+	 * data and set it to the textViews.
+	 * 
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weather);
+		
 		String city = "Montreal,CA";
 
 		cityText = (TextView) findViewById(R.id.cityText);
@@ -40,43 +52,49 @@ public class WeatherActivity extends Activity {
 		press = (TextView) findViewById(R.id.press);
 		windSpeed = (TextView) findViewById(R.id.windSpeed);
 		windDeg = (TextView) findViewById(R.id.windDeg);
-		//imgView = (ImageView) findViewById(R.id.condIcon);
 
 		JSONWeatherTask task = new JSONWeatherTask();
 		task.execute(new String[] { city });
 	}
 
+	/**
+	 * This is an AsyncTask which creates in the background the connection to
+	 * the API and retrieves the data from it. It then send the data to a JSON
+	 * parser class to retrieve the actual weather.
+	 * 
+	 * @author Rita Lazaar, Brandon Balala, Marjorie Morales, Marvin Francisco
+	 *
+	 */
 	private class JSONWeatherTask extends AsyncTask<String, Void, Weather> {
 
+		/**
+		 * This is done in background. Connectiong to the OpenWeather API and
+		 * getting the data as a string.
+		 * 
+		 */
 		@Override
 		protected Weather doInBackground(String... params) {
-			Log.i("here", "IM HERE");
 			Weather weather = new Weather();
 			String data = ((new WeatherConnection()).getWeatherData(params[0]));
-			Log.i("DATA", data);
 
 			try {
+				// converting the string to a Weather object
 				weather = JSONWeather.getWeather(data);
 
-				// Let's retrieve the icon
-				weather.iconData = ((new WeatherConnection()).getImage(weather.currentCondition.getIcon()));
-			
-
 			} catch (JSONException e) {
-				e.printStackTrace();
+				e.getMessage();
 			}
 			return weather;
 
 		}
 
+		/**
+		 * When task is done being executed, the newly created weather object is
+		 * being used to set the textViews values.
+		 */
 		@Override
 		protected void onPostExecute(Weather weather) {
 			super.onPostExecute(weather);
-//
-//			if (weather.iconData != null && weather.iconData.length > 0) {
-//				Bitmap img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);
-//				imgView.setImageBitmap(img);
-//			}
 
 			cityText.setText(weather.location.getCity() + "," + weather.location.getCountry());
 			condDescr

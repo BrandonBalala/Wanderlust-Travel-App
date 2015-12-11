@@ -4,14 +4,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class is used to parse the data from the weather API which is in a JSON
+ * format and convert it to an actual weather object.
+ * 
+ * @author Rita Lazaar, Brandon Balala, Marjorie Morales, Marvin Francisco
+ *
+ */
 public class JSONWeather {
+
+	/**
+	 * This method is to parse the data received and set it as an appropriate
+	 * weather object.
+	 * 
+	 * @param data
+	 * @return
+	 * @throws JSONException
+	 *             if something is not present in the JSON data
+	 */
 
 	public static Weather getWeather(String data) throws JSONException {
 		Weather weather = new Weather();
 
-		// We create out JSONObject from the data
+		// JSONObject witht the String sent
 		JSONObject jObj = new JSONObject(data);
-		// TODO: CATCH THE EXCEPTION
+
 		// We start extracting the info
 		Location loc = new Location();
 
@@ -24,6 +41,7 @@ public class JSONWeather {
 		loc.setSunrise(getInt("sunrise", sysObj));
 		loc.setSunset(getInt("sunset", sysObj));
 		loc.setCity(getString("name", jObj));
+
 		weather.location = loc;
 
 		// We get weather info (This is an array)
@@ -31,12 +49,14 @@ public class JSONWeather {
 
 		// We use only the first value
 		JSONObject JSONWeather = jArr.getJSONObject(0);
+
 		weather.currentCondition.setWeatherId(getInt("id", JSONWeather));
 		weather.currentCondition.setDescr(getString("description", JSONWeather));
 		weather.currentCondition.setCondition(getString("main", JSONWeather));
 		weather.currentCondition.setIcon(getString("icon", JSONWeather));
 
 		JSONObject mainObj = getObject("main", jObj);
+
 		weather.currentCondition.setHumidity(getInt("humidity", mainObj));
 		weather.currentCondition.setPressure(getInt("pressure", mainObj));
 		weather.temperature.setMaxTemp(getFloat("temp_max", mainObj));
@@ -51,8 +71,6 @@ public class JSONWeather {
 		// Clouds
 		JSONObject cObj = getObject("clouds", jObj);
 		weather.clouds.setPerc(getInt("all", cObj));
-
-		// We download the icon to show
 
 		return weather;
 	}

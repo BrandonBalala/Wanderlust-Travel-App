@@ -1,5 +1,12 @@
 package com.wanderlust.travelproject;
 
+/**
+ * This is a class with simple getters and setters to get information about the
+ * specified location from the JSON.
+ * 
+ * @author Rita Lazaar, Brandon Balala, Marjorie Morales, Marvin Francisco
+ *
+ */
 public class Location {
 
 	private float longitude;
@@ -8,40 +15,51 @@ public class Location {
 	private long sunrise;
 	private String country;
 	private String city;
-	
+
 	public float getLongitude() {
 		return longitude;
 	}
+
 	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
+
 	public float getLatitude() {
 		return latitude;
 	}
+
 	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
+
 	public long getSunset() {
 		return sunset;
 	}
+
 	public void setSunset(long sunset) {
 		this.sunset = sunset;
 	}
+
 	public long getSunrise() {
 		return sunrise;
 	}
+
 	public void setSunrise(long sunrise) {
 		this.sunrise = sunrise;
 	}
+
 	public String getCountry() {
 		return country;
 	}
+
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}

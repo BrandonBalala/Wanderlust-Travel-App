@@ -7,12 +7,25 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * This class is used to make the connection with the OpenWeather API and
+ * retrieve the necessary data from it to create the weather activity.
+ * 
+ * @author Rita Lazaar, Brandon Balala, Marjorie Morales, Marvin Francisco
+ *
+ */
 public class WeatherConnection {
 	private static String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
-	private static String IMG_URL = "http://openweathermap.org/img/w/";
 	private static String API_KEY = "&APPID=0e22b726187895f15784bdd14fbe83ec";
 	private static String ALL = "http://api.openweathermap.org/data/2.5/weather?q=Montreal,CA&APPID=0e22b726187895f15784bdd14fbe83ec";
 
+	/**
+	 * This method is used to get the weather data related to the location,
+	 * which is a city and returns it as a string.
+	 * 
+	 * @param location
+	 * @return
+	 */
 	public String getWeatherData(String location) {
 		HttpURLConnection con = null;
 		InputStream is = null;
@@ -53,39 +66,4 @@ public class WeatherConnection {
 
 	}
 
-	public byte[] getImage(String code) {
-		HttpURLConnection con = null;
-		InputStream is = null;
-		try {
-			con = (HttpURLConnection) (new URL(IMG_URL + code)).openConnection();
-			con.setRequestMethod("GET");
-			con.setDoInput(true);
-			con.setDoOutput(true);
-			con.connect();
-
-			// Let's read the response
-			is = con.getInputStream();
-			byte[] buffer = new byte[1024];
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-			while (is.read(buffer) != -1)
-				baos.write(buffer);
-
-			return baos.toByteArray();
-		} catch (Throwable t) {
-			t.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (Throwable t) {
-			}
-			try {
-				con.disconnect();
-			} catch (Throwable t) {
-			}
-		}
-
-		return null;
-
-	}
 }
