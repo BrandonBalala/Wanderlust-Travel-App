@@ -3,18 +3,12 @@ package com.wanderlust.travelproject;
 import org.json.JSONException;
 
 import com.bob.travelproject.R;
-import com.bob.travelproject.R.layout;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.Menu;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**

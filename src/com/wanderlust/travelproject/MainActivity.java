@@ -48,17 +48,6 @@ public class MainActivity extends Activity {
 		tv.setText("Hello " + fname + " " + lname);
 	}
 
-	/**
-	 * 
-	 * This is an options menu. This method pragmatically creates two items and
-	 * added to the menu: about fires an explicit intent to invoke About class
-	 * that display information of the application and dawson fires an implicit
-	 * intent to that launches the Dawson Computer Science web page.
-	 * 
-	 * @param menu
-	 *            - Menu object
-	 * @return booleanE true
-	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);

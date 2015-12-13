@@ -8,6 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="@string/itinerary_title"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
         <LinearLayout android:orientation="horizontal" >
 
             <TextView
@@ -49,7 +59,7 @@
         <LinearLayout android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/arrivalErrorTv"
+                android:id="@+id/editArrivalErrorTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/textView_itinerary_error_paddingLeft"
@@ -59,12 +69,33 @@
                 android:visibility="invisible" />
 
             <TextView
-                android:id="@+id/departureErrorTv"
+                android:id="@+id/editDepartureErrorTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/departureError"
                 android:textColor="#FF0000"
                 android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <Spinner
+                android:id="@+id/edit_spinner_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="@integer/layout_weight"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -132,7 +163,7 @@
                 android:id="@+id/edit_itinerary_category"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
+                android:maxLength="@integer/max_length"
                 android:singleLine="true"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
@@ -181,8 +212,188 @@
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="@string/actual_expense_title"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <LinearLayout android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/textView_itinerary_padding"
+                android:paddingRight="@dimen/textView_itinerary_padding"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/arrivalDate"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/departureDate"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/edtActualArrivalDate"
+                android:layout_width="@dimen/button_time_width"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/button_itinerary_margin"
+                android:layout_marginRight="@dimen/button_itinerary_marginRight"
+                android:text="@string/dateFormat"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/editActualDepartureDate"
+                android:layout_width="@dimen/button_time_width"
+                android:layout_height="wrap_content"
+                android:text="@string/dateFormat"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/editActualArrivalErrorTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/textView_itinerary_error_paddingLeft"
+                android:paddingRight="@dimen/textView_itinerary_error_paddingRight"
+                android:text="@string/arrivalError"
+                android:textColor="#FF0000"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/editActualDepartureErrorTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/departureError"
+                android:textColor="#FF0000"
+                android:visibility="invisible" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/edit_actual_description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/itinerary_amount"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/edit_actual_amount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/itinerary_category"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/edit_actual_category"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="@integer/max_length"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name_of_supplier"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/edit_actual_name_of_supplier"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/address"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/textSize" />
+
+            <EditText
+                android:id="@+id/edit_actual_address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
         <Button
-            android:id="@+id/editItinerary"
+            android:id="@+id/edit_additinerary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="editItinerary"

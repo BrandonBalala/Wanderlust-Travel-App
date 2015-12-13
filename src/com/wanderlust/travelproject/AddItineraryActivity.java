@@ -26,6 +26,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 
+ * This activity is use to add a budgeted and actual expense to a trip. This
+ * activity handles the user input validation and the saves the data to the
+ * database. The main purpose of this activity is to create a new budgeted
+ * expenses and actual expense.
+ * 
+ * @author Marjorie Morales, Rita Lazaar, Brandon Balala, Marvin Francisco
+ *
+ */
 public class AddItineraryActivity extends Activity {
 	private DBHelper dbh;
 
@@ -40,6 +50,8 @@ public class AddItineraryActivity extends Activity {
 	private Button actualArrivalPickDate;
 	private TextView departureDateError;
 	private TextView arrivalDateError;
+	private TextView actualDepartureDateError;
+	private TextView actualArrivalDateError;
 	private Spinner locationSpinner;
 
 	private int mYear;
@@ -50,24 +62,21 @@ public class AddItineraryActivity extends Activity {
 	private Timestamp departureDate;
 	private Timestamp actualArrivalDate;
 	private Timestamp actualDepartureDate;
-	
+
 	private Double amount;
 	private String description;
 	private String category;
 	private String nameOfSupplier;
 	private String address;
-	
-	private Double actualAmount = 0.0;
-	private String actualDescription = "";
-	private String actualCategory = "";
-	private String actualNameOfSupplier = "";
-	private String actualAddress = "";
-	
-	private int trip_id;
-	private int budgetedLocation_id;
-	private int budgetedExpense_id;
 
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	private Double actualAmount;
+	private String actualDescription;
+	private String actualCategory;
+	private String actualNameOfSupplier;
+	private String actualAddress;
+
+	private int trip_id;
+	private int budgetedExpense_id;
 	public static Date date;
 
 	@Override
@@ -82,6 +91,8 @@ public class AddItineraryActivity extends Activity {
 		actualArrivalPickDate = (Button) findViewById(R.id.addActualArrivalDate);
 		departureDateError = (TextView) findViewById(R.id.departureErrorTv);
 		arrivalDateError = (TextView) findViewById(R.id.arrivalErrorTv);
+		actualDepartureDateError = (TextView) findViewById(R.id.actualDepartureErrorTv);
+		actualArrivalDateError = (TextView) findViewById(R.id.actualArrivalErrorTv);
 		locationSpinner = (Spinner) findViewById(R.id.spinner_location);
 
 		// add a click listener to the button
@@ -118,24 +129,30 @@ public class AddItineraryActivity extends Activity {
 			}
 		});
 
-		Bundle bundle = getIntent().getExtras();
-		if (bundle != null)
-			trip_id = (Integer) bundle.getInt("trip_id");
+		// gets the trip_id send to the activity by the previous activity.
+		trip_id = (Integer) getIntent().getExtras().getInt("trip_id");
 		dbh = DBHelper.getDBHelper(this);
 
+		/**
+		 * These lines of code gets all the location on the database. Then, put
+		 * then to an ArrayList<String> in order to put on an ArrayAdapter with
+		 * a Spinner View.
+		 */
 		Cursor locations = dbh.getAllLocations();
 		List<String> list = new ArrayList<String>();
-
 		while (locations.moveToNext()) {
 			list.add(locations.getString(locations.getColumnIndex(DBHelper.COLUMN_NAME)));
 		}
-
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
-		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);	
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		locationSpinner.setAdapter(dataAdapter);
-		
+
 	}
 
+	/**
+	 * This method creates a dialog that managed(saved and restores) of the
+	 * date.
+	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		// getting the current date
@@ -207,6 +224,7 @@ public class AddItineraryActivity extends Activity {
 			mDay = dayOfMonth;
 			updateDisplay(actualDeparturePickDate);
 			actualDepartureDate = new Timestamp(date.getTime());
+			actualDepartureDateError.setVisibility(View.INVISIBLE);
 
 		}
 	};
@@ -219,80 +237,113 @@ public class AddItineraryActivity extends Activity {
 			mDay = dayOfMonth;
 			updateDisplay(actualArrivalPickDate);
 			actualArrivalDate = new Timestamp(date.getTime());
+			actualArrivalDateError.setVisibility(View.INVISIBLE);
 
 		}
 	};
 
+	/**
+	 * 
+	 * This method is fired when the add button is clicked. This method add the
+	 * user input informations to the database.
+	 * 
+	 * @param view
+	 */
 	public void addItinerary(View view) {
 		// if the user input are all valid then create an itinerary on the
 		// database.
-		if (validateBudgetedExpenseInput()) {
+		if (validateBudgetedExpenseInput() && validateActualExpenseInput()) {
+			// get the location id.
 			String budgetedLocationName = locationSpinner.getSelectedItem().toString();
+			int budgetedLocation_id = (int) dbh.getLocationId(budgetedLocationName);
 
-			Cursor budgetedLocation = dbh.getLocation(budgetedLocationName);
-			if (budgetedLocation.moveToFirst()) {
-				budgetedLocation_id = budgetedLocation.getInt(budgetedLocation.getColumnIndex(DBHelper.COLUMN_ID));
-			}
-			
-			budgetedExpense_id = (int) dbh.createNewItinerary(budgetedLocation_id, trip_id, arrivalDate, departureDate, amount, description, category,
-					nameOfSupplier, address);
-			validateActualExpenseInput();		
+			// create a budgeted expense row on the database. return the id of
+			// the newly created itinerary(budgeted expense).
+			budgetedExpense_id = (int) dbh.createNewItinerary(budgetedLocation_id, trip_id, arrivalDate, departureDate,
+					amount, description, category, nameOfSupplier, address);
+			dbh.createNewActualExpense(budgetedExpense_id, actualArrivalDate, actualDepartureDate, actualAmount,
+					actualDescription, actualCategory, actualNameOfSupplier, actualAddress);
 			finish();
 		}
 	}
 
-	// updates the date we display in the Button text
+	/**
+	 * This method updates the date displayed on the Button for arrival date and
+	 * departure date(budgeted expense and actual expense).
+	 * 
+	 * @param btnDatePicker
+	 */
 	private void updateDisplay(Button btnDatePicker) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		btnDatePicker.setText(new StringBuilder()
 				// Month is 0 based so add 1
 				.append(mMonth + 1).append("/").append(mDay).append("/").append(mYear).append(" "));
-		String stringDate =(mMonth + 1) + "/" + mDay + "/" + mYear;
+		String stringDate = (mMonth + 1) + "/" + mDay + "/" + mYear;
 		try {
 			date = dateFormat.parse(stringDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
- 
-	public void validateActualExpenseInput(){	
+
+	/**
+	 * This method validates the user input informations for the actual
+	 * expenses. This method initialize the actual expense variables.
+	 * 
+	 * @return true - because the user is not obligated to fill up all fields on
+	 *         the actual expense form.
+	 *         false - when the departure date is before the arrival date.
+	 */
+	public boolean validateActualExpenseInput() {
 		// getting input description
 		EditText actualDescriptionEt = (EditText) findViewById(R.id.actual_description);
-		if(actualDescriptionEt.getText() != null)
-			actualDescription = actualDescriptionEt.getText().toString();
+		actualDescription = actualDescriptionEt.getText().toString();
 		// getting input amount
 		EditText actualAmountEt = (EditText) findViewById(R.id.actual_amount);
-		if(actualAmountEt.getText() != null)
-			actualAmount = Double.valueOf(actualAmountEt.getText().toString());
-		 
+		String actualAmountString = actualAmountEt.getText().toString();
 		// getting input category
 		EditText actualCategoryEt = (EditText) findViewById(R.id.actual_category);
-		if(actualCategoryEt.getText() != null)
-			actualCategory = actualCategoryEt.getText().toString();
-
+		actualCategory = actualCategoryEt.getText().toString();
 		// getting input name of supplier
 		EditText actualNameOfSupplierEt = (EditText) findViewById(R.id.actual_name_of_supplier);
-		if(actualNameOfSupplierEt.getText() != null)
-			actualNameOfSupplier = actualNameOfSupplierEt.getText().toString();
-
+		actualNameOfSupplier = actualNameOfSupplierEt.getText().toString();
 		// getting input name of supplier
 		EditText actualAddressEt = (EditText) findViewById(R.id.actual_address);
-		if(actualAddressEt.getText() != null)
-			actualAddress = actualAddressEt.getText().toString();
-		
-		dbh.createNewActualExpense(budgetedExpense_id, actualArrivalDate, actualDepartureDate, actualAmount, actualDescription, actualCategory, actualNameOfSupplier, actualAddress);
-		
-	}
-	
-	public boolean validateBudgetedExpenseInput() {
-		boolean valid = true;
-		// verifies if the departure date is not in the past
+		actualAddress = actualAddressEt.getText().toString();
+		// if the user did not fill the actual arrival date, set it with the
+		// budgeted arrival date.
 		if (actualArrivalDate == null) {
 			actualArrivalDate = arrivalDate;
 		}
-
+		// if the user did not fill the actual departure date, set it with the budgeted departure date.
 		if (actualDepartureDate == null) {
 			actualDepartureDate = departureDate;
-		} 
+		} else {
+			if (!actualDepartureDate.equals(actualArrivalDate) && !actualDepartureDate.after(actualArrivalDate)) {
+				Toast.makeText(this, "The departure date should not be before the arrival date", Toast.LENGTH_SHORT)
+						.show();
+				actualDepartureDateError.setVisibility(View.VISIBLE);
+				return false;
+			}
+		}
+		// if the user did not fill the actual amount, set it with the budgeted departure date.
+		if (TextUtils.isEmpty(actualAmountString)) 
+			actualAmount =0.0;
+		else
+			actualAmount = Double.valueOf(actualAmountString);
+		return true;
+	}
+
+	/**
+	 * This method validates the user input informations for the budgeted
+	 * expenses. Return false when user did not fill a field.
+	 * 
+	 * @return boolean - false when an EditText is empty. true when all the
+	 *         EditText is filled up
+	 */
+	public boolean validateBudgetedExpenseInput() {
+		boolean valid = true;
+
 		// getting input description
 		EditText descriptionEt = (EditText) findViewById(R.id.itinerary_description);
 		description = descriptionEt.getText().toString();
@@ -320,7 +371,7 @@ public class AddItineraryActivity extends Activity {
 			departureDateError.setVisibility(View.VISIBLE);
 			valid = false;
 		} else {
-			if (!departureDate.after(arrivalDate)) {
+			if (!departureDate.equals(arrivalDate) && !departureDate.after(arrivalDate)) {
 				Toast.makeText(this, "The departure date should not be before the arrival date", Toast.LENGTH_SHORT)
 						.show();
 				valid = false;

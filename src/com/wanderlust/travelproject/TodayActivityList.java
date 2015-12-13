@@ -5,9 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.bob.travelproject.R;
-import com.bob.travelproject.R.id;
-import com.bob.travelproject.R.layout;
-import com.bob.travelproject.R.menu;
 import com.wanderlust.database.DBHelper;
 
 import android.app.Activity;
@@ -19,8 +16,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;

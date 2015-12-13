@@ -120,7 +120,7 @@
     <string name="settings_password">Password:</string>
     <string name="settings_firstname">First name:</string>
     <string name="settings_lastname">Last name:</string>
-    <string name="settings_countrycode">Country code:</string>
+    <string name="settings_countrycode">Country Code:</string>
     <string name="settings_currency">Currency:</string>
     <string name="settings_city">City:</string>
     <string name="settings_save">SAVE</string>

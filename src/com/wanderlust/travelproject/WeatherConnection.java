@@ -1,7 +1,6 @@
 package com.wanderlust.travelproject;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -17,7 +16,6 @@ import java.net.URL;
 public class WeatherConnection {
 	private static String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
 	private static String API_KEY = "&APPID=0e22b726187895f15784bdd14fbe83ec";
-	private static String ALL = "http://api.openweathermap.org/data/2.5/weather?q=Montreal,CA&APPID=0e22b726187895f15784bdd14fbe83ec";
 
 	/**
 	 * This method is used to get the weather data related to the location,

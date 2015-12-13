@@ -1,7 +1,6 @@
 package com.wanderlust.travelproject;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import com.bob.travelproject.R;
 

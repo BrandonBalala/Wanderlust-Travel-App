@@ -2,7 +2,6 @@ package com.wanderlust.travelproject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -100,8 +99,7 @@ public class TripActivity extends Activity {
 	public OnItemClickListener showItinerary = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			ListView lv = (ListView) findViewById(R.id.displayTrips);
-			int trip_id = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
+			int trip_id = (int) id;
 			// save the clicked trip id into the SharedPreferences
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			SharedPreferences.Editor editor = prefs.edit();
@@ -127,8 +125,6 @@ public class TripActivity extends Activity {
 
 		String email = (mSharedPreference.getString("username", ""));
 		String password = (mSharedPreference.getString("password", ""));
-		InputStream is = null;
-		int response, len = 500;
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
@@ -218,7 +214,7 @@ public class TripActivity extends Activity {
 				String city = jsonElement.getJSONObject("location").getString("city");
 				String name = jsonElement.getJSONObject("location").getString("name");
 				String description = jsonElement.getJSONObject("location").getString("description");
-				Cursor thislocation = dbh.getLocations(location_id);
+				Cursor thislocation = dbh.getLocation(location_id);
 				//validation to see if there is the specific location already
 				if (thislocation.getCount() < 1)
 					dbh.createNewLocation(name, description, city, countryCode);
