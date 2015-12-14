@@ -7,5 +7,9 @@
     <item name="lightgreen" type="color">#ffc107</item>
     <item name="blue" type="color">#2196f3</item>
     <item name="lime" type="color">#cddc39</item>
-
+    <item name="orange" type="color">#FFA500</item>
+    <item name="red" type="color">#FF0000</item>
+    <item name="skyblue" type="color">#87CEEB</item>
+    <item name="applegreen" type="color">#5BC236</item>
+    <item name="drarkgreen" type="color">#007f00</item>
 </resources>

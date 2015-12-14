@@ -9,114 +9,107 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:background="#007f00"
+        android:background="@color/drarkgreen"
         android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/location"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/column_textSize"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin" >
+            android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_name"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/location_column_textSize"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/display_location_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:textSize="16sp"
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:textSize="@dimen/location_row_textSize"
                 android:textStyle="italic" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin" >
+            android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_description"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/location_column_textSize"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/display_location_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:textSize="16sp"
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:textSize="@dimen/location_row_textSize"
                 android:textStyle="italic" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin" >
+            android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_city"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/location_column_textSize"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/display_location_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:textSize="16sp"
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:textSize="@dimen/location_row_textSize"
                 android:textStyle="italic" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin" >
+            android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_code"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/location_column_textSize"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/display_location_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:textSize="16sp"
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:textSize="@dimen/location_row_textSize"
                 android:textStyle="italic" />
         </LinearLayout>
     </LinearLayout>
@@ -132,8 +125,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/itinerary_title"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_textSize"
             android:textStyle="bold" />
 
         <TextView
@@ -142,8 +135,8 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="@string/actual_expense_title"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_textSize"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -155,127 +148,120 @@
         android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <LinearLayout
-            android:layout_width="280dp"
+            android:layout_width="@dimen/expense_linerlayout_width"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/display_itinerary_arrival"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/date_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/separator"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/date_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_itinerary_departure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/date_textSize"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_horizontal_margin" >
+                android:paddingTop="@dimen/linerlayout_marginLeft" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/description"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_itinerary_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itinerary_category"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_itinerary_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itinerary_amount"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin" >
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$ "
-                        android:textSize="20sp"
+                        android:text="@string/dollar"
+                        android:textSize="@dimen/row_textSize"
                         android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/display_itinerary_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/row_textSize"
                         android:textStyle="italic" />
                 </LinearLayout>
             </LinearLayout>
@@ -283,176 +269,165 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/name_of_supplier"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_itinerary_name_of_supplier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_itinerary_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="280dp"
+            android:layout_width="@dimen/expense_linerlayout_width"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/display_actual_arrival"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/date_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/separator"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/date_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_actual_departure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/date_textSize"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_horizontal_margin" >
+                android:paddingTop="@dimen/linerlayout_marginLeft" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/description"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_actual_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itinerary_category"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_actual_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itinerary_amount"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin" >
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$ "
-                        android:textSize="20sp"
+                        android:text="@string/dollar"
+                        android:textSize="@dimen/row_textSize"
                         android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/display_actual_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/row_textSize"
                         android:textStyle="italic" />
                 </LinearLayout>
             </LinearLayout>
@@ -460,53 +435,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/name_of_supplier"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_actual_name_of_supplier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin" >
+                android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/column_textSize"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/display_actual_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="20sp"
+                    android:layout_marginLeft="@dimen/linerlayout_marginLeft"
+                    android:textSize="@dimen/row_textSize"
                     android:textStyle="italic" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

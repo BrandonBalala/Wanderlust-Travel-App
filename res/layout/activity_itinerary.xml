@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,8 +13,8 @@
         android:id="@+id/displayItinaries"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#5BC236"
-        android:divider="#FFFFFF"
+        android:background="@color/applegreen"
+        android:divider="@color/white"
         android:dividerHeight="@dimen/dividerHeight"
         android:orientation="vertical" />
 

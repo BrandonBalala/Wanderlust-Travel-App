@@ -82,7 +82,7 @@ public class TripActivity extends Activity {
 		} else
 			Toast.makeText(this, "You have no saved trips", Toast.LENGTH_SHORT).show();
 	}
-
+	
 	/**
 	 * 
 	 * This method gets called when a data is deleted, edited or created.
@@ -99,9 +99,7 @@ public class TripActivity extends Activity {
 	public OnItemClickListener showItinerary = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			ListView lv = (ListView) findViewById(R.id.displayTrips);
-			int trip_id = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
-			// save the clicked trip id into the SharedPreferences
+			int trip_id = (int) id;
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putInt("lastTripViewedId", trip_id);
@@ -143,7 +141,6 @@ public class TripActivity extends Activity {
 					// send the username in the new SyncInfo class to download
 					// appropriate trips for that user.
 					new SyncInfo().execute(email, password);
-
 				} catch (Exception e) {
 					Log.v(TAG, "Exception:" + e.getMessage());
 				}
@@ -329,7 +326,7 @@ public class TripActivity extends Activity {
 				}
 			}
 		}
-
+		refreshView();
 	}
 
 	/**

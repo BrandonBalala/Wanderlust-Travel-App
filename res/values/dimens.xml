@@ -45,6 +45,14 @@
     <dimen name="linerlayout_itinerary_padding">20dp</dimen>
     <dimen name="location_linerlayout_itinerary">400dp</dimen>
     <dimen name="location_linerlayout_paddingTop">5dp</dimen>
+    <dimen name="linerlayout_marginLeft">10dp</dimen>
+    <dimen name="title_textSize">30sp</dimen>
+    <dimen name="column_textSize">24sp</dimen>
+    <dimen name="location_column_textSize">20sp</dimen>
+    <dimen name="location_row_textSize">16sp</dimen>
+    <dimen name="row_textSize">22sp</dimen>
+    <dimen name="expense_linerlayout_width">280dp</dimen>
+    <dimen name="date_textSize">12dp</dimen>
 
     <!-- ABOUT -->
     <dimen name="titleTextSize">50sp</dimen>

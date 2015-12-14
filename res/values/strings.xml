@@ -114,6 +114,7 @@
     <string name="title_activity_edit">Edit Activity</string>
     <string name="separator"> - </string>
     <string name="title_activity_today_activity_list">Today Activity List</string>
+    <string name="dollar">$</string>
 
     <!-- Settings String -->
     <string name="settings_username">Username:</string>

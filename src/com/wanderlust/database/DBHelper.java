@@ -245,7 +245,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	public Cursor getTrip(int _id) {
 
-		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_TRIP_ID + " = ?", new String[] { String.valueOf(_id) },
+		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_ID + " = ?", new String[] { String.valueOf(_id) },
 				null, null, null);
 	}
 

@@ -28,7 +28,7 @@
             android:layout_marginBottom="@dimen/editext_margin_Bottom"
             android:hint="@string/username"
             android:paddingBottom="@dimen/editext_padding_Bottom"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="@color/white"
             android:textSize="@dimen/textSize" />
 
         <EditText
@@ -39,7 +39,7 @@
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/fname"
             android:paddingBottom="@dimen/editext_padding_Bottom"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="@color/white"
             android:textSize="@dimen/textSize" />
 
         <EditText
@@ -50,7 +50,7 @@
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/lname"
             android:paddingTop="@dimen/editext_padding_Bottom"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="@color/white"
             android:textSize="@dimen/textSize" />
 
         <Button
@@ -60,7 +60,7 @@
             android:layout_gravity="center"
             android:onClick="enterBtn"
             android:text="@string/enter"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
     </LinearLayout>
 

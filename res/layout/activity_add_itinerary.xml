@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFA500"
+    android:background="@color/orange"
     android:orientation="vertical" >
 
     <TableLayout
@@ -14,8 +14,8 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="@string/itinerary_title"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_textSize"
             android:textStyle="bold" />
 
         <LinearLayout android:orientation="horizontal" >
@@ -27,14 +27,14 @@
                 android:paddingRight="@dimen/textView_itinerary_padding"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/arrivalDate"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/departureDate"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout android:orientation="horizontal" >
@@ -46,14 +46,14 @@
                 android:layout_marginLeft="@dimen/button_itinerary_margin"
                 android:layout_marginRight="@dimen/button_itinerary_marginRight"
                 android:text="@string/dateFormat"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/addDepartureDate"
                 android:layout_width="@dimen/button_time_width"
                 android:layout_height="wrap_content"
                 android:text="@string/dateFormat"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout android:orientation="horizontal" >
@@ -65,7 +65,7 @@
                 android:paddingLeft="@dimen/textView_itinerary_error_paddingLeft"
                 android:paddingRight="@dimen/textView_itinerary_error_paddingRight"
                 android:text="@string/arrivalError"
-                android:textColor="#FF0000"
+                android:textColor="@color/red"
                 android:visibility="invisible" />
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/departureError"
-                android:textColor="#FF0000"
+                android:textColor="@color/red"
                 android:visibility="invisible" />
         </LinearLayout>
 
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/location"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <Spinner
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="@integer/layout_weight"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -133,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/itinerary_amount"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -143,7 +143,7 @@
                 android:digits="0123456789."
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,7 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/itinerary_category"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:maxLength="@integer/max_length"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -180,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/name_of_supplier"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -188,7 +188,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -202,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/address"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -210,7 +210,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <TextView
@@ -219,8 +219,8 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="@string/actual_expense_title"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_textSize"
             android:textStyle="bold" />
 
         <LinearLayout android:orientation="horizontal" >
@@ -232,14 +232,14 @@
                 android:paddingRight="@dimen/textView_itinerary_padding"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/arrivalDate"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/departureDate"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout android:orientation="horizontal" >
@@ -251,14 +251,14 @@
                 android:layout_marginLeft="@dimen/button_itinerary_margin"
                 android:layout_marginRight="@dimen/button_itinerary_marginRight"
                 android:text="@string/dateFormat"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/addActualDepartureDate"
                 android:layout_width="@dimen/button_time_width"
                 android:layout_height="wrap_content"
                 android:text="@string/dateFormat"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
         <LinearLayout android:orientation="horizontal" >
             <TextView
@@ -268,7 +268,7 @@
                 android:paddingLeft="@dimen/textView_itinerary_error_paddingLeft"
                 android:paddingRight="@dimen/textView_itinerary_error_paddingRight"
                 android:text="@string/arrivalError"
-                android:textColor="#FF0000"
+                android:textColor="@color/red"
                 android:visibility="invisible" />
 
             <TextView
@@ -276,7 +276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/departureError"
-                android:textColor="#FF0000"
+                android:textColor="@color/red"
                 android:visibility="invisible" />
         </LinearLayout>
         <LinearLayout
@@ -290,7 +290,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -299,7 +299,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -313,7 +313,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/itinerary_amount"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -323,7 +323,7 @@
                 android:digits="0123456789."
                 android:inputType="numberDecimal"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -337,7 +337,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/itinerary_category"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -346,7 +346,7 @@
                 android:layout_height="wrap_content"
                 android:maxLength="@integer/max_length"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -360,7 +360,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/name_of_supplier"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -368,7 +368,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -382,7 +382,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/address"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
             <EditText
@@ -390,7 +390,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <Button
@@ -399,7 +399,7 @@
             android:layout_height="wrap_content"
             android:onClick="addItinerary"
             android:text="@string/addItinerary"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/white" />
     </TableLayout>
 
 </ScrollView>

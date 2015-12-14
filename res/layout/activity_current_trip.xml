@@ -12,10 +12,9 @@
         android:id="@+id/currentTrip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:background="#87CEEB"
-        android:divider="#FFFFFF"
-        
-         android:dividerHeight="@dimen/dividerHeight"/>
+        android:background="@color/skyblue"
+        android:divider="@color/white"
+        android:dividerHeight="@dimen/dividerHeight"
+        android:orientation="vertical" />
 
 </LinearLayout>
