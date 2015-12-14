@@ -12,9 +12,9 @@
         android:id="@+id/displayItinaries"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:divider="#FFFFFF"  
-       android:background="#D3D3D3"             
-        android:dividerHeight="@dimen/dividerHeight"/>
+        android:background="#D3D3D3"
+        android:divider="#FFFFFF"
+        android:dividerHeight="@dimen/dividerHeight"
+        android:orientation="vertical" />
 
 </RelativeLayout>

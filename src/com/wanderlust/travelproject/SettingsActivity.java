@@ -123,7 +123,7 @@ public class SettingsActivity extends Activity {
 		if (validateInput()) {
 			/*
 			 * These lines of code opens the preference Editor, adds three
-			 * String-type preferences called username, firstname and lastName,
+			 * String-type preferences called username, firstname, lastname, city and password
 			 * and saves the change.
 			 */
 
@@ -141,21 +141,11 @@ public class SettingsActivity extends Activity {
 				editor.putString("cc", cc);
 			} else
 				editor.putString("cc", tvCc.getText().toString().trim().toUpperCase());
-			/*
-			if (tvCurrency.getText().equals("") || tvCurrency.getText().equals(null)) {
-				currency = Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode(); // currency
-				
-				editor.putString("currency", currency);
-			} else
-				editor.putString("currency", tvCurrency.getText().toString().trim().toUpperCase());
-			 */
 			editor.putInt("theCurrency", myCurrencySpinner.getSelectedItemPosition());
 			
 			editor.commit();
 			finish();
 		}
-		Intent i = new Intent(this, MainActivity.class);
-		startActivity(i);
 	}
 
 	@Override
