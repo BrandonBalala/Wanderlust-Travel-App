@@ -14,7 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +22,14 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
+/**
+ * This class will allow the user to display the itineraries(budgeted and
+ * actual) on a particular date that was returned by the TodayActivityFlash
+ * class.
+ * 
+ * @author theMarvin
+ *
+ */
 public class TodayActivityList extends Activity {
 	private final static String TAG = "TODAY-ACTIVITY-LIST";
 	private static DBHelper dbh;
@@ -59,46 +66,22 @@ public class TodayActivityList extends Activity {
 		Date searchDate = cal.getTime();
 		ts = new Timestamp(searchDate.getTime());
 
-		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
-				DBHelper.COLUMN_SUPPLIER_NAME, DBHelper.COLUMN_DESCRIPTION }; // THE
-																				// DESIRED
-																				// COLUMNS
-																				// TO
-																				// BE
-																				// BOUND
-		int[] to = new int[] { R.id.display_itinerary_arrival,
-				R.id.display_itinerary_category, R.id.display_actual_name_of_supplier,
-				R.id.display_itinerary_description }; // THE
-																							// XML
-																							// DEFINED
-																							// VIEWS
-																							// WHICH
-																							// THEDATA
-																							// WILL
-																							// BE
-																							// BOUND
-																							// TO
-
 		// checks if table is not empty for activities that are queried in
 		// the
 		// // DBHelper class
 
-		Log.v(TAG, "Is this true: " + (dbh.getActivitiesToday(ts).getCount() < 1));
+		Log.v(TAG, "There are trips on date," + ts.toString() + " : " + (dbh.getActivitiesToday(ts).getCount() < 1));
 
 		if (dbh.getActivitiesToday(ts).getCount() < 1) {
-			Toast.makeText(getApplicationContext(), "There are no trips for" + ts.toString(), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), R.string.no_trips + " at " + ts.toString(), Toast.LENGTH_LONG)
+					.show();
 			setResult(0);
 			finish();
 		} else {
-			Toast.makeText(getApplicationContext(), "There are trips" + ts.toString(), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), R.string.trips + " at " + ts.toString(), Toast.LENGTH_LONG).show();
 			ListView lv = (ListView) findViewById(R.id.displayItinaries);
-			
-			Log.v("TODAY", "here");
+
 			cursor = dbh.getActivitiesToday(ts);
-			if(cursor == null)
-				Log.v("TODAY", "thre is something today");
-			Log.v("TODAY", "this");
-//			sca = new SimpleCursorAdapter(this, R.layout.list_itinaries, cursor, from, to, 0);
 			sca = new ItineraryCursorAdapter(this, cursor, 0);
 			lv.setAdapter(sca);
 			lv.setOnItemClickListener(editItem);
@@ -170,7 +153,6 @@ public class TodayActivityList extends Activity {
 	};
 
 	/**
-	 * 
 	 * This is an Item Click Listener(Short Click), for use with the ListView.
 	 * When an item in the list is clicked, the method creates an Intent object
 	 * and starts the activity EditActivity.

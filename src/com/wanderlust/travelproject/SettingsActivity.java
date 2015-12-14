@@ -3,11 +3,10 @@ package com.wanderlust.travelproject;
 import java.util.Locale;
 
 import com.bob.travelproject.R;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+/**
+ * This class will allow user to modify or add the information in the shared
+ * preference of the user's device.
+ * 
+ * @author Marvin Francisco
+ *
+ */
 public class SettingsActivity extends Activity {
 	private String username;
 	private String password;
@@ -28,7 +34,7 @@ public class SettingsActivity extends Activity {
 	private int theCurrency;
 	private TextView tvUsername, tvFirstname, tvLastname, tvPassword, tvCc, tvCity;
 	private Spinner myCurrencySpinner;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,14 +48,14 @@ public class SettingsActivity extends Activity {
 		tvCc = (EditText) findViewById(R.id.settings_countrycode_text);
 		myCurrencySpinner = (Spinner) findViewById(R.id.myCurrencySpinner);
 		tvCity = (EditText) findViewById(R.id.settings_city_text);
-		
+
 		username = (mSharedPreference.getString("username", ""));
 		password = (mSharedPreference.getString("password", ""));
 		fname = (mSharedPreference.getString("firstname", ""));
 		lname = (mSharedPreference.getString("lastname", ""));
 		cc = (mSharedPreference.getString("cc", ""));
 		theCurrency = (mSharedPreference.getInt("theCurrency", 0));
-		city=(mSharedPreference.getString("city", ""));
+		city = (mSharedPreference.getString("city", ""));
 
 		tvUsername.setText(username);
 		tvPassword.setText(password);
@@ -57,12 +63,11 @@ public class SettingsActivity extends Activity {
 		tvLastname.setText(lname);
 		tvCc.setText(cc);
 		tvCity.setText(city);
-	
-		
+
 		initializeSpinner(myCurrencySpinner, R.array.currencies);
 		myCurrencySpinner.setSelection(theCurrency);
 	}
-	
+
 	/**
 	 * Change content of the given spinner with the array that has the specified
 	 * resource id
@@ -81,6 +86,12 @@ public class SettingsActivity extends Activity {
 		spinner.setAdapter(adapter);
 	}
 
+	/**
+	 * this method will validate the values input in the settings_activity.xml,
+	 * fields should not be empty
+	 * 
+	 * @return
+	 */
 	public boolean validateInput() {
 		boolean inputNotEmpty = true;
 
@@ -95,7 +106,7 @@ public class SettingsActivity extends Activity {
 		String fname = tvFirstname.getText().toString();
 		String lname = tvLastname.getText().toString();
 		String city = tvCity.getText().toString();
-		
+
 		if (TextUtils.isEmpty(username)) {
 			tvUsername.setError("You must enter your username");
 			inputNotEmpty = false;
@@ -119,12 +130,19 @@ public class SettingsActivity extends Activity {
 		return inputNotEmpty;
 	}
 
+	/**
+	 * This method will save all the values inputed in the
+	 * settings_activity.xml in the shared preference
+	 * 
+	 * @param view
+	 */
+	@SuppressLint("DefaultLocale")
 	public void saveSettings(View view) {
 		if (validateInput()) {
 			/*
 			 * These lines of code opens the preference Editor, adds three
-			 * String-type preferences called username, firstname, lastname, city and password
-			 * and saves the change.
+			 * String-type preferences called username, firstname, lastname,
+			 * city and password and saves the change.
 			 */
 
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -142,7 +160,7 @@ public class SettingsActivity extends Activity {
 			} else
 				editor.putString("cc", tvCc.getText().toString().trim().toUpperCase());
 			editor.putInt("theCurrency", myCurrencySpinner.getSelectedItemPosition());
-			
+
 			editor.commit();
 			finish();
 		}

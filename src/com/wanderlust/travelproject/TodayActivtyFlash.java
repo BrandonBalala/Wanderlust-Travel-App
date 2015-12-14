@@ -15,6 +15,13 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.DatePicker;
 
+/**
+ * This is a class that will allow user to pick a date for the TodayAcivityList
+ * to query
+ * 
+ * @author theMarvin
+ *
+ */
 public class TodayActivtyFlash extends Activity implements OnClickListener {
 
 	private final static String TAG = "TODAY-ACTIVITY";
@@ -43,7 +50,12 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 		dialog.show();
 	}
 
-	protected Dialog onCreateDialog() {
+	/**
+	 * This method will create a date picker dialog
+	 * 
+	 * @return
+	 */
+	private Dialog onCreateDialog() {
 		// open datepicker dialog.
 		// set date picker for current date
 		// add pickerListener listner to date picker
@@ -65,6 +77,10 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 
 	}
 
+	/**
+	 * This is an OnDateSetListener that will allow the date picker call the
+	 * TodayActivityList class when the date in the date picker has been changed
+	 */
 	private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
 		// when dialog box is closed, below method will be called.
 		@Override
@@ -88,7 +104,8 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 	};
 
 	/**
-	 * Lifecycle method called when an activity you launched exits
+	 * Lifecycle method called when an activity you launched exits and will
+	 * simply recall the date picker object
 	 *
 	 * @param request
 	 *            int originally supplied to startActivityForResult()
@@ -98,7 +115,6 @@ public class TodayActivtyFlash extends Activity implements OnClickListener {
 	 *            Intent can be used to return (extras) result data to caller
 	 */
 	protected void onActivityResult(int request, int result, Intent i) {
-
 		switch (result) {
 		case 0:
 			dialog = onCreateDialog();

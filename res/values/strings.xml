@@ -74,6 +74,11 @@
     <string name="title_activity_itinerary">Itineraries</string>
     <string name="title_activity_trip">Trip</string>
     <string name="syncBtn">Sync</string>
+    <string name="test_connection">Test Connection</string>
+    <string name="credentials">Invalid credentials</string>
+    <string name="network">Check Network Connection</string>
+    <string name="no_trips">You have no trips</string>
+    <string name="trips">There are trips</string>
 
     <!-- CURRENCY STRINGS -->
     <string name="title_activity_currency_converter">Currency Converter</string>
@@ -89,7 +94,7 @@
     <string name="to_be_created">Under construction</string>
     <string name="title_activity_settings_ativity">Settings</string>
 
-		<!-- Itinerary STRINGS -->
+    <!-- Itinerary STRINGS -->
     <string name="itinerary_title">Budgeted Expenses</string>
     <string name="actual_expense_title">Actual Expenses</string>
     <string name="title_activity_add_itinerary">Add Itinerary</string>

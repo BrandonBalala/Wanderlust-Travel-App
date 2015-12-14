@@ -12,14 +12,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.bob.travelproject.R;
 import com.wanderlust.database.DBHelper;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -40,9 +37,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * This class will display all the trips that are saved in the device, this
+ * class will also allow the user to sync its information to the web version of
+ * the application via sync button.
+ * 
+ * @author Marvin Francisco and Marjorie Olano Morales
+ *
+ */
 public class TripActivity extends Activity {
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss z",
-			Locale.getDefault());
+
 	public static final int SHOW_AS_ACTION_IF_ROOM = 1;
 	private static DBHelper dbh;
 	private final String TAG = "TRIP-ACTIVITY";
@@ -50,7 +54,6 @@ public class TripActivity extends Activity {
 	private Cursor cursor;
 	private SimpleCursorAdapter sca;
 	Context context;
-
 	private int trip_id;
 	private int budgeted_id;
 	private int location_id;
@@ -87,7 +90,7 @@ public class TripActivity extends Activity {
 			lv.setAdapter(sca);
 			lv.setOnItemClickListener(showItinerary);
 		} else
-			Toast.makeText(this, "You have no saved trips", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.no_trips, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
@@ -132,7 +135,7 @@ public class TripActivity extends Activity {
 		String email = (mSharedPreference.getString("username", ""));
 		String password = (mSharedPreference.getString("password", ""));
 		if (password.equals("")) {
-			Toast.makeText(this, "Reenter credentials", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.credentials, Toast.LENGTH_SHORT).show();
 			Intent i = new Intent(this, SettingsActivity.class);
 			startActivity(i);
 		}
@@ -152,7 +155,7 @@ public class TripActivity extends Activity {
 					Log.v(TAG, "Exception:" + e.getMessage());
 				}
 			} else
-				Toast.makeText(context, "Check your network connection", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, R.string.network, Toast.LENGTH_SHORT).show();
 
 			// Toast.makeText(context, "a button to sync/download new trips from
 			// the website:", Toast.LENGTH_SHORT).show();
@@ -162,16 +165,25 @@ public class TripActivity extends Activity {
 
 	}
 
-	public String SearchRequest(String email, String password) throws MalformedURLException, IOException {
+	/**
+	 * This method will pull the information from the WEBAPI and return the
+	 * string opject for the onPostExecute method to process.
+	 * 
+	 * @param email
+	 * @param password
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
+	public String pullInfo(String email, String password) throws MalformedURLException, IOException {
 		String newFeed = myurl + "?email=" + email + "&password=" + password;
 		Log.v(TAG, "Email: " + email);
 		Log.v(TAG, "Password: " + password);
-		StringBuilder response = new StringBuilder();
 		Log.v(TAG, "url:" + newFeed);
+		StringBuilder response = new StringBuilder();
 		URL url = new URL(newFeed);
 
 		HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
-
 		if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()), 8192);
 			String strLine = null;
@@ -191,14 +203,18 @@ public class TripActivity extends Activity {
 		return response.toString();
 	}
 
-	/*
-	 * In order to read this consider the JSON format the api has chosen
-	 * https://developers.google.com/feed/v1/jsondevguide match the code to the
-	 * returned data, Try https://developers.google.com/feed/v1/jsondevguide Try
-	 * http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=dogs in
-	 * jsoneditoronline.org and compare it to the code:
+	/**
+	 * This method that will convert the String resp to a JSON object and will
+	 * save the information to the database.
+	 * 
+	 * @param resp
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 * @throws JSONException
+	 * @throws NoSuchAlgorithmException
+	 * @throws ParseException
 	 */
-	public void ProcessResponse(String resp)
+	public void saveInfotoDatabase(String resp)
 			throws IllegalStateException, IOException, JSONException, NoSuchAlgorithmException, ParseException {
 
 		JSONObject jobj = new JSONObject(resp);
@@ -256,8 +272,6 @@ public class TripActivity extends Activity {
 									for (int y = 0; y < expensesObj.length(); y++) {
 										JSONObject itiniraryObj = expensesObj.getJSONObject(y);
 										if (itiniraryObj.has("budgetedexpense")) {
-											// Log.v("Budgeted",
-											// itiniraryObj.getJSONObject("budgetedexpense").toString());
 											JSONObject jsonElementBudgeted = itiniraryObj
 													.getJSONObject("budgetedexpense");
 											int web_budgeted_id = jsonElementBudgeted.getInt("id");
@@ -266,11 +280,8 @@ public class TripActivity extends Activity {
 
 											SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
 													Locale.ENGLISH);
-
 											String datearrive = jsonElementBudgeted.getString("planned_arrival_date");
 											datearrive = datearrive.substring(0, 10);
-											// Log.v("DATE arrival",
-											// datearrive);
 											Date parsedDate = dateFormat.parse(datearrive);
 											Timestamp arrivalDate = new java.sql.Timestamp(parsedDate.getTime());
 
@@ -337,11 +348,11 @@ public class TripActivity extends Activity {
 			}
 		}
 
-		refreshView();
 	}
 
 	/**
-	 * Asynctask that downloads the information in
+	 * Asynctask that downloads the information in the WEB API (
+	 * wanderlust-marjoriemorales.rhcloud.com)
 	 * 
 	 * @author theMarvin
 	 *
@@ -353,7 +364,7 @@ public class TripActivity extends Activity {
 			String email = searchKey[0];
 			String password = searchKey[1];
 			try {
-				return SearchRequest(email, password);
+				return pullInfo(email, password);
 			} catch (Exception e) {
 				Log.v(TAG, "Exception:" + e.getMessage());
 				return "";
@@ -363,15 +374,17 @@ public class TripActivity extends Activity {
 		protected void onPostExecute(String result) {
 			try {
 				if (result.equals("NoConnection")) {
-					Toast.makeText(getBaseContext(), "Test Connection", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getBaseContext(), R.string.test_connection, Toast.LENGTH_SHORT).show();
 				} else {
 					if (result.equals("")) {
-						Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getBaseContext(), R.string.credentials, Toast.LENGTH_SHORT).show();
 						Intent i = new Intent(getBaseContext(), SettingsActivity.class);
 						startActivity(i);
 
-					} else
-						ProcessResponse(result);
+					} else {
+						saveInfotoDatabase(result);
+						refreshView();
+					}
 				}
 
 			} catch (Exception e) {
@@ -382,6 +395,12 @@ public class TripActivity extends Activity {
 
 	}
 
+	/**
+	 * This method will check if there is a valid connection for the device to
+	 * sync the items in the WEB API
+	 * 
+	 * @return
+	 */
 	private boolean netIsUp() {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		// getActiveNetworkInfo() each time as the network may swap as the
