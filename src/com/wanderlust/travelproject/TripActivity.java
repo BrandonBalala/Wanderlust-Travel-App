@@ -99,7 +99,8 @@ public class TripActivity extends Activity {
 	public OnItemClickListener showItinerary = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			int trip_id = (int) id;
+			ListView lv = (ListView) findViewById(R.id.displayTrips);
+			int trip_id = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
 			// save the clicked trip id into the SharedPreferences
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			SharedPreferences.Editor editor = prefs.edit();
