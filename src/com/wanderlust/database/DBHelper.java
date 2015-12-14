@@ -538,7 +538,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		// COLUMN_DEPARTUREDATE + " = ? ", new String[] { date },
 		// null, null, null);
 
-		String searchSelect = "SELECT * FROM " + TABLE_ITINERARY + " WHERE itinerary.arrivaldate =  ? ";
+		String searchSelect = "SELECT * FROM " + TABLE_ITINERARY + " INNER JOIN " + TABLE_ACTUALEXPENSE
+				+ " ON itinerary._id=actualexpense.budgeted_id"
+				+ " WHERE itinerary.arrivaldate =  ? ";
 		Log.v(TAG, "Query statement: " + searchSelect);
 		return getReadableDatabase().rawQuery(searchSelect, new String[] { date });
 
