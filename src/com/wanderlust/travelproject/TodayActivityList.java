@@ -59,26 +59,25 @@ public class TodayActivityList extends Activity {
 		Date searchDate = cal.getTime();
 		ts = new Timestamp(searchDate.getTime());
 
-		Log.v(TAG, "String of the timestamp " + ts);
-
-//		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
-//				DBHelper.COLUMN_SUPPLIER_NAME, DBHelper.COLUMN_DESCRIPTION }; // THE
-//																				// DESIRED
-//																				// COLUMNS
-//																				// TO
-//																				// BE
-//																				// BOUND
-//		int[] to = new int[] { R.id.display_itinerary_arrival, R.id.display_itinerary_category,
-//				R.id.display_actual_name_of_supplier, R.id.display_itinerary_description }; // THE
-//																							// XML
-//																							// DEFINED
-//																							// VIEWS
-//																							// WHICH
-//																							// THEDATA
-//																							// WILL
-//																							// BE
-//																							// BOUND
-//																							// TO
+		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
+				DBHelper.COLUMN_SUPPLIER_NAME, DBHelper.COLUMN_DESCRIPTION }; // THE
+																				// DESIRED
+																				// COLUMNS
+																				// TO
+																				// BE
+																				// BOUND
+		int[] to = new int[] { R.id.display_itinerary_arrival,
+				R.id.display_itinerary_category, R.id.display_actual_name_of_supplier,
+				R.id.display_itinerary_description }; // THE
+																							// XML
+																							// DEFINED
+																							// VIEWS
+																							// WHICH
+																							// THEDATA
+																							// WILL
+																							// BE
+																							// BOUND
+																							// TO
 
 		// checks if table is not empty for activities that are queried in
 		// the
@@ -93,9 +92,13 @@ public class TodayActivityList extends Activity {
 		} else {
 			Toast.makeText(getApplicationContext(), "There are trips" + ts.toString(), Toast.LENGTH_LONG).show();
 			ListView lv = (ListView) findViewById(R.id.displayItinaries);
-			dbh = DBHelper.getDBHelper(this);
-
+			
+			Log.v("TODAY", "here");
 			cursor = dbh.getActivitiesToday(ts);
+			if(cursor == null)
+				Log.v("TODAY", "thre is something today");
+			Log.v("TODAY", "this");
+//			sca = new SimpleCursorAdapter(this, R.layout.list_itinaries, cursor, from, to, 0);
 			sca = new ItineraryCursorAdapter(this, cursor, 0);
 			lv.setAdapter(sca);
 			lv.setOnItemClickListener(editItem);
