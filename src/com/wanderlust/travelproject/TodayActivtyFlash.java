@@ -19,7 +19,7 @@ import android.widget.DatePicker;
  * This is a class that will allow user to pick a date for the TodayAcivityList
  * to query
  * 
- * @author theMarvin
+ * @author Marvin Francisco
  *
  */
 public class TodayActivtyFlash extends Activity implements OnClickListener {
