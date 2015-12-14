@@ -162,34 +162,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		Log.i(TAG, "onCreate()");
 
-		ContentValues trip = new ContentValues();
-		trip.put(COLUMN_CREATION, dateFormat.format(date));
-		trip.put(COLUMN_TRIP_ID, 0);
-		trip.put(COLUMN_NAME, "Test 1");
-		trip.put(COLUMN_DESCRIPTION, "This is a test on the data");
-		db.insert(TABLE_TRIPS, null, trip);
-
-		ContentValues trip2 = new ContentValues();
-		trip2.put(COLUMN_CREATION, dateFormat.format(date));
-		trip2.put(COLUMN_TRIP_ID, 0);
-		trip2.put(COLUMN_NAME, "Test 2 ");
-		trip2.put(COLUMN_DESCRIPTION, "This is a second test on the data");
-		db.insert(TABLE_TRIPS, null, trip2);
-
-		ContentValues location1 = new ContentValues();
-		location1.put(COLUMN_NAME, "Rita's Restaurant");
-		location1.put(COLUMN_LOCATION_DESCRIPTION, "Eating at Rita's Restaurant");
-		location1.put(COLUMN_CITY, "MONTREAL");
-		location1.put(COLUMN_COUNTRYCODE, "CAN");
-		db.insert(TABLE_LOCATIONS, null, location1);
-
-		ContentValues location2 = new ContentValues();
-		location2.put(COLUMN_NAME, "Marvin's Restaurant");
-		location2.put(COLUMN_LOCATION_DESCRIPTION, "Eating lunch at Marvin's Restaurant");
-		location2.put(COLUMN_CITY, "MONTREAL");
-		location2.put(COLUMN_COUNTRYCODE, "CAN");
-		db.insert(TABLE_LOCATIONS, null, location2);
-
 	}
 
 	/**
@@ -222,7 +194,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE - This method creates a new trip row in the Trips table.
 	 */
-	public void createNewTrip(int trip_id, String name, String description) {
+	public long createNewTrip(int trip_id, String name, String description) {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_TRIP_ID, trip_id);
@@ -232,7 +204,8 @@ public class DBHelper extends SQLiteOpenHelper {
 		values.put(COLUMN_NAME, name);
 		values.put(COLUMN_DESCRIPTION, description);
 
-		getWritableDatabase().insert(TABLE_TRIPS, null, values);
+		long code = getWritableDatabase().insert(TABLE_TRIPS, null, values);
+		return code;
 
 	}
 
@@ -250,6 +223,35 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	/**
+	 * 
+	 * This method returns the trip related to that trip_id.
+	 * 
+	 * @param _id
+	 * @return Cursor
+	 */
+	public Cursor getATripFromWeb(int trip_id) {
+
+		return getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_TRIP_ID + " = ?",
+				new String[] { String.valueOf(trip_id) }, null, null, null);
+	}
+
+	/**
+	 * 
+	 * This method returns gets the _id of a trip sync from the web
+	 * 
+	 * @param _id
+	 * @return Cursor
+	 */
+	public int getIdWebTrip(int trip_id) {
+
+		Cursor cursor = getReadableDatabase().query(TABLE_TRIPS, null, COLUMN_TRIP_ID + " = ?",
+				new String[] { String.valueOf(trip_id) }, null, null, null);
+		if (cursor.moveToNext())
+			return cursor.getInt(cursor.getColumnIndex(DBHelper.COLUMN_ID));
+		return 0;
+	}
+
+	/**
 	 * This method gets all trips on the database.
 	 * 
 	 * @return Cursor
@@ -264,7 +266,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/*
 	 * CREATE - This method creates a new location row in the Locations table.
 	 */
-	public void createNewLocation(String name, String description, String city, String countryCode) {
+	public long createNewLocation(String name, String description, String city, String countryCode) {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_NAME, name);
@@ -272,7 +274,8 @@ public class DBHelper extends SQLiteOpenHelper {
 		values.put(COLUMN_CITY, city);
 		values.put(COLUMN_COUNTRYCODE, countryCode);
 		// insert row
-		getWritableDatabase().insert(TABLE_LOCATIONS, null, values);
+		long code = getWritableDatabase().insert(TABLE_LOCATIONS, null, values);
+		return code;
 	}
 
 	/**
@@ -539,8 +542,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		// null, null, null);
 
 		String searchSelect = "SELECT * FROM " + TABLE_ITINERARY + " INNER JOIN " + TABLE_ACTUALEXPENSE
-				+ " ON itinerary._id=actualexpense.budgeted_id"
-				+ " WHERE itinerary.arrivaldate =  ? ";
+				+ " ON itinerary._id=actualexpense.budgeted_id" + " WHERE itinerary.arrivaldate =  ? ";
 		Log.v(TAG, "Query statement: " + searchSelect);
 		return getReadableDatabase().rawQuery(searchSelect, new String[] { date });
 
@@ -576,7 +578,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	public Cursor getItineraryActualExpenseLocation(int trip_id) {
 
 		String selectQuery = "SELECT * " + "FROM locations INNER JOIN itinerary ON locations._id=itinerary.location_id "
-				+ "INNER JOIN actualexpense ON itinerary._id=actualexpense.budgeted_id" + " WHERE trip_id=?";
+				+ "INNER JOIN actualexpense ON itinerary._id=actualexpense.budgeted_id " + "WHERE trip_id=?";
 
 		return getReadableDatabase().rawQuery(selectQuery, new String[] { String.valueOf(trip_id) });
 	}

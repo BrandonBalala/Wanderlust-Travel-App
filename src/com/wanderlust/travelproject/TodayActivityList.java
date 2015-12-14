@@ -130,7 +130,8 @@ public class TodayActivityList extends Activity {
 	 */
 	public OnItemLongClickListener deleteItem = new OnItemLongClickListener() {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
-			final int itinerary_id = (int) id;
+			ListView lv = (ListView) findViewById(R.id.displayTrips);
+			final int itinerary_id = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
 			// Creates/Displays an alert dialog
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 			alertDialog.setTitle("Delete Item "); // Setting

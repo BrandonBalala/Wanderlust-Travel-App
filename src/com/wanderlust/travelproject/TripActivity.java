@@ -51,6 +51,11 @@ public class TripActivity extends Activity {
 	private SimpleCursorAdapter sca;
 	Context context;
 
+	private int trip_id;
+	private int budgeted_id;
+	private int location_id;
+	private int actualExpense_id;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,7 +87,7 @@ public class TripActivity extends Activity {
 		} else
 			Toast.makeText(this, "You have no saved trips", Toast.LENGTH_SHORT).show();
 	}
-	
+
 	/**
 	 * 
 	 * This method gets called when a data is deleted, edited or created.
@@ -96,20 +101,7 @@ public class TripActivity extends Activity {
 		sca.notifyDataSetChanged(); // have the adapter tell the observers
 	}
 
-	public OnItemClickListener showItinerary = new OnItemClickListener() {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			int trip_id = (int) id;
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.putInt("lastTripViewedId", trip_id);
-			editor.commit();
-			Log.v("TRIP_ID", "the id is " + trip_id);
-			Intent intent = new Intent(context, ItineraryActivity.class);
-			intent.putExtra("trip_id", trip_id);
-			startActivity(intent);
-		}
-	};
+	public OnItemClickListener showItinerary=new OnItemClickListener(){@Override public void onItemClick(AdapterView<?>parent,View view,int position,long id){int trip_id=(int)id;SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(context);SharedPreferences.Editor editor=prefs.edit();editor.putInt("lastTripViewedId",trip_id);editor.commit();Log.v("TRIP_ID","the id is "+trip_id);Intent intent=new Intent(context,ItineraryActivity.class);intent.putExtra("trip_id",trip_id);startActivity(intent);}};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -201,18 +193,20 @@ public class TripActivity extends Activity {
 				// Log.v(TAG, "JSON TRIP Element" + tripElement.toString());
 				if (tripElement.has("trip")) {
 					// create a trip on database
-					int trip_id = tripElement.getJSONObject("trip").getInt("id");
+					trip_id = tripElement.getJSONObject("trip").getInt("id");
 					String name = tripElement.getJSONObject("trip").getString("name");
 					String description = tripElement.getJSONObject("trip").getString("description");
 					// validation to see if there is the specific trip already
-					if (dbh.getTrip(trip_id).getCount() < 1)
-						dbh.createNewTrip(trip_id, name, description);
+					if (dbh.getATripFromWeb(trip_id).getCount() < 1) {
+						trip_id = (int) dbh.createNewTrip(trip_id, name, description);
+					} else
+						trip_id = dbh.getIdWebTrip(trip_id);
 				}
 				if (tripElement.has("locations")) {
 					JSONArray locations = tripElement.getJSONArray("locations");
 					// loop to all of the locations
 					for (int locationsI = 0; locationsI < locations.length(); locationsI++) {
-						int trip_id = 0;
+						// int trip_id = 0;
 						JSONArray locationElements = locations.getJSONArray(locationsI);
 						for (int locationsElementsI = 0; locationsElementsI < locationElements
 								.length(); locationsElementsI++) {
@@ -220,19 +214,24 @@ public class TripActivity extends Activity {
 							JSONObject dbLocation = locationElements.getJSONObject(locationsElementsI);
 							if (dbLocation.has("location")) {
 								// create a new location
-								int location_id = dbLocation.getJSONObject("location").getInt("id");
-								trip_id = dbLocation.getJSONObject("location").getInt("trip_id");
+								// int location_id =
+								// dbLocation.getJSONObject("location").getInt("id");
+								// trip_id =
+								// dbLocation.getJSONObject("location").getInt("trip_id");
 								String countryCode = dbLocation.getJSONObject("location").getString("countrycode");
 								String city = dbLocation.getJSONObject("location").getString("city");
 								String name = dbLocation.getJSONObject("location").getString("name");
 								String description = dbLocation.getJSONObject("location").getString("description");
 								// validation to see if there is the specific
 								// location already
-								if (dbh.getLocation(location_id).getCount() < 1)
-									dbh.createNewLocation(name, description, city, countryCode);
+								location_id = dbh.getLocationId(name);
+								if (location_id == 0) {
+									Log.v("Location", "Location does not exist");
+									location_id = (int) dbh.createNewLocation(name, description, city, countryCode);
+									Log.v("Location", "" + location_id);
+								}
 							}
 							if (dbLocation.has("expenses")) {
-								int budgeted_id = 0;
 								// expenses obj in the array locationsElement of
 								// the index locationsElementsI
 								JSONArray expensesObjs = dbLocation.getJSONArray("expenses");
@@ -248,8 +247,6 @@ public class TripActivity extends Activity {
 											JSONObject jsonElementBudgeted = itiniraryObj
 													.getJSONObject("budgetedexpense");
 
-											budgeted_id = jsonElementBudgeted.getInt("id");
-											int location_id_budgeted = jsonElementBudgeted.getInt("location_id");
 											String budgeteddescription = jsonElementBudgeted.getString("description");
 											double amount = jsonElementBudgeted.getInt("amount");
 
@@ -274,49 +271,49 @@ public class TripActivity extends Activity {
 											String supplier_name = "", address = "";
 											// if the budgeted_id is not there
 											// save it to the database
-											if (dbh.getItinerary(budgeted_id).getCount() < 1)
-												dbh.createNewItinerary(location_id_budgeted, trip_id, arrivalDate,
-														departureDate, amount, budgeteddescription, category,
-														supplier_name, address);
 
-										}
-										if (itiniraryObj.has("actualexpense")) {
-											SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
-													Locale.getDefault());
-											JSONArray jsonElementsActual = itiniraryObj.getJSONArray("actualexpense");
-											// loop on all of the Actual
-											// elements
-											for (int z = 0; z < jsonElementsActual.length(); z++) {
-												JSONObject jsonElementActual = jsonElementsActual.getJSONObject(z);
-												int actual_id = jsonElementActual.getInt("id");
-												String description = jsonElementActual.getString("description");
+											budgeted_id = (int) dbh.createNewItinerary(location_id, trip_id,
+													arrivalDate, departureDate, amount, budgeteddescription, category,
+													supplier_name, address);
 
-												String datearriveActual = jsonElementActual
-														.getString("actual_arrival_date");
-												datearriveActual = datearriveActual.substring(0, 10);
-//												Log.v("DATE 1", datearriveActual);
-												Date parsedArrivalDate = formatter.parse(datearriveActual);
-												Timestamp arrivalDate = new java.sql.Timestamp(
-														parsedArrivalDate.getTime());
+									}
+									if (itiniraryObj.has("actualexpense")) {
+										SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
+												Locale.getDefault());
+										JSONArray jsonElementsActual = itiniraryObj.getJSONArray("actualexpense");
+										// loop on all of the Actual
+										// elements
+										for (int z = 0; z < jsonElementsActual.length(); z++) {
+											JSONObject jsonElementActual = jsonElementsActual.getJSONObject(z);
+											String description = jsonElementActual.getString("description");
 
-												String datedepartActual = jsonElementActual
-														.getString("actual_departure_date");
-												datedepartActual = datedepartActual.substring(0, 10);
-//												Log.v("DATE 2", datedepartActual);
-												Date parsedDepartureDate = formatter.parse(datedepartActual);
-												Timestamp departureDate = new java.sql.Timestamp(
-														parsedDepartureDate.getTime());
-												int amount = jsonElementActual.getInt("amount");
-												String category = String
-														.valueOf(jsonElementActual.getInt("category_id"));
-												String supplierName = jsonElementActual.getString("name_of_supplier");
-												String address = jsonElementActual.getString("address");
-												// if the actual_id is not there
-												// save it to the database
-												if (dbh.getActualExpense(actual_id).getCount() < 1)
-													dbh.createNewActualExpense(actual_id, arrivalDate, departureDate,
-															amount, description, category, supplierName, address);
-											}
+											String datearriveActual = jsonElementActual
+													.getString("actual_arrival_date");
+											datearriveActual = datearriveActual.substring(0, 10);
+											// Log.v("DATE 1",
+											// datearriveActual);
+											Date parsedArrivalDate = formatter.parse(datearriveActual);
+											Timestamp arrivalDate = new java.sql.Timestamp(parsedArrivalDate.getTime());
+
+											String datedepartActual = jsonElementActual
+													.getString("actual_departure_date");
+											datedepartActual = datedepartActual.substring(0, 10);
+											// Log.v("DATE 2",
+											// datedepartActual);
+											Date parsedDepartureDate = formatter.parse(datedepartActual);
+											Timestamp departureDate = new java.sql.Timestamp(
+													parsedDepartureDate.getTime());
+											int amount = jsonElementActual.getInt("amount");
+											String category = String.valueOf(jsonElementActual.getInt("category_id"));
+											String supplierName = jsonElementActual.getString("name_of_supplier");
+											String address = jsonElementActual.getString("address");
+											// if the actual_id is not there
+											// save it to the database
+											// if
+											// (dbh.getActualExpense(actual_id).getCount()
+											// < 1)
+											dbh.createNewActualExpense(budgeted_id, arrivalDate, departureDate, amount,
+													description, category, supplierName, address);
 										}
 									}
 								}
@@ -326,43 +323,45 @@ public class TripActivity extends Activity {
 				}
 			}
 		}
-		refreshView();
 	}
 
-	/**
-	 * Asynctask that downloads the information in
-	 * 
-	 * @author theMarvin
-	 *
-	 */
-	private class SyncInfo extends AsyncTask<String, Integer, String> {
+	refreshView();
+}
 
-		protected String doInBackground(String... searchKey) {
+/**
+ * Asynctask that downloads the information in
+ * 
+ * @author theMarvin
+ *
+ */
+private class SyncInfo extends AsyncTask<String, Integer, String> {
 
-			String email = searchKey[0];
-			String password = searchKey[1];
-			try {
-				return SearchRequest(email, password);
-			} catch (Exception e) {
-				Log.v(TAG, "Exception:" + e.getMessage());
-				return "";
-			}
+	protected String doInBackground(String... searchKey) {
+
+		String email = searchKey[0];
+		String password = searchKey[1];
+		try {
+			return SearchRequest(email, password);
+		} catch (Exception e) {
+			Log.v(TAG, "Exception:" + e.getMessage());
+			return "";
 		}
+	}
 
-		protected void onPostExecute(String result) {
-			try {
-				if (result.equals("")) {
-					Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
-					Intent i = new Intent(getBaseContext(), SettingsActivity.class);
-					startActivity(i);
-				} else
-					ProcessResponse(result);
+	protected void onPostExecute(String result) {
+		try {
+			if (result.equals("")) {
+				Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+				startActivity(i);
+			} else
+				ProcessResponse(result);
 
-			} catch (Exception e) {
-				Log.v(TAG, "Exception:" + e.getMessage());
+		} catch (Exception e) {
+			Log.v(TAG, "Exception:" + e.getMessage());
 
-			}
 		}
+	}
 
 	}
 
