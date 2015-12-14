@@ -159,12 +159,11 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
-            <EditText
-                android:id="@+id/edit_itinerary_category"
-                android:layout_width="fill_parent"
+            <Spinner
+                android:id="@+id/edit_spinner_itinerary_category"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="@integer/max_length"
-                android:singleLine="true"
+                android:layout_weight="@integer/layout_weight"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -339,13 +338,13 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize" />
 
-            <EditText
-                android:id="@+id/edit_actual_category"
-                android:layout_width="fill_parent"
+            <Spinner
+                android:id="@+id/edit_spinner_actual_category"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="@integer/max_length"
-                android:singleLine="true"
+                android:layout_weight="@integer/layout_weight"
                 android:textColor="@color/white" />
+            
         </LinearLayout>
 
         <LinearLayout

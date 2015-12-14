@@ -62,7 +62,7 @@ public class TripActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trip);
 		context = this;
-		//make categories list
+		// make categories list
 		categories = getResources().getStringArray(R.array.categories);
 		String[] from = new String[] { DBHelper.COLUMN_NAME, DBHelper.COLUMN_DESCRIPTION, }; // THE
 																								// DESIRED
@@ -171,7 +171,7 @@ public class TripActivity extends Activity {
 		URL url = new URL(newFeed);
 
 		HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
-		
+
 		if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()), 8192);
 			String strLine = null;
@@ -181,11 +181,9 @@ public class TripActivity extends Activity {
 			input.close();
 			httpconn.disconnect(); // PMC
 		}
-		if(response.toString().equals(""))
-		{
+		if (response.toString().equals("")) {
 			Log.v(TAG, "code: " + httpconn.getResponseCode());
-			if(httpconn.getResponseCode() == 302)
-			{
+			if (httpconn.getResponseCode() == 302) {
 				return "NoConnection";
 			}
 		}
@@ -216,14 +214,13 @@ public class TripActivity extends Activity {
 				// Log.v(TAG, "JSON TRIP Element" + tripElement.toString());
 				if (tripElement.has("trip")) {
 					// create a trip on database
-					trip_id = tripElement.getJSONObject("trip").getInt("id");
+					int web_trip_id = tripElement.getJSONObject("trip").getInt("id");
 					String name = tripElement.getJSONObject("trip").getString("name");
 					String description = tripElement.getJSONObject("trip").getString("description");
 					// validation to see if there is the specific trip already
-					if (dbh.getATripFromWeb(trip_id).getCount() < 1) {
-						trip_id = (int) dbh.createNewTrip(trip_id, name, description);
-					} else
-						trip_id = dbh.getIdWebTrip(trip_id);
+					trip_id = dbh.getIdWebTrip(web_trip_id);
+					if (trip_id == 0)
+						trip_id = (int) dbh.createNewTrip(web_trip_id, name, description);
 				}
 				if (tripElement.has("locations")) {
 					JSONArray locations = tripElement.getJSONArray("locations");
@@ -237,10 +234,6 @@ public class TripActivity extends Activity {
 							JSONObject dbLocation = locationElements.getJSONObject(locationsElementsI);
 							if (dbLocation.has("location")) {
 								// create a new location
-								// int location_id =
-								// dbLocation.getJSONObject("location").getInt("id");
-								// trip_id =
-								// dbLocation.getJSONObject("location").getInt("trip_id");
 								String countryCode = dbLocation.getJSONObject("location").getString("countrycode");
 								String city = dbLocation.getJSONObject("location").getString("city");
 								String name = dbLocation.getJSONObject("location").getString("name");
@@ -249,9 +242,7 @@ public class TripActivity extends Activity {
 								// location already
 								location_id = dbh.getLocationId(name);
 								if (location_id == 0) {
-									Log.v("Location", "Location does not exist");
 									location_id = (int) dbh.createNewLocation(name, description, city, countryCode);
-									Log.v("Location", "" + location_id);
 								}
 							}
 							if (dbLocation.has("expenses")) {
@@ -269,7 +260,7 @@ public class TripActivity extends Activity {
 											// itiniraryObj.getJSONObject("budgetedexpense").toString());
 											JSONObject jsonElementBudgeted = itiniraryObj
 													.getJSONObject("budgetedexpense");
-
+											int web_budgeted_id = jsonElementBudgeted.getInt("id");
 											String budgeteddescription = jsonElementBudgeted.getString("description");
 											double amount = jsonElementBudgeted.getInt("amount");
 
@@ -285,20 +276,21 @@ public class TripActivity extends Activity {
 
 											String datedepart = jsonElementBudgeted.getString("planned_departure_date");
 											datedepart = datedepart.substring(0, 10);
-											// Log.v("DATE departure",
-											// datedepart);
+
 											Date departedDate = dateFormat.parse(datedepart);
 											Timestamp departureDate = new java.sql.Timestamp(departedDate.getTime());
 
 											String category = categories[jsonElementBudgeted.getInt("category_id")];
-													
+
 											String supplier_name = "", address = "";
 											// if the budgeted_id is not there
 											// save it to the database
-
-											budgeted_id = (int) dbh.createNewItinerary(location_id, trip_id,
-													arrivalDate, departureDate, amount, budgeteddescription, category,
-													supplier_name, address);
+											budgeted_id = dbh.getIdItinerariesFromweb(web_budgeted_id);
+											if (budgeted_id == 0) {
+												budgeted_id = (int) dbh.createNewItinerary(web_budgeted_id, location_id,
+														trip_id, arrivalDate, departureDate, amount,
+														budgeteddescription, category, supplier_name, address);
+											}
 
 										}
 										if (itiniraryObj.has("actualexpense")) {
@@ -310,12 +302,10 @@ public class TripActivity extends Activity {
 											for (int z = 0; z < jsonElementsActual.length(); z++) {
 												JSONObject jsonElementActual = jsonElementsActual.getJSONObject(z);
 												String description = jsonElementActual.getString("description");
-
+												int web_actual_id = jsonElementActual.getInt("id");
 												String datearriveActual = jsonElementActual
 														.getString("actual_arrival_date");
 												datearriveActual = datearriveActual.substring(0, 10);
-												// Log.v("DATE 1",
-												// datearriveActual);
 												Date parsedArrivalDate = formatter.parse(datearriveActual);
 												Timestamp arrivalDate = new java.sql.Timestamp(
 														parsedArrivalDate.getTime());
@@ -323,23 +313,19 @@ public class TripActivity extends Activity {
 												String datedepartActual = jsonElementActual
 														.getString("actual_departure_date");
 												datedepartActual = datedepartActual.substring(0, 10);
-												// Log.v("DATE 2",
-												// datedepartActual);
 												Date parsedDepartureDate = formatter.parse(datedepartActual);
 												Timestamp departureDate = new java.sql.Timestamp(
 														parsedDepartureDate.getTime());
 												int amount = jsonElementActual.getInt("amount");
 												String category = categories[jsonElementActual.getInt("category_id")];
-														
+
 												String supplierName = jsonElementActual.getString("name_of_supplier");
 												String address = jsonElementActual.getString("address");
-												// if the actual_id is not there
-												// save it to the database
-												// if
-												// (dbh.getActualExpense(actual_id).getCount()
-												// < 1)
-												dbh.createNewActualExpense(budgeted_id, arrivalDate, departureDate,
-														amount, description, category, supplierName, address);
+												actualExpense_id = dbh.getIdActualExpenseFromweb(web_actual_id);
+												if (actualExpense_id == 0)
+													dbh.createNewActualExpense(web_actual_id, budgeted_id, arrivalDate,
+															departureDate, amount, description, category, supplierName,
+															address);
 											}
 										}
 									}

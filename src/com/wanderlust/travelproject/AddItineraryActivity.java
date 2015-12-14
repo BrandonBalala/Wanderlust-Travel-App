@@ -53,6 +53,8 @@ public class AddItineraryActivity extends Activity {
 	private TextView actualDepartureDateError;
 	private TextView actualArrivalDateError;
 	private Spinner locationSpinner;
+	private Spinner budgetedCategorySpinner;
+	private Spinner actualCategorySpinner;
 
 	private int mYear;
 	private int mMonth;
@@ -65,13 +67,11 @@ public class AddItineraryActivity extends Activity {
 
 	private Double amount;
 	private String description;
-	private String category;
 	private String nameOfSupplier;
 	private String address;
 
 	private Double actualAmount;
 	private String actualDescription;
-	private String actualCategory;
 	private String actualNameOfSupplier;
 	private String actualAddress;
 
@@ -94,6 +94,8 @@ public class AddItineraryActivity extends Activity {
 		actualDepartureDateError = (TextView) findViewById(R.id.actualDepartureErrorTv);
 		actualArrivalDateError = (TextView) findViewById(R.id.actualArrivalErrorTv);
 		locationSpinner = (Spinner) findViewById(R.id.spinner_location);
+		budgetedCategorySpinner = (Spinner) findViewById(R.id.spinner_itinerary_category);
+		actualCategorySpinner = (Spinner) findViewById(R.id.spinner_actual_category);
 
 		// add a click listener to the button
 		departurePickDate.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +149,16 @@ public class AddItineraryActivity extends Activity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		locationSpinner.setAdapter(dataAdapter);
 
+		String[] category = getResources().getStringArray(R.array.categories);
+		ArrayAdapter<String> budgetedCategory = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				category);
+		budgetedCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		budgetedCategorySpinner.setAdapter(budgetedCategory);
+
+		ArrayAdapter<String> actualCategory = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				category);
+		actualCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		actualCategorySpinner.setAdapter(actualCategory);
 	}
 
 	/**
@@ -256,12 +268,18 @@ public class AddItineraryActivity extends Activity {
 			// get the location id.
 			String budgetedLocationName = locationSpinner.getSelectedItem().toString();
 			int budgetedLocation_id = (int) dbh.getLocationId(budgetedLocationName);
+			String budgetedCategory = budgetedCategorySpinner.getSelectedItem().toString();
+			String actualCategory = actualCategorySpinner.getSelectedItem().toString();
 
 			// create a budgeted expense row on the database. return the id of
 			// the newly created itinerary(budgeted expense).
-			budgetedExpense_id = (int) dbh.createNewItinerary(budgetedLocation_id, trip_id, arrivalDate, departureDate,
-					amount, description, category, nameOfSupplier, address);
-			dbh.createNewActualExpense(budgetedExpense_id, actualArrivalDate, actualDepartureDate, actualAmount,
+			// the web_budgeted_id is zero because this budgeted expense is not
+			// sync from the web.
+			budgetedExpense_id = (int) dbh.createNewItinerary(0, budgetedLocation_id, trip_id, arrivalDate,
+					departureDate, amount, description, budgetedCategory, nameOfSupplier, address);
+			// the web_budgeted_id is zero because this budgeted expense is not
+			// sync from the web.
+			dbh.createNewActualExpense(0, budgetedExpense_id, actualArrivalDate, actualDepartureDate, actualAmount,
 					actualDescription, actualCategory, actualNameOfSupplier, actualAddress);
 			finish();
 		}
@@ -291,8 +309,8 @@ public class AddItineraryActivity extends Activity {
 	 * expenses. This method initialize the actual expense variables.
 	 * 
 	 * @return true - because the user is not obligated to fill up all fields on
-	 *         the actual expense form.
-	 *         false - when the departure date is before the arrival date.
+	 *         the actual expense form. false - when the departure date is
+	 *         before the arrival date.
 	 */
 	public boolean validateActualExpenseInput() {
 		// getting input description
@@ -301,9 +319,6 @@ public class AddItineraryActivity extends Activity {
 		// getting input amount
 		EditText actualAmountEt = (EditText) findViewById(R.id.actual_amount);
 		String actualAmountString = actualAmountEt.getText().toString();
-		// getting input category
-		EditText actualCategoryEt = (EditText) findViewById(R.id.actual_category);
-		actualCategory = actualCategoryEt.getText().toString();
 		// getting input name of supplier
 		EditText actualNameOfSupplierEt = (EditText) findViewById(R.id.actual_name_of_supplier);
 		actualNameOfSupplier = actualNameOfSupplierEt.getText().toString();
@@ -315,7 +330,8 @@ public class AddItineraryActivity extends Activity {
 		if (actualArrivalDate == null) {
 			actualArrivalDate = arrivalDate;
 		}
-		// if the user did not fill the actual departure date, set it with the budgeted departure date.
+		// if the user did not fill the actual departure date, set it with the
+		// budgeted departure date.
 		if (actualDepartureDate == null) {
 			actualDepartureDate = departureDate;
 		} else {
@@ -326,9 +342,10 @@ public class AddItineraryActivity extends Activity {
 				return false;
 			}
 		}
-		// if the user did not fill the actual amount, set it with the budgeted departure date.
-		if (TextUtils.isEmpty(actualAmountString)) 
-			actualAmount =0.0;
+		// if the user did not fill the actual amount, set it with the budgeted
+		// departure date.
+		if (TextUtils.isEmpty(actualAmountString))
+			actualAmount = 0.0;
 		else
 			actualAmount = Double.valueOf(actualAmountString);
 		return true;
@@ -350,10 +367,6 @@ public class AddItineraryActivity extends Activity {
 		// getting input amount
 		EditText amountEt = (EditText) findViewById(R.id.itinerary_amount);
 		String amountString = amountEt.getText().toString();
-		// getting input category
-		EditText categoryEt = (EditText) findViewById(R.id.itinerary_category);
-		category = categoryEt.getText().toString();
-
 		// getting input name of supplier
 		EditText nameOfSupplierEt = (EditText) findViewById(R.id.itinerary_name_of_supplier);
 		nameOfSupplier = nameOfSupplierEt.getText().toString();
@@ -389,10 +402,6 @@ public class AddItineraryActivity extends Activity {
 			valid = false;
 		}
 
-		if (TextUtils.isEmpty(category)) {
-			categoryEt.setError("The itinerary category cannot be empty.");
-			valid = false;
-		}
 		if (TextUtils.isEmpty(nameOfSupplier)) {
 			nameOfSupplierEt.setError("The name of the supplier cannot be empty.");
 			valid = false;

@@ -58,19 +58,19 @@ public class EditActivity extends Activity {
 	private Button departureBtn;
 	private EditText descriptionEt;
 	private EditText amountEt;
-	private EditText categoryEt;
 	private EditText supplier_nameEt;
 	private EditText addressEt;
 	private TextView departureDateError;
 	private TextView arrivalDateError;
 	private Spinner locationSpinner;
+	private Spinner budgetedCategorySpinner;
+	private Spinner actualCategorySpinner;
 
 	private Button actualArrivalBtn;
 	private Button actualDepartureBtn;
 	private EditText actualDescriptionEt;
 	private EditText actualAmountEt;
-	private EditText actualCategoryEt;
-	
+
 	private EditText actualSupplier_nameEt;
 	private EditText actualAddressEt;
 	private TextView actualDepartureDateError;
@@ -83,13 +83,11 @@ public class EditActivity extends Activity {
 
 	private Double amount;
 	private String description;
-	private String category;
 	private String nameOfSupplier;
 	private String address;
 
 	private Double actualAmount;
 	private String actualDescription;
-	private String actualCategory;
 	private String actualNameOfSupplier;
 	private String actualAddress;
 
@@ -111,7 +109,7 @@ public class EditActivity extends Activity {
 		departureBtn = (Button) findViewById(R.id.editDepartureDate);
 		descriptionEt = (EditText) findViewById(R.id.edit_itinerary_description);
 		amountEt = (EditText) findViewById(R.id.edit_itinerary_amount);
-		categoryEt = (EditText) findViewById(R.id.edit_itinerary_category);
+		budgetedCategorySpinner = (Spinner) findViewById(R.id.edit_spinner_itinerary_category);
 		supplier_nameEt = (EditText) findViewById(R.id.edit_itinerary_name_of_supplier);
 		addressEt = (EditText) findViewById(R.id.edit_itinerary_address);
 		departureDateError = (TextView) findViewById(R.id.editDepartureErrorTv);
@@ -122,7 +120,7 @@ public class EditActivity extends Activity {
 		actualArrivalBtn = (Button) findViewById(R.id.edtActualArrivalDate);
 		actualDescriptionEt = (EditText) findViewById(R.id.edit_actual_description);
 		actualAmountEt = (EditText) findViewById(R.id.edit_actual_amount);
-		actualCategoryEt = (EditText) findViewById(R.id.edit_actual_category);
+		actualCategorySpinner = (Spinner) findViewById(R.id.edit_spinner_actual_category);
 		actualSupplier_nameEt = (EditText) findViewById(R.id.edit_actual_name_of_supplier);
 		actualAddressEt = (EditText) findViewById(R.id.edit_actual_address);
 		actualDepartureDateError = (TextView) findViewById(R.id.editActualDepartureErrorTv);
@@ -136,7 +134,6 @@ public class EditActivity extends Activity {
 			String departureDateString = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DEPARTUREDATE));
 			amount = cursor.getDouble(cursor.getColumnIndex(DBHelper.COLUMN_AMOUNT));
 			description = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DESCRIPTION));
-			category = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CATEGORY));
 			nameOfSupplier = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_SUPPLIER_NAME));
 			address = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ADDRESS));
 
@@ -146,7 +143,6 @@ public class EditActivity extends Activity {
 					.getString(cursor.getColumnIndex(DBHelper.COLUMN_ACTUAL_DEPARTUREDATE));
 			actualAmount = cursor.getDouble(cursor.getColumnIndex(DBHelper.COLUMN_ACTUAL_AMOUNT));
 			actualDescription = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ACTUAL_DESCRIPTION));
-			actualCategory = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ACTUAL_CATEGORY));
 			actualNameOfSupplier = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ACTUAL_SUPPLIER_NAME));
 			actualAddress = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ACTUAL_ADDRESS));
 
@@ -154,7 +150,6 @@ public class EditActivity extends Activity {
 			departureBtn.setText(departureDateString);
 			descriptionEt.setText(description);
 			amountEt.setText(String.valueOf(amount));
-			categoryEt.setText(category);
 			supplier_nameEt.setText(nameOfSupplier);
 			addressEt.setText(address);
 
@@ -162,7 +157,6 @@ public class EditActivity extends Activity {
 			actualArrivalBtn.setText(actualArrivalDateString);
 			actualDescriptionEt.setText(actualDescription);
 			actualAmountEt.setText(String.valueOf(actualAmount));
-			actualCategoryEt.setText(actualCategory);
 			actualSupplier_nameEt.setText(actualNameOfSupplier);
 			actualAddressEt.setText(actualAddress);
 
@@ -201,6 +195,17 @@ public class EditActivity extends Activity {
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		locationSpinner.setAdapter(dataAdapter);
+
+		String[] category = getResources().getStringArray(R.array.categories);
+		ArrayAdapter<String> budgetedCategory = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				category);
+		budgetedCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		budgetedCategorySpinner.setAdapter(budgetedCategory);
+
+		ArrayAdapter<String> actualCategory = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				category);
+		actualCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		actualCategorySpinner.setAdapter(actualCategory);
 
 		// add a click listener to the button
 		departureBtn.setOnClickListener(new View.OnClickListener() {
@@ -250,10 +255,13 @@ public class EditActivity extends Activity {
 			String budgetedLocationName = locationSpinner.getSelectedItem().toString();
 			int budgetedLocation_id = (int) dbh.getLocationId(budgetedLocationName);
 
+			String budgetedCategory = budgetedCategorySpinner.getSelectedItem().toString();
+			String actualCategory = actualCategorySpinner.getSelectedItem().toString();
+
 			// create a budgeted expense row on the database. return the id of
 			// the newly created itinerary(budgeted expense).
 			dbh.updateItinerary(itinerary_id, budgetedLocation_id, arrivalDate, departureDate, amount, description,
-					category, nameOfSupplier, address);
+					budgetedCategory, nameOfSupplier, address);
 			dbh.updateActualExpense(itinerary_id, actualArrivalDate, actualDepartureDate, actualAmount,
 					actualDescription, actualCategory, actualNameOfSupplier, actualAddress);
 			finish();
@@ -414,8 +422,6 @@ public class EditActivity extends Activity {
 		actualDescription = actualDescriptionEt.getText().toString();
 		// getting input amount
 		String actualAmountString = actualAmountEt.getText().toString();
-		// getting input category
-		actualCategory = actualCategoryEt.getText().toString();
 		// getting input name of supplier
 		actualNameOfSupplier = actualSupplier_nameEt.getText().toString();
 		// getting input name of supplier
@@ -460,8 +466,6 @@ public class EditActivity extends Activity {
 		description = descriptionEt.getText().toString();
 		// getting input amount
 		String amountString = amountEt.getText().toString();
-		// getting input category
-		category = categoryEt.getText().toString();
 		// getting input name of supplier
 		nameOfSupplier = supplier_nameEt.getText().toString();
 		// getting input name of supplier
@@ -491,11 +495,6 @@ public class EditActivity extends Activity {
 
 		if (TextUtils.isEmpty(description)) {
 			descriptionEt.setError("The itinerary description cannot be empty.");
-			valid = false;
-		}
-
-		if (TextUtils.isEmpty(category)) {
-			categoryEt.setError("The itinerary category cannot be empty.");
 			valid = false;
 		}
 		if (TextUtils.isEmpty(nameOfSupplier)) {

@@ -50,6 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	// ACTUALEXPENSE table field names COLUMN names
 	public static final String COLUMN_BUDGETED_ID = "budgeted_id";
+	public static final String COLUMN_ACTUAL_ID = "actual_id";
 	public static final String COLUMN_ACTUAL_ARRIVALDATE = "actual_arrivaldate";
 	public static final String COLUMN_ACTUAL_DEPARTUREDATE = "actual_departuredate";
 	public static final String COLUMN_ACTUAL_AMOUNT = "actual_amount";
@@ -90,16 +91,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	// ITINERARY table create statement
 	private static final String DATABASE_ITINERARY_TABLE = "create table " + TABLE_ITINERARY + "(" + COLUMN_ID
-			+ " integer primary key autoincrement, " + COLUMN_ARRIVALDATE + " TIMESTAMP, " + COLUMN_DEPARTUREDATE
-			+ " TIMESTAMP, " + COLUMN_AMOUNT + " real, " + COLUMN_DESCRIPTION + " text not null," + COLUMN_CATEGORY
-			+ " text not null, " + COLUMN_SUPPLIER_NAME + " text not null," + COLUMN_ADDRESS + " text not null, "
-			+ COLUMN_LOCATION_ID + " integer," + COLUMN_TRIP_ID + " integer," + " FOREIGN KEY (" + COLUMN_LOCATION_ID
-			+ ") REFERENCES " + TABLE_LOCATIONS + "(" + COLUMN_ID + ")," + " FOREIGN KEY (" + COLUMN_TRIP_ID
-			+ ") REFERENCES " + TABLE_TRIPS + "(" + COLUMN_ID + "));";
+			+ " integer primary key autoincrement, " + COLUMN_BUDGETED_ID + " integer, " + COLUMN_ARRIVALDATE
+			+ " TIMESTAMP, " + COLUMN_DEPARTUREDATE + " TIMESTAMP, " + COLUMN_AMOUNT + " real, " + COLUMN_DESCRIPTION
+			+ " text not null," + COLUMN_CATEGORY + " text not null, " + COLUMN_SUPPLIER_NAME + " text not null,"
+			+ COLUMN_ADDRESS + " text not null, " + COLUMN_LOCATION_ID + " integer," + COLUMN_TRIP_ID + " integer,"
+			+ " FOREIGN KEY (" + COLUMN_LOCATION_ID + ") REFERENCES " + TABLE_LOCATIONS + "(" + COLUMN_ID + "),"
+			+ " FOREIGN KEY (" + COLUMN_TRIP_ID + ") REFERENCES " + TABLE_TRIPS + "(" + COLUMN_ID + "));";
 
 	// ACTUALEXPENSE table create statement
 	private static final String DATABASE_ACTUALEXPENSE_TABLE = "create table " + TABLE_ACTUALEXPENSE + "(" + COLUMN_ID
-			+ " integer primary key autoincrement, " + COLUMN_ACTUAL_ARRIVALDATE
+			+ " integer primary key autoincrement, " + COLUMN_ACTUAL_ID + " integer, " + COLUMN_ACTUAL_ARRIVALDATE
 			+ " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " + COLUMN_ACTUAL_DEPARTUREDATE
 			+ " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " + COLUMN_ACTUAL_AMOUNT + " real, " + COLUMN_ACTUAL_DESCRIPTION
 			+ " text not null," + COLUMN_ACTUAL_CATEGORY + " text not null," + COLUMN_ACTUAL_SUPPLIER_NAME
@@ -363,10 +364,12 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * 
 	 * @return long - the id of the newly created itinerary.
 	 */
-	public long createNewItinerary(int location_id, int trip_id, Timestamp arrivalDate, Timestamp departureDate,
-			double amount, String description, String category, String supplier_name, String address) {
+	public long createNewItinerary(int web_budgeted_id, int location_id, int trip_id, Timestamp arrivalDate,
+			Timestamp departureDate, double amount, String description, String category, String supplier_name,
+			String address) {
 
 		ContentValues values = new ContentValues();
+		values.put(COLUMN_BUDGETED_ID, web_budgeted_id);
 		values.put(COLUMN_LOCATION_ID, location_id);
 		values.put(COLUMN_TRIP_ID, trip_id);
 		values.put(COLUMN_ARRIVALDATE, dateFormat.format(arrivalDate));
@@ -411,6 +414,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
+	/**
+	 * 
+	 * This method returns the itinerary id of an itinerary that was created
+	 * from the web.
+	 * 
+	 * @param budgeted_id
+	 *            the budgeted _id from the web.
+	 * @return Cursor
+	 */
+	public int getIdItinerariesFromweb(int budgeted_id) {
+
+		Cursor cursor = getReadableDatabase().query(TABLE_ITINERARY, null, COLUMN_BUDGETED_ID + " = ?",
+				new String[] { String.valueOf(budgeted_id) }, null, null, null);
+		if (cursor.moveToNext())
+			return (int) cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+		return 0;
+
+	}
+
 	/*
 	 * UPDATE - This method is updating a specific itinerary based on the id
 	 * sent and updates all the values being sent in the parameter list.
@@ -448,11 +470,14 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * CREATE - This method creates an actual expense row in the ActualExpenses
 	 * table .
 	 */
-	public void createNewActualExpense(int budgeted_id, Timestamp arrivalDate, Timestamp departureDate, double amount,
-			String description, String category, String supplierName, String address) {
+	public void createNewActualExpense(int web_actual_id, int budgeted_id, Timestamp arrivalDate,
+			Timestamp departureDate, double amount, String description, String category, String supplierName,
+			String address) {
 
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_BUDGETED_ID, budgeted_id);
+		values.put(COLUMN_ACTUAL_ID, web_actual_id);
+
 		values.put(COLUMN_ACTUAL_ARRIVALDATE, dateFormat.format(arrivalDate));
 		values.put(COLUMN_ACTUAL_DEPARTUREDATE, dateFormat.format(departureDate));
 		values.put(COLUMN_ACTUAL_AMOUNT, amount);
@@ -486,6 +511,25 @@ public class DBHelper extends SQLiteOpenHelper {
 	public Cursor getAllActualExpense() {
 
 		return getReadableDatabase().query(TABLE_ACTUALEXPENSE, null, null, null, null, null, null);
+
+	}
+
+	/**
+	 * 
+	 * This method returns the actual expense id of an itinerary that was
+	 * created from the web.
+	 * 
+	 * @param actual_id
+	 *            the actual_id _id from the web.
+	 * @return Cursor
+	 */
+	public int getIdActualExpenseFromweb(int web_actual_id) {
+
+		Cursor cursor = getReadableDatabase().query(TABLE_ACTUALEXPENSE, null, COLUMN_ACTUAL_ID + " = ?",
+				new String[] { String.valueOf(web_actual_id) }, null, null, null);
+		if (cursor.moveToNext())
+			return (int) cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+		return 0;
 
 	}
 
@@ -537,10 +581,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		Log.v(TAG, date + " entered date");
 
+		// return getReadableDatabase().query(TABLE_ITINERARY, null,
+		// COLUMN_DEPARTUREDATE + " = ? ", new String[] { date },
+		// null, null, null);
+
 		String searchSelect = "SELECT * FROM locations INNER JOIN itinerary ON locations._id=itinerary.location_id "
-				+ "INNER JOIN actualexpense ON itinerary._id=actualexpense.budgeted_id "
-				+ "  WHERE itinerary.arrivaldate =  ? ";
+									+ "INNER JOIN actualexpense ON itinerary._id=actualexpense.budgeted_id ";
+		
 		Log.v(TAG, "Query statement: " + searchSelect);
+
 		return getReadableDatabase().rawQuery(searchSelect, new String[] { date });
 
 	}
