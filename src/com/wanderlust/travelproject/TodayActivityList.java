@@ -28,7 +28,7 @@ public class TodayActivityList extends Activity {
 	private static DBHelper dbh;
 	private Cursor cursor;
 	private Timestamp ts;
-	private SimpleCursorAdapter sca;
+	private ItineraryCursorAdapter sca;
 	private Context context;
 
 	@Override
@@ -61,15 +61,24 @@ public class TodayActivityList extends Activity {
 
 		Log.v(TAG, "String of the timestamp " + ts);
 
-		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
-				DBHelper.COLUMN_DESCRIPTION }; // THE DESIRED COLUMNS TO BE
-												// BOUND
-		int[] to = new int[] { R.id.display_itinerary_arrival, R.id.display_itinerary_category,
-				R.id.display_itinerary_description }; // THE XML DEFINED
-														// VIEWS
-														// WHICH THEDATA
-														// WILL BE
-														// BOUND TO
+//		String[] from = new String[] { DBHelper.COLUMN_ARRIVALDATE, DBHelper.COLUMN_CATEGORY,
+//				DBHelper.COLUMN_SUPPLIER_NAME, DBHelper.COLUMN_DESCRIPTION }; // THE
+//																				// DESIRED
+//																				// COLUMNS
+//																				// TO
+//																				// BE
+//																				// BOUND
+//		int[] to = new int[] { R.id.display_itinerary_arrival, R.id.display_itinerary_category,
+//				R.id.display_actual_name_of_supplier, R.id.display_itinerary_description }; // THE
+//																							// XML
+//																							// DEFINED
+//																							// VIEWS
+//																							// WHICH
+//																							// THEDATA
+//																							// WILL
+//																							// BE
+//																							// BOUND
+//																							// TO
 
 		// checks if table is not empty for activities that are queried in
 		// the
@@ -81,22 +90,18 @@ public class TodayActivityList extends Activity {
 			Toast.makeText(getApplicationContext(), "There are no trips for" + ts.toString(), Toast.LENGTH_LONG).show();
 			setResult(0);
 			finish();
-		}
-
-		else {
+		} else {
 			Toast.makeText(getApplicationContext(), "There are trips" + ts.toString(), Toast.LENGTH_LONG).show();
 			ListView lv = (ListView) findViewById(R.id.displayItinaries);
 			dbh = DBHelper.getDBHelper(this);
 
 			cursor = dbh.getActivitiesToday(ts);
-			sca = new SimpleCursorAdapter(this, R.layout.list_itinaries, cursor, from, to, 0);
+			sca = new ItineraryCursorAdapter(this, cursor, 0);
 			lv.setAdapter(sca);
 			lv.setOnItemClickListener(editItem);
 			lv.setOnItemLongClickListener(deleteItem);
 		}
 	}
-
-
 
 	/**
 	 * This method is executed when the activity(ItineraryActivity) restart. It
@@ -130,8 +135,7 @@ public class TodayActivityList extends Activity {
 	 */
 	public OnItemLongClickListener deleteItem = new OnItemLongClickListener() {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
-			ListView lv = (ListView) findViewById(R.id.displayTrips);
-			final int itinerary_id = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
+			final int itinerary_id = (int) id;
 			// Creates/Displays an alert dialog
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 			alertDialog.setTitle("Delete Item "); // Setting
@@ -172,17 +176,13 @@ public class TodayActivityList extends Activity {
 	public OnItemClickListener editItem = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
+
 			Intent editIntent = new Intent(context, EditActivity.class);
-			ListView lv = (ListView) findViewById(R.id.displayTrips);
-			int intId = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
-			editIntent.putExtra("itinerary_id", intId); // id
-														// of
-														// the
-														// item
-														// to
-														// be
+			int intId = (int) id;
+			editIntent.putExtra("itinerary_id", intId); // id of the item to be
 														// edit
 			startActivity(editIntent);
+
 		}
 	};
 }

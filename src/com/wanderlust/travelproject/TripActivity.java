@@ -55,13 +55,15 @@ public class TripActivity extends Activity {
 	private int budgeted_id;
 	private int location_id;
 	private int actualExpense_id;
+	private String[] categories;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trip);
 		context = this;
-
+		//make categories list
+		categories = getResources().getStringArray(R.array.categories);
 		String[] from = new String[] { DBHelper.COLUMN_NAME, DBHelper.COLUMN_DESCRIPTION, }; // THE
 																								// DESIRED
 																								// COLUMNS
@@ -169,7 +171,7 @@ public class TripActivity extends Activity {
 		URL url = new URL(newFeed);
 
 		HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
-		Log.v(TAG, "code: " + httpconn.getResponseCode());
+		
 		if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()), 8192);
 			String strLine = null;
@@ -178,6 +180,14 @@ public class TripActivity extends Activity {
 			}
 			input.close();
 			httpconn.disconnect(); // PMC
+		}
+		if(response.toString().equals(""))
+		{
+			Log.v(TAG, "code: " + httpconn.getResponseCode());
+			if(httpconn.getResponseCode() == 302)
+			{
+				return "NoConnection";
+			}
 		}
 
 		return response.toString();
@@ -280,7 +290,8 @@ public class TripActivity extends Activity {
 											Date departedDate = dateFormat.parse(datedepart);
 											Timestamp departureDate = new java.sql.Timestamp(departedDate.getTime());
 
-											String category = String.valueOf(jsonElementBudgeted.getInt("category_id"));
+											String category = categories[jsonElementBudgeted.getInt("category_id")];
+													
 											String supplier_name = "", address = "";
 											// if the budgeted_id is not there
 											// save it to the database
@@ -318,8 +329,8 @@ public class TripActivity extends Activity {
 												Timestamp departureDate = new java.sql.Timestamp(
 														parsedDepartureDate.getTime());
 												int amount = jsonElementActual.getInt("amount");
-												String category = String
-														.valueOf(jsonElementActual.getInt("category_id"));
+												String category = categories[jsonElementActual.getInt("category_id")];
+														
 												String supplierName = jsonElementActual.getString("name_of_supplier");
 												String address = jsonElementActual.getString("address");
 												// if the actual_id is not there
@@ -365,12 +376,17 @@ public class TripActivity extends Activity {
 
 		protected void onPostExecute(String result) {
 			try {
-				if (result.equals("")) {
-					Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
-					Intent i = new Intent(getBaseContext(), SettingsActivity.class);
-					startActivity(i);
-				} else
-					ProcessResponse(result);
+				if (result.equals("NoConnection")) {
+					Toast.makeText(getBaseContext(), "Test Connection", Toast.LENGTH_SHORT).show();
+				} else {
+					if (result.equals("")) {
+						Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
+						Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+						startActivity(i);
+
+					} else
+						ProcessResponse(result);
+				}
 
 			} catch (Exception e) {
 				Log.v(TAG, "Exception:" + e.getMessage());

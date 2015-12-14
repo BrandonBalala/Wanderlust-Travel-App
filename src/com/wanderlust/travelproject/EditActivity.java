@@ -70,6 +70,7 @@ public class EditActivity extends Activity {
 	private EditText actualDescriptionEt;
 	private EditText actualAmountEt;
 	private EditText actualCategoryEt;
+	
 	private EditText actualSupplier_nameEt;
 	private EditText actualAddressEt;
 	private TextView actualDepartureDateError;
