@@ -101,7 +101,20 @@ public class TripActivity extends Activity {
 		sca.notifyDataSetChanged(); // have the adapter tell the observers
 	}
 
-	public OnItemClickListener showItinerary=new OnItemClickListener(){@Override public void onItemClick(AdapterView<?>parent,View view,int position,long id){int trip_id=(int)id;SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(context);SharedPreferences.Editor editor=prefs.edit();editor.putInt("lastTripViewedId",trip_id);editor.commit();Log.v("TRIP_ID","the id is "+trip_id);Intent intent=new Intent(context,ItineraryActivity.class);intent.putExtra("trip_id",trip_id);startActivity(intent);}};
+	public OnItemClickListener showItinerary = new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			int trip_id = (int) id;
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putInt("lastTripViewedId", trip_id);
+			editor.commit();
+			Log.v("TRIP_ID", "the id is " + trip_id);
+			Intent intent = new Intent(context, ItineraryActivity.class);
+			intent.putExtra("trip_id", trip_id);
+			startActivity(intent);
+		}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -276,44 +289,47 @@ public class TripActivity extends Activity {
 													arrivalDate, departureDate, amount, budgeteddescription, category,
 													supplier_name, address);
 
-									}
-									if (itiniraryObj.has("actualexpense")) {
-										SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
-												Locale.getDefault());
-										JSONArray jsonElementsActual = itiniraryObj.getJSONArray("actualexpense");
-										// loop on all of the Actual
-										// elements
-										for (int z = 0; z < jsonElementsActual.length(); z++) {
-											JSONObject jsonElementActual = jsonElementsActual.getJSONObject(z);
-											String description = jsonElementActual.getString("description");
+										}
+										if (itiniraryObj.has("actualexpense")) {
+											SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
+													Locale.getDefault());
+											JSONArray jsonElementsActual = itiniraryObj.getJSONArray("actualexpense");
+											// loop on all of the Actual
+											// elements
+											for (int z = 0; z < jsonElementsActual.length(); z++) {
+												JSONObject jsonElementActual = jsonElementsActual.getJSONObject(z);
+												String description = jsonElementActual.getString("description");
 
-											String datearriveActual = jsonElementActual
-													.getString("actual_arrival_date");
-											datearriveActual = datearriveActual.substring(0, 10);
-											// Log.v("DATE 1",
-											// datearriveActual);
-											Date parsedArrivalDate = formatter.parse(datearriveActual);
-											Timestamp arrivalDate = new java.sql.Timestamp(parsedArrivalDate.getTime());
+												String datearriveActual = jsonElementActual
+														.getString("actual_arrival_date");
+												datearriveActual = datearriveActual.substring(0, 10);
+												// Log.v("DATE 1",
+												// datearriveActual);
+												Date parsedArrivalDate = formatter.parse(datearriveActual);
+												Timestamp arrivalDate = new java.sql.Timestamp(
+														parsedArrivalDate.getTime());
 
-											String datedepartActual = jsonElementActual
-													.getString("actual_departure_date");
-											datedepartActual = datedepartActual.substring(0, 10);
-											// Log.v("DATE 2",
-											// datedepartActual);
-											Date parsedDepartureDate = formatter.parse(datedepartActual);
-											Timestamp departureDate = new java.sql.Timestamp(
-													parsedDepartureDate.getTime());
-											int amount = jsonElementActual.getInt("amount");
-											String category = String.valueOf(jsonElementActual.getInt("category_id"));
-											String supplierName = jsonElementActual.getString("name_of_supplier");
-											String address = jsonElementActual.getString("address");
-											// if the actual_id is not there
-											// save it to the database
-											// if
-											// (dbh.getActualExpense(actual_id).getCount()
-											// < 1)
-											dbh.createNewActualExpense(budgeted_id, arrivalDate, departureDate, amount,
-													description, category, supplierName, address);
+												String datedepartActual = jsonElementActual
+														.getString("actual_departure_date");
+												datedepartActual = datedepartActual.substring(0, 10);
+												// Log.v("DATE 2",
+												// datedepartActual);
+												Date parsedDepartureDate = formatter.parse(datedepartActual);
+												Timestamp departureDate = new java.sql.Timestamp(
+														parsedDepartureDate.getTime());
+												int amount = jsonElementActual.getInt("amount");
+												String category = String
+														.valueOf(jsonElementActual.getInt("category_id"));
+												String supplierName = jsonElementActual.getString("name_of_supplier");
+												String address = jsonElementActual.getString("address");
+												// if the actual_id is not there
+												// save it to the database
+												// if
+												// (dbh.getActualExpense(actual_id).getCount()
+												// < 1)
+												dbh.createNewActualExpense(budgeted_id, arrivalDate, departureDate,
+														amount, description, category, supplierName, address);
+											}
 										}
 									}
 								}
@@ -323,45 +339,44 @@ public class TripActivity extends Activity {
 				}
 			}
 		}
+
+		refreshView();
 	}
 
-	refreshView();
-}
+	/**
+	 * Asynctask that downloads the information in
+	 * 
+	 * @author theMarvin
+	 *
+	 */
+	private class SyncInfo extends AsyncTask<String, Integer, String> {
 
-/**
- * Asynctask that downloads the information in
- * 
- * @author theMarvin
- *
- */
-private class SyncInfo extends AsyncTask<String, Integer, String> {
+		protected String doInBackground(String... searchKey) {
 
-	protected String doInBackground(String... searchKey) {
-
-		String email = searchKey[0];
-		String password = searchKey[1];
-		try {
-			return SearchRequest(email, password);
-		} catch (Exception e) {
-			Log.v(TAG, "Exception:" + e.getMessage());
-			return "";
+			String email = searchKey[0];
+			String password = searchKey[1];
+			try {
+				return SearchRequest(email, password);
+			} catch (Exception e) {
+				Log.v(TAG, "Exception:" + e.getMessage());
+				return "";
+			}
 		}
-	}
 
-	protected void onPostExecute(String result) {
-		try {
-			if (result.equals("")) {
-				Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
-				Intent i = new Intent(getBaseContext(), SettingsActivity.class);
-				startActivity(i);
-			} else
-				ProcessResponse(result);
+		protected void onPostExecute(String result) {
+			try {
+				if (result.equals("")) {
+					Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
+					Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+					startActivity(i);
+				} else
+					ProcessResponse(result);
 
-		} catch (Exception e) {
-			Log.v(TAG, "Exception:" + e.getMessage());
+			} catch (Exception e) {
+				Log.v(TAG, "Exception:" + e.getMessage());
 
+			}
 		}
-	}
 
 	}
 
