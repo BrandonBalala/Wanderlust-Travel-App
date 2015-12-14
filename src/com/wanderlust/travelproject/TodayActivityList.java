@@ -130,6 +130,8 @@ public class TodayActivityList extends Activity {
 	 */
 	public OnItemLongClickListener deleteItem = new OnItemLongClickListener() {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, final long id) {
+			ListView lv = (ListView) findViewById(R.id.displayTrips);
+			final int itinerary_id = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
 			// Creates/Displays an alert dialog
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 			alertDialog.setTitle("Delete Item "); // Setting
@@ -143,7 +145,7 @@ public class TodayActivityList extends Activity {
 			// record
 			alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					dbh.deleteItinerary((int) id);
+					dbh.deleteItinerary(itinerary_id);
 					refreshView();
 				}
 			});
@@ -171,7 +173,8 @@ public class TodayActivityList extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
 			Intent editIntent = new Intent(context, EditActivity.class);
-			int intId = (int) id;
+			ListView lv = (ListView) findViewById(R.id.displayTrips);
+			int intId = ((SimpleCursorAdapter) lv.getAdapter()).getCursor().getInt(1);
 			editIntent.putExtra("itinerary_id", intId); // id
 														// of
 														// the

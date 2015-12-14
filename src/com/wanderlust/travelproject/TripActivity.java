@@ -126,6 +126,11 @@ public class TripActivity extends Activity {
 
 		String email = (mSharedPreference.getString("username", ""));
 		String password = (mSharedPreference.getString("password", ""));
+		if (password.equals("")) {
+			Toast.makeText(this, "Reenter credentials", Toast.LENGTH_SHORT).show();
+			Intent i = new Intent(this, SettingsActivity.class);
+			startActivity(i);
+		}
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
@@ -279,6 +284,8 @@ public class TripActivity extends Activity {
 
 										}
 										if (itiniraryObj.has("actualexpense")) {
+											SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
+													Locale.getDefault());
 											JSONArray jsonElementsActual = itiniraryObj.getJSONArray("actualexpense");
 											// loop on all of the Actual
 											// elements
@@ -286,12 +293,20 @@ public class TripActivity extends Activity {
 												JSONObject jsonElementActual = jsonElementsActual.getJSONObject(z);
 												int actual_id = jsonElementActual.getInt("id");
 												String description = jsonElementActual.getString("description");
-												Date parsedArrivalDate = dateFormat
-														.parse(jsonElementActual.getString("actual_arrival_date"));
+
+												String datearriveActual = jsonElementActual
+														.getString("actual_arrival_date");
+												datearriveActual = datearriveActual.substring(0, 10);
+//												Log.v("DATE 1", datearriveActual);
+												Date parsedArrivalDate = formatter.parse(datearriveActual);
 												Timestamp arrivalDate = new java.sql.Timestamp(
 														parsedArrivalDate.getTime());
-												Date parsedDepartureDate = dateFormat
-														.parse(jsonElementActual.getString("actual_departure_date"));
+
+												String datedepartActual = jsonElementActual
+														.getString("actual_departure_date");
+												datedepartActual = datedepartActual.substring(0, 10);
+//												Log.v("DATE 2", datedepartActual);
+												Date parsedDepartureDate = formatter.parse(datedepartActual);
 												Timestamp departureDate = new java.sql.Timestamp(
 														parsedDepartureDate.getTime());
 												int amount = jsonElementActual.getInt("amount");
@@ -339,8 +354,12 @@ public class TripActivity extends Activity {
 
 		protected void onPostExecute(String result) {
 			try {
-				// Log.v(TAG, "the result: " + result);
-				ProcessResponse(result);
+				if (result.equals("")) {
+					Toast.makeText(getBaseContext(), "Reenter credentials", Toast.LENGTH_SHORT).show();
+					Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+					startActivity(i);
+				} else
+					ProcessResponse(result);
 
 			} catch (Exception e) {
 				Log.v(TAG, "Exception:" + e.getMessage());
