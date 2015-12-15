@@ -12,8 +12,8 @@
         android:id="@+id/displayItinaries"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#D3D3D3"
-        android:divider="#FFFFFF"
+        android:background="@color/applegreen"
+        android:divider="@color/white"
         android:dividerHeight="@dimen/dividerHeight"
         android:orientation="vertical" />
 

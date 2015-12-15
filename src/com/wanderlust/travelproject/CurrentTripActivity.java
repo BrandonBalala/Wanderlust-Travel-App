@@ -29,6 +29,12 @@ public class CurrentTripActivity extends Activity {
 	private Context context;
 	private int lastTripViewedId;
 
+
+	/**
+	 * The method retrieves the id of the last viewed(clicked) trip from the
+	 * shared preference, if the shared preference is empty the lastTripViewedId
+	 * = 1 (the first trip on the database). This method display the trip on ListView.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

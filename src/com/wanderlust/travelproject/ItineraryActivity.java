@@ -21,7 +21,7 @@ import android.widget.ListView;
 /***
  * 
  * This activity is fired when a trip is clicked. This activity displays all the
- * itineraries(budgeted expenses) and actual expenses of that trip. 
+ * itineraries(budgeted expenses) and actual expenses of that trip.
  * 
  * @author Marjorie Morales, Rita Lazaar, Brandon Balala, Marvin Francisco
  *
@@ -31,40 +31,44 @@ public class ItineraryActivity extends Activity {
 	private Cursor cursor;
 	private Context context;
 	private static DBHelper dbh;
-	private ItineraryCursorAdapter itineraryAdapter;  		//Custom Cursor Adapter.
+	private ItineraryCursorAdapter itineraryAdapter; // Custom Cursor Adapter.
 
+	/**
+	 * This lifecycle method gets all the itineraries of a trip from the
+	 * database. Set the adapter and onclick listener for the ListView
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_itinerary);
 		context = this;
-		
-		// gets the trip_id send to the activity by the previous activity. 
+
+		// gets the trip_id send to the activity by the previous activity.
 		trip_id = (Integer) getIntent().getExtras().getInt("trip_id");
 
 		ListView lv = (ListView) findViewById(R.id.displayItinaries);
-		
+
 		dbh = DBHelper.getDBHelper(this);
 		// gets all the itineraries, actual expenses and location of a trip.
 		cursor = dbh.getItineraryActualExpenseLocation(trip_id);
 		itineraryAdapter = new ItineraryCursorAdapter(this, cursor, 0);
-		
+
 		lv.setAdapter(itineraryAdapter);
 		lv.setOnItemClickListener(editItem);
 		lv.setOnItemLongClickListener(deleteItem);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_itinerary, menu);
 		return true;
 	}
-	
+
 	/**
 	 * 
-	 * It will the set the menu items - one add : which will fire an intent
-	 * for the add itinerary activity.
+	 * It will the set the menu items - one add : which will fire an intent for
+	 * the add itinerary activity.
 	 * 
 	 */
 	@Override
@@ -85,8 +89,8 @@ public class ItineraryActivity extends Activity {
 	/***
 	 * 
 	 * This is an Item Long Click Listener(Long Click), for use with the
-	 * ListView. When an item in the listView is long clicked, an alert dialog will
-	 * pop up with two button:one to dismiss and one to confirm the delete.
+	 * ListView. When an item in the listView is long clicked, an alert dialog
+	 * will pop up with two button:one to dismiss and one to confirm the delete.
 	 * Deletes the corresponding record(an itinerary row) from the database .
 	 * 
 	 */
@@ -95,9 +99,12 @@ public class ItineraryActivity extends Activity {
 			// Creates/Displays an alert dialog
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 			alertDialog.setTitle("Delete Item "); // Setting Dialog Title
-			alertDialog.setMessage("Are you sure you want to delete this?"); // Setting Dialog Message
+			alertDialog.setMessage("Are you sure you want to delete this?"); // Setting
+																				// Dialog
+																				// Message
 
-			// if the yes button is clicked, delete the corresponding database record
+			// if the yes button is clicked, delete the corresponding database
+			// record
 			alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					int itinerary_id = (int) id;
@@ -134,10 +141,13 @@ public class ItineraryActivity extends Activity {
 	 * 
 	 */
 	public void refreshView() {
-		cursor = dbh.getItineraryActualExpenseLocation(trip_id); // renew the cursor
-		// have the adapter use the new cursor, changeCursor closes old cursor too
-		itineraryAdapter.changeCursor(cursor); 
-		itineraryAdapter.notifyDataSetChanged(); // have the adapter tell the observers
+		cursor = dbh.getItineraryActualExpenseLocation(trip_id); // renew the
+																	// cursor
+		// have the adapter use the new cursor, changeCursor closes old cursor
+		// too
+		itineraryAdapter.changeCursor(cursor);
+		itineraryAdapter.notifyDataSetChanged(); // have the adapter tell the
+													// observers
 	}
 
 	/**
@@ -152,7 +162,8 @@ public class ItineraryActivity extends Activity {
 		public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
 			Intent editIntent = new Intent(context, EditActivity.class);
 			int intId = (int) id;
-			editIntent.putExtra("itinerary_id", intId); // id of the item to be edit
+			editIntent.putExtra("itinerary_id", intId); // id of the item to be
+														// edit
 			startActivity(editIntent);
 		}
 	};
