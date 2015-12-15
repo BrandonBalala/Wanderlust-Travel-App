@@ -54,12 +54,13 @@ public class TripActivity extends Activity {
 	private Cursor cursor;
 	private SimpleCursorAdapter sca;
 	Context context;
-	
+
 	private int trip_id;
 	private int budgeted_id;
 	private int location_id;
 	private int actualExpense_id;
 	private String[] categoriesArray;
+	private ListView lv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +69,11 @@ public class TripActivity extends Activity {
 		context = this;
 		// make categories list
 		categoriesArray = getResources().getStringArray(R.array.categories);
-		String[] from = new String[] { DBHelper.COLUMN_NAME, DBHelper.COLUMN_DESCRIPTION, }; 
-		int[] to = new int[] { R.id.nameTv, R.id.descriptionTv }; 
+		String[] from = new String[] { DBHelper.COLUMN_NAME, DBHelper.COLUMN_DESCRIPTION, };
+		int[] to = new int[] { R.id.nameTv, R.id.descriptionTv };
 		dbh = DBHelper.getDBHelper(this);
 
-		ListView lv = (ListView) findViewById(R.id.displayTrips);
+		lv = (ListView) findViewById(R.id.displayTrips);
 
 		cursor = dbh.getAllTrips();
 		if (cursor.getCount() != 0) {
@@ -86,14 +87,14 @@ public class TripActivity extends Activity {
 	/**
 	 * 
 	 * This method gets called when a data is deleted, edited or created.
-	 * Creates a new cursor and tell the adapter there is a new data.
+	 * Updates the activity to get the data back.
 	 * 
 	 */
 	public void refreshView() {
-		cursor = dbh.getAllTrips(); // renew the cursor
-		sca.changeCursor(cursor); // have the adapter use the new cursor,
-									// changeCursor closes old cursor too
-		sca.notifyDataSetChanged(); // have the adapter tell the observers
+	
+		Intent intent = getIntent();
+		finish();
+		startActivity(intent);
 	}
 
 	public OnItemClickListener showItinerary = new OnItemClickListener() {
@@ -229,7 +230,7 @@ public class TripActivity extends Activity {
 						trip_id = (int) dbh.createNewTrip(web_trip_id, name, description);
 						Log.v("Trip", "trip created");
 					}
-				}					
+				}
 				if (tripElement.has("locations")) {
 					JSONArray locations = tripElement.getJSONArray("locations");
 					// loop to all of the locations
@@ -293,11 +294,12 @@ public class TripActivity extends Activity {
 											String category = categoriesArray[categoryPos];
 
 											String supplier_name = "", address = "";
-											// if the budgeted_id is not there save it to the database
+											// if the budgeted_id is not there
+											// save it to the database
 											budgeted_id = dbh.getIdItinerariesFromweb(web_budgeted_id);
 											if (budgeted_id == 0) {
-												budgeted_id = (int) dbh.createNewItinerary(web_budgeted_id,
-														location_id, trip_id, arrivalDate, departureDate, amount,
+												budgeted_id = (int) dbh.createNewItinerary(web_budgeted_id, location_id,
+														trip_id, arrivalDate, departureDate, amount,
 														budgeteddescription, category, supplier_name, address);
 												Log.v("Itinerary", "Itinerary created");
 											}
@@ -317,7 +319,8 @@ public class TripActivity extends Activity {
 												String datearriveActual = jsonElementActual
 														.getString("actual_arrival_date");
 												datearriveActual = datearriveActual.substring(0, 10);
-//												Log.v("DATE 1", datearriveActual);
+												// Log.v("DATE 1",
+												// datearriveActual);
 												Date parsedArrivalDate = formatter.parse(datearriveActual);
 												Timestamp arrivalDate = new java.sql.Timestamp(
 														parsedArrivalDate.getTime());
@@ -325,7 +328,8 @@ public class TripActivity extends Activity {
 												String datedepartActual = jsonElementActual
 														.getString("actual_departure_date");
 												datedepartActual = datedepartActual.substring(0, 10);
-//												Log.v("DATE 2", datedepartActual);
+												// Log.v("DATE 2",
+												// datedepartActual);
 												Date parsedDepartureDate = formatter.parse(datedepartActual);
 												Timestamp departureDate = new java.sql.Timestamp(
 														parsedDepartureDate.getTime());
@@ -338,9 +342,9 @@ public class TripActivity extends Activity {
 												// save it to the database
 												actualExpense_id = dbh.getIdActualExpenseFromweb(web_actual_id);
 												if (actualExpense_id == 0) {
-													dbh.createNewActualExpense(web_actual_id, budgeted_id,
-															arrivalDate, departureDate, amount,
-															description, category, supplierName, address);
+													dbh.createNewActualExpense(web_actual_id, budgeted_id, arrivalDate,
+															departureDate, amount, description, category, supplierName,
+															address);
 													Log.v("ActualItinerary", "ActualItinerary created");
 
 												}
@@ -391,6 +395,7 @@ public class TripActivity extends Activity {
 					} else {
 						saveInfotoDatabase(result);
 						refreshView();
+
 					}
 				}
 
